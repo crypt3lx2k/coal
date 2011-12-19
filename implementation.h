@@ -3,7 +3,6 @@
 
 #include <coal/coal.h>
 
-#include <coal/core/namespaces.h>
 #include <coal/core/common.h>
 #include <coal/core/memory.h>
 #include <coal/core/object_orientation.h>

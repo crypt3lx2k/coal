@@ -2,9 +2,7 @@
 #include <coal/implementation.h>
 
 var lib(acquire) (var object) {
-  INCREMENT_REFERENCE_COUNT(object);
-
-  return object;
+  return INCREMENT_REFERENCE_COUNT(object);
 }
 
 void lib(del) (var object) {
@@ -19,7 +17,7 @@ var lib(new) (const var _class, ...) {
   object_t          * object;
   va_list             ap;
 
-  object = lib(malloc)(class->size);
+  object = core(malloc)(class->size);
   object->class = class;
 
   va_start(ap, _class);

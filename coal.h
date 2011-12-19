@@ -18,19 +18,22 @@
 /* use stdbool.h */
 # undef true
 # undef false
-#else
+
+# define true  ((bool) 1)
+# define false ((bool) 0)
+#else /* not __bool_true_false_are_defined */
 /* make our own bool */
 typedef enum {
   false = 0,
   true  = 1
 } bool;
-#endif /* __bool_true_false_are_defined */
 
 /* we redefine these so that we may
    use C1x style generic selections
    in the future */
-#define true  ((bool) true)
-#define false ((bool) false)
+# define true  ((bool) true)
+# define false ((bool) false)
+#endif /* __bool_true_false_are_defined */
 
 /**
  * Object variable type
