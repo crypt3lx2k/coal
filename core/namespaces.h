@@ -1,10 +1,10 @@
-#ifndef __COAL_CORE_NAMESPACES_H
-#define __COAL_CORE_NAMESPACES_H
+#ifndef COAL_CORE_NAMESPACES_H__
+#define COAL_CORE_NAMESPACES_H__
 
 #define namespace(namespace, identifier) \
   namespace ## _ ## identifier
 
-#define __cfundecl(name, args) \
+#define cfundecl__(name, args) \
   extern inline name args
 
-#endif /* __COAL_NAMESPACES */
+#endif /* COAL_NAMESPACES__ */

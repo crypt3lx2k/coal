@@ -1,5 +1,5 @@
-#ifndef __COAL_LANG_METACLASS_H
-#define __COAL_LANG_METACLASS_H
+#ifndef COAL_LANG_METACLASS_H__
+#define COAL_LANG_METACLASS_H__
 
 #include <coal/coal.h>
 #include <coal/lang/namespace.h>
@@ -24,4 +24,4 @@ extern const var lang(metaclass);
 # define metaclass lang(metaclass)
 #endif
 
-#endif /* __COAL_LANG_METACLASS_H */
+#endif /* COAL_LANG_METACLASS_H__ */

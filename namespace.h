@@ -1,9 +1,9 @@
-#ifndef __COAL_NAMESPACE_H
-#define __COAL_NAMESPACE_H
+#ifndef COAL_NAMESPACE_H__
+#define COAL_NAMESPACE_H__
 
 #include <coal/core/namespaces.h>
 
 #define lib(identifier) \
   namespace(coal, identifier)
 
-#endif /* __COAL_NAMESPACE_H */
+#endif /* COAL_NAMESPACE_H__ */

@@ -1,5 +1,5 @@
-#ifndef __COAL_H
-#define __COAL_H
+#ifndef COAL_H__
+#define COAL_H__
 
 #include <stddef.h>
 #include <stdarg.h>
@@ -14,14 +14,14 @@
  */
 /* TODO: make true and false
    Boolean objects? */
-#ifdef __bool_true_false_are_defined
+#ifdef bool_true_false_are_defined__
 /* use stdbool.h */
 # undef true
 # undef false
 
 # define true  ((bool) 1)
 # define false ((bool) 0)
-#else /* not __bool_true_false_are_defined */
+#else /* not bool_true_false_are_defined__ */
 /* make our own bool */
 typedef enum {
   false = 0,
@@ -33,7 +33,7 @@ typedef enum {
    in the future */
 # define true  ((bool) true)
 # define false ((bool) false)
-#endif /* __bool_true_false_are_defined */
+#endif /* bool_true_false_are_defined__ */
 
 /**
  * Object variable type
@@ -56,7 +56,7 @@ typedef enum {
  * @param  (var) object which reference counter will be incremented
  * @return (var) object that was passed
  */
-__cfundecl (var lib(acquire), (var object));
+cfundecl__ (var lib(acquire), (var object));
 
 /**
  * lib(del)
@@ -65,7 +65,7 @@ __cfundecl (var lib(acquire), (var object));
  *
  * @param (var) object which reference counter will be decremented and possibly collected 
  */
-__cfundecl (void lib(del), (var object));
+cfundecl__ (void lib(del), (var object));
 
 /**
  * lib(new)
@@ -75,7 +75,7 @@ __cfundecl (void lib(del), (var object));
  * @param  (type) arguments to class constructor
  * @return (var) new instance of class
  */
-__cfundecl (var lib(new), (const var class, ...)) __attribute__ ((malloc));
+cfundecl__ (var lib(new), (const var class, ...)) __attribute__ ((malloc));
 
 /* Functions - end */
 
@@ -85,4 +85,4 @@ __cfundecl (var lib(new), (const var class, ...)) __attribute__ ((malloc));
 # define new     lib(new)
 #endif
 
-#endif /* __COAL_H */
+#endif /* COAL_H__ */

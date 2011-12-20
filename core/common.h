@@ -1,7 +1,7 @@
-#ifndef __COAL_CORE_COMMON_H
-#define __COAL_CORE_COMMON_H
+#ifndef COAL_CORE_COMMON_H__
+#define COAL_CORE_COMMON_H__
 
-#ifndef __COAL_IMPLEMENTATION_H
+#ifndef COAL_IMPLEMENTATION_H__
 # error "Never include <coal/core/common.h> directly; use <coal/implementation.h> instead."
 #endif
 
@@ -10,4 +10,4 @@
 #define LIBRARY_NAME coal
 #define LIBRARY_STR STRINGIFY(LIBRARY_NAME)
 
-#endif /* __COAL_CORE_COMMON_H */
+#endif /* COAL_CORE_COMMON_H__ */

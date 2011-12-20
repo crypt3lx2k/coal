@@ -1,7 +1,7 @@
-#ifndef __COAL_OBJECT_ORIENTATION_H
-#define __COAL_OBJECT_ORIENTATION_H
+#ifndef COAL_OBJECT_ORIENTATION_H__
+#define COAL_OBJECT_ORIENTATION_H__
 
-#ifndef __COAL_IMPLEMENTATION_H
+#ifndef COAL_IMPLEMENTATION_H__
 # error "Never include <coal/core/object_orientation.h> directly; use <coal/implementation.h> instead."
 #endif
 
@@ -19,4 +19,4 @@
  */
 #define INHERIT_METHOD 0
 
-#endif /* __COAL_OBJECT_ORIENTATION_H */
+#endif /* COAL_OBJECT_ORIENTATION_H__ */

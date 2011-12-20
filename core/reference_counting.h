@@ -1,7 +1,7 @@
-#ifndef __COAL_CORE_REFERENCE_COUNTING_H
-#define __COAL_CORE_REFERENCE_COUNTING_H
+#ifndef COAL_CORE_REFERENCE_COUNTING_H__
+#define COAL_CORE_REFERENCE_COUNTING_H__
 
-#ifndef __COAL_IMPLEMENTATION_H
+#ifndef COAL_IMPLEMENTATION_H__
 # error "Never include <coal/core/reference_counting.h> directly; use <coal/implementation.h> instead."
 #endif
 
@@ -11,21 +11,21 @@ typedef unsigned long int reference_counter_type;
 
 #define INCREMENT_REFERENCE_COUNT(ident)	\
   ({						\
-    class(object) * __o = (ident);		\
-    __o->reference_count += 1;			\
-    __o;					\
+    class(object) * o__ = (ident);		\
+    o__->reference_count += 1;			\
+    o__;					\
   })
 
 #define DECREMENT_REFERENCE_COUNT(ident)	\
   ({						\
-    class(object) * __o = (ident);		\
-    __o->reference_count -= 1;			\
+    class(object) * o__ = (ident);		\
+    o__->reference_count -= 1;			\
   })
 
 #define IS_GARBAGE(ident)			\
   ({						\
-    class(object) * __o = (ident);		\
-    __o->reference_count == 0;			\
+    class(object) * o__ = (ident);		\
+    o__->reference_count == 0;			\
   })
 
-#endif /* __COAL_CORE_REFERENCE_COUNTING_H */
+#endif /* COAL_CORE_REFERENCE_COUNTING_H__ */

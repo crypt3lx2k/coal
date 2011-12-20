@@ -1,5 +1,5 @@
-#ifndef __COAL_LANG_OBJECT_R
-#define __COAL_LANG_OBJECT_R
+#ifndef COAL_LANG_OBJECT_R__
+#define COAL_LANG_OBJECT_R__
 
 #include <coal/implementation.h>
 
@@ -8,4 +8,4 @@ class (object) {
   reference_counter_type reference_count;
 };
 
-#endif /* __COAL_LANG_OBJECT_R */
+#endif /* COAL_LANG_OBJECT_R__ */

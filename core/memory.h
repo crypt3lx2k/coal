@@ -1,9 +1,9 @@
-#ifndef __COAL_CORE_MEMORY_H
-#define __COAL_CORE_MEMORY_H
+#ifndef COAL_CORE_MEMORY_H__
+#define COAL_CORE_MEMORY_H__
 
 #include <coal/core/namespace.h>
 
-#ifndef __COAL_IMPLEMENTATION_H
+#ifndef COAL_IMPLEMENTATION_H__
 # error "Never include <coal/core/memory.h> directly; use <coal/implementation.h> instead."
 #endif
 
@@ -18,11 +18,11 @@
  * @param  (size_t) number of bytes to allocate
  * @return (void *) pointer to allocated memory
  */
-__cfundecl (void * core(malloc), (size_t size));
+cfundecl__ (void * core(malloc), (size_t size));
 
 #ifdef CORE_NAMESPACE_POLLUTE
 /* why do I have a bed feeling about this? */
 # define malloc core(malloc)
 #endif
 
-#endif /* __COAL_CORE_MEMORY_H */
+#endif /* COAL_CORE_MEMORY_H__ */

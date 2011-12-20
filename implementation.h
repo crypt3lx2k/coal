@@ -1,5 +1,5 @@
-#ifndef __COAL_IMPLEMENTATION_H
-#define __COAL_IMPLEMENTATION_H
+#ifndef COAL_IMPLEMENTATION_H__
+#define COAL_IMPLEMENTATION_H__
 
 #include <coal/coal.h>
 
@@ -15,4 +15,4 @@
 #include <coal/lang/object/object.r>
 #include <coal/lang/metaclass/metaclass.r>
 
-#endif /* __COAL_IMPLEMENTATION_H */
+#endif /* COAL_IMPLEMENTATION_H__ */

@@ -1,5 +1,5 @@
-#ifndef __COAL_LANG_OBJECT_H
-#define __COAL_LANG_OBJECT_H
+#ifndef COAL_LANG_OBJECT_H__
+#define COAL_LANG_OBJECT_H__
 
 #include <coal/coal.h>
 #include <coal/lang/namespace.h>
@@ -23,7 +23,7 @@ extern const var lang(object);
  * @param  (const var) second object to be compared
  * @return (int) integer that indicates difference between parameters
  */
-__cfundecl (int lang(cmp), (const var self, const var other));
+cfundecl__ (int lang(cmp), (const var self, const var other));
 
 /**
  * lang(constructor)
@@ -37,7 +37,7 @@ __cfundecl (int lang(cmp), (const var self, const var other));
  * @param  (va_list *) list with arguments for the constructor
  * @return (var) the initialized object
  */
-__cfundecl (var lang(constructor), (var self, va_list * app));
+cfundecl__ (var lang(constructor), (var self, va_list * app));
 
 /**
  * lang(destructor)
@@ -49,7 +49,7 @@ __cfundecl (var lang(constructor), (var self, va_list * app));
  * @param  (var) object to be cleared
  * @return (var) the cleared object
  */
-__cfundecl (var lang(destructor), (var self));
+cfundecl__ (var lang(destructor), (var self));
 
 /**
  * lang(equals)
@@ -59,7 +59,7 @@ __cfundecl (var lang(destructor), (var self));
  * @param  (const var) second object to be compared
  * @return (bool) true if the objects were found to be equal, false otherwise
  */
-__cfundecl (bool lang(equals), (const var self, const var other));
+cfundecl__ (bool lang(equals), (const var self, const var other));
 
 /**
  * lang(getClass)
@@ -69,7 +69,7 @@ __cfundecl (bool lang(equals), (const var self, const var other));
  * @param  (const var) instance
  * @return (const var) metaclass of instance
  */
-__cfundecl (const var lang(getClass), (const var self));
+cfundecl__ (const var lang(getClass), (const var self));
 
 /**
  * lang(getSize)
@@ -79,7 +79,7 @@ __cfundecl (const var lang(getClass), (const var self));
  * @param  (const var) object to be measured
  * @return (size_t) size of object in bytes
  */
-__cfundecl (size_t lang(getSize), (const var self));
+cfundecl__ (size_t lang(getSize), (const var self));
 
 /**
  * lang(hashCode)
@@ -88,7 +88,7 @@ __cfundecl (size_t lang(getSize), (const var self));
  * @param  (const var) object to be hashed
  * @return (int) hash of object
  */
-__cfundecl (int lang(hashCode), (const var self));
+cfundecl__ (int lang(hashCode), (const var self));
 
 /**
  * lang(toString)
@@ -98,7 +98,7 @@ __cfundecl (int lang(hashCode), (const var self));
  * @param  (const var) object that is to be representated as a string
  * @return (var) string representation of object
  */
-__cfundecl (var lang(toString), (const var self));
+cfundecl__ (var lang(toString), (const var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define object      lang(object)
@@ -111,4 +111,4 @@ __cfundecl (var lang(toString), (const var self));
 # define hashCode    lang(hashCode)
 #endif
 
-#endif /* __COAL_LANG_OBJECT_H */
+#endif /* COAL_LANG_OBJECT_H__ */

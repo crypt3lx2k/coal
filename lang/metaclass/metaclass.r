@@ -1,5 +1,5 @@
-#ifndef __COAL_LANG_METACLASS_R
-#define __COAL_LANG_METACLASS_R
+#ifndef COAL_LANG_METACLASS_R__
+#define COAL_LANG_METACLASS_R__
 
 #include <coal/implementation.h>
 #include <coal/lang/object/object.r>
@@ -19,4 +19,4 @@ class (metaclass) {
   var (*toString)(const var self);
 };
 
-#endif /* __COAL_LANG_METACLASS_R */
+#endif /* COAL_LANG_METACLASS_R__ */
