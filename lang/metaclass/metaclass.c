@@ -17,13 +17,13 @@ bool lang(equals) (const var self, const var other) {
 }
 
 const var lang(getClass) (const var _self) {
-  const object_t * self = _self;
+  const class(object) * self = _self;
 
   return self->class;
 }
 
 size_t lang(getSize) (const var self) {
-  const metaclass_t * class = lang(getClass)(self);
+  const class(metaclass) * class = lang(getClass)(self);
 
   return class->size;
 }

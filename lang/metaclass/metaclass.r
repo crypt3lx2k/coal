@@ -8,7 +8,7 @@ class (metaclass) {
   extends(object);
 
   const char * name;
-  const struct metaclass_t * super;
+  const class(metaclass) * super;
   size_t size;
 
   int (*cmp)(const var self, const var other);

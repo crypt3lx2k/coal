@@ -28,8 +28,8 @@ var object_toString (const var self __attribute__ ((unused))) {
 }
 
 var metaclass_constructor (var _self, va_list * app) {
-  struct metaclass_t * self = _self;
-  size_t offset = offsetof(struct metaclass_t, cmp);
+  class(metaclass) * self = _self;
+  size_t offset = offsetof(class(metaclass), cmp);
 
   memcpy((char *) self + offset,
 	 (char *) self->super + offset,
@@ -59,18 +59,18 @@ var metaclass_destructor (var self __attribute__ ((unused))) {
    while objects class description is
    metaclass */
 
-#define __metaclass (_objs + 1)
-#define __object    (_objs)
+#define _metaclass (_objs + 1)
+#define _object    (_objs)
 
-static const metaclass_t _objs [] = {
+static const class(metaclass) _objs [] = {
   {
     {
-      __metaclass,
+      _metaclass,
       1
     },
-    _LIBRARY_STR ".lang.object",
-    __object,
-    sizeof(struct object_t),
+    LIBRARY_STR ".lang.object",
+    _object,
+    sizeof(class(object)),
     object_cmp,
     object_constructor,
     object_destructor,
@@ -80,12 +80,12 @@ static const metaclass_t _objs [] = {
   },
   {
     {
-      __metaclass,
+      _metaclass,
       1
     },
-    _LIBRARY_STR ".lang.metaclass",
-    __object,
-    sizeof(struct metaclass_t),
+    LIBRARY_STR ".lang.metaclass",
+    _object,
+    sizeof(class(metaclass)),
     object_cmp,
     metaclass_constructor,
     metaclass_destructor,
@@ -95,8 +95,8 @@ static const metaclass_t _objs [] = {
   }
 };
 
-const var lang(object)    = __object;
-const var lang(metaclass) = __metaclass;
+const var lang(object)    = _object;
+const var lang(metaclass) = _metaclass;
 
-#undef __object
-#undef __metaclass
+#undef _object
+#undef _metaclass

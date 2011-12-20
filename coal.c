@@ -13,9 +13,9 @@ void lib(del) (var object) {
 }
 
 var lib(new) (const var _class, ...) {
-  const metaclass_t * class = _class;
-  object_t          * object;
-  va_list             ap;
+  const class(metaclass) * class = _class;
+  class(object) * object;
+  va_list ap;
 
   object = core(malloc)(class->size);
   object->class = class;

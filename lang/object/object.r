@@ -4,8 +4,8 @@
 #include <coal/implementation.h>
 
 class (object) {
-  const struct metaclass_t * class;
-  reference_t reference_count;
+  const class(metaclass) * class;
+  reference_counter_type reference_count;
 };
 
 #endif /* __COAL_LANG_OBJECT_R */

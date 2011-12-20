@@ -5,24 +5,26 @@
 # error "Never include <coal/core/reference_counting.h> directly; use <coal/implementation.h> instead."
 #endif
 
-typedef unsigned long int reference_t;
+typedef unsigned long int reference_counter_type;
 
-#define INCREMENT_REFERENCE_COUNT(object)	\
+#include <coal/lang/object/object.r>
+
+#define INCREMENT_REFERENCE_COUNT(ident)	\
   ({						\
-    struct object_t * __o = (object);		\
+    class(object) * __o = (ident);		\
     __o->reference_count += 1;			\
     __o;					\
   })
 
-#define DECREMENT_REFERENCE_COUNT(object)	\
+#define DECREMENT_REFERENCE_COUNT(ident)	\
   ({						\
-    struct object_t * __o = (object);		\
+    class(object) * __o = (ident);		\
     __o->reference_count -= 1;			\
   })
 
-#define IS_GARBAGE(object)			\
+#define IS_GARBAGE(ident)			\
   ({						\
-    struct object_t * __o = (object);		\
+    class(object) * __o = (ident);		\
     __o->reference_count == 0;			\
   })
 

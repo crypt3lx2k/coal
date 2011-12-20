@@ -8,11 +8,10 @@
 /* the typedef might go away
    so don't rely on it */
 #define class(name)		    \
-  typedef struct name##_t name##_t; \
-  struct name##_t
+  struct name
 
-#define extends(class) \
-  const class##_t __##class
+#define extends(name) \
+  const class(name) name##__
 
 /**
  * INHERIT_METHOD

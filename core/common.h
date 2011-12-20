@@ -7,7 +7,7 @@
 
 #define STRINGIFY(macro) #macro
 
-#define _LIBRARY_NAME coal
-#define _LIBRARY_STR STRINGIFY(_LIBRARY_NAME)
+#define LIBRARY_NAME coal
+#define LIBRARY_STR STRINGIFY(LIBRARY_NAME)
 
 #endif /* __COAL_CORE_COMMON_H */

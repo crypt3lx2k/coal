@@ -9,19 +9,24 @@ LIBFLAGS = -shared -fPIC
 
 DOLLAR = $
 RM = rm -f
+CP = cp -f
 
-FILES = $(shell find | grep "\.c")
-OBJS  = $(shell find | grep "\.c" | sed "s/\.c/\.o/")
+FILES = $(shell find -name "*.c")
+OBJS  = $(shell find -name "*.c" | sed "s/\.c/\.o/")
 PROJ = libcoal.so
 
 build:
-	$(MAKE) $(PROJ) \
-	LDFLAGS="$(LDFLAGS)"
+	$(MAKE) $(PROJ)
 
 debug:
 	$(MAKE) $(PROJ) \
-	CFLAGS="$(DBFLAGS)" \
-	LDFLAGS="$(LDFLAGS)"
+	CFLAGS="$(DBFLAGS)"
+
+install: build
+	$(CP) libcoal.so /usr/lib/
+
+debug-install: debug
+	$(CP) libcoal.so /usr/lib/
 
 .c.o:
 	$(CC) $(CFLAGS) $(IFLAGS) $(WFLAGS) -c $<
