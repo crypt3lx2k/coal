@@ -20,9 +20,4 @@
  */
 cfundecl__ (void * core(malloc), (size_t size));
 
-#ifdef CORE_NAMESPACE_POLLUTE
-/* why do I have a bed feeling about this? */
-# define malloc core(malloc)
-#endif
-
 #endif /* COAL_CORE_MEMORY_H__ */
