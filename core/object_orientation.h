@@ -5,13 +5,11 @@
 # error "Never include <coal/core/object_orientation.h> directly; use <coal/implementation.h> instead."
 #endif
 
-/* the typedef might go away
-   so don't rely on it */
-#define class(name)		    \
-  struct name
+/* this is here in case of
+   change in the future */
+#define class(name) struct name
 
-#define extends(name) \
-  const class(name) name##__
+#define extends(name) const class(name) name##__
 
 /**
  * INHERIT_METHOD

@@ -5,9 +5,7 @@
 # error "Never include <coal/core/common.h> directly; use <coal/implementation.h> instead."
 #endif
 
-#define STRINGIFY(macro) #macro
-
 #define LIBRARY_NAME coal
-#define LIBRARY_STR STRINGIFY(LIBRARY_NAME)
+#define LIBRARY_STR "coal"
 
 #endif /* COAL_CORE_COMMON_H__ */
