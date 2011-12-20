@@ -9,10 +9,14 @@
 #include <coal/core/reference_counting.h>
 #include <coal/core/virtual_methods.h>
 
+#include <coal/lang/namespace.h>
+
 #include <coal/lang/object.h>
 #include <coal/lang/metaclass.h>
+#include <coal/lang/string.h>
 
 #include <coal/lang/object/object.r>
 #include <coal/lang/metaclass/metaclass.r>
+#include <coal/lang/string/string.r>
 
 #endif /* COAL_IMPLEMENTATION_H__ */

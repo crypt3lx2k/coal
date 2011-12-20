@@ -23,13 +23,20 @@ int object_hashCode (const var self) {
 }
 
 var object_toString (const var self __attribute__ ((unused))) {
-  /* TODO: make a string class */
-  return null;
+  const class(metaclass) * class = lang(getClass)(self);
+
+  return lib(new)(lang(string)(), "%s@%x",
+		  class->name,
+		  lang(hashCode)(self));
 }
 
 var metaclass_constructor (var _self, va_list * app) {
   class(metaclass) * self = _self;
   size_t offset = offsetof(class(metaclass), cmp);
+
+  self->name  = va_arg(*app, char *);
+  self->super = va_arg(*app, class(metaclass) *);
+  self->size  = va_arg(*app, size_t);
 
   memcpy((char *) self + offset,
 	 (char *) self->super + offset,
@@ -95,8 +102,13 @@ static const class(metaclass) _objs [] = {
   }
 };
 
-const var lang(object)    = _object;
-const var lang(metaclass) = _metaclass;
+const var lang(object) (void) {
+  return _object;
+}
+
+const var lang(metaclass) (void) {
+  return _metaclass;
+}
 
 #undef _object
 #undef _metaclass

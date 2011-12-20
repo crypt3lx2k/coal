@@ -10,7 +10,7 @@
  *
  * @constructor takes no arguments
  */
-extern const var lang(object);
+cfundecl__ (const var lang(object), (void));
 
 /**
  * lang(cmp)
@@ -109,6 +109,7 @@ cfundecl__ (var lang(toString), (const var self));
 # define getClass    lang(getClass)
 # define getSize     lang(getSize)
 # define hashCode    lang(hashCode)
+# define toString    lang(toString)
 #endif
 
 #endif /* COAL_LANG_OBJECT_H__ */
