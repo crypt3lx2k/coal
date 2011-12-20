@@ -14,14 +14,14 @@
  */
 /* TODO: make true and false
    Boolean objects? */
-#ifdef bool_true_false_are_defined__
+#ifdef __bool_true_false_are_defined
 /* use stdbool.h */
 # undef true
 # undef false
 
 # define true  ((bool) 1)
 # define false ((bool) 0)
-#else /* not bool_true_false_are_defined__ */
+#else /* not __bool_true_false_are_defined */
 /* make our own bool */
 typedef enum {
   false = 0,
@@ -33,7 +33,7 @@ typedef enum {
    in the future */
 # define true  ((bool) true)
 # define false ((bool) false)
-#endif /* bool_true_false_are_defined__ */
+#endif /* __bool_true_false_are_defined */
 
 /**
  * Object variable type
