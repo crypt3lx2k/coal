@@ -38,7 +38,7 @@
  *
  * @param  (utility_stack(type) *) stack to initalize
  * @param  (size_t) initial size of stack
- * @return (utility_stack(type) *) initialized stack
+ * @return (utility_stack(type) *) initialized stack or NULL
  */
 #define utility_stack_init(stack, size)                 \
   ({                                                    \
@@ -98,9 +98,9 @@
                   size__) + 1;                                          \
     }                                                                   \
                                                                         \
-    s__->base ?                                                         \
+    s__->base == NULL ?							\
       (typeof(*s__->base)) NULL :                                       \
-      *s__->read++ = e__;                                               \
+      (*s__->read++ = e__);						\
   })
 
 /**
