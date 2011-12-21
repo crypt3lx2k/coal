@@ -98,9 +98,9 @@
                   size__) + 1;                                          \
     }                                                                   \
                                                                         \
-    s__->base == NULL ?							\
+    s__->base == NULL ?                                                 \
       (typeof(*s__->base)) NULL :                                       \
-      (*s__->read++ = e__);						\
+      (*s__->read++ = e__);                                             \
   })
 
 /**
