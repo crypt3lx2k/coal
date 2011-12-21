@@ -73,34 +73,53 @@
  * utility_stack_push
  * Pushes element onto stack.
  *
+ * On error it will return NULL casted to type,
+ * whether this makes sense depends on the type
+ * used but for instance if the type is int then
+ * it will just return the integer value of NULL,
+ * which might even be the value you pushed.
+ * I might change the error return to something
+ * more sane in the future so don't rely on it.
+ *
+ * On error the stack is not invalidated but it
+ * is also not modified.
+ *
  * @param  (utility_stack(type) *) stack in question
  * @param  (type) element to push onto stack
  * @return (type) the element pushed or (type) NULL
  */
-#define utility_stack_push(stack, element)                              \
-  ({                                                                    \
-    typeof(stack)   s__ = (stack);                                      \
-    typeof(element) e__ = (element);                                    \
-                                                                        \
-    if (s__->read == s__->end) {                                        \
-      ptrdiff_t read_offset__ = (s__->read - s__->base);                \
-      ptrdiff_t size__ = (s__->end - s__->base);                        \
-                                                                        \
-      s__->base = realloc(s__->base,                                    \
-                          ((size_t)                                     \
-                           ((UTILITY_STACK_RESIZE_FACTOR + 1) *         \
-                            size__) + 1) *                              \
-                          sizeof(*s__->base));                          \
-                                                                        \
-      s__->read = s__->base + read_offset__;                            \
-      s__->end  = s__->base +                                           \
-        (size_t) ((UTILITY_STACK_RESIZE_FACTOR + 1) *                   \
-                  size__) + 1;                                          \
-    }                                                                   \
-                                                                        \
-    s__->base == NULL ?                                                 \
-      (typeof(*s__->base)) NULL :                                       \
-      (*s__->read++ = e__);                                             \
+#define utility_stack_push(stack, element)              \
+  ({                                                    \
+    typeof(stack)     s__ = (stack);                    \
+    typeof(element)   e__ = (element);                  \
+    typeof(s__->base) b__ = s__->base;                  \
+                                                        \
+    if (s__->read == s__->end) {                        \
+      ptrdiff_t read_offset__;                          \
+      ptrdiff_t size__;                                 \
+                                                        \
+      read_offset__ = (s__->read - s__->base);          \
+      size__ = (s__->end - s__->base);                  \
+                                                        \
+      b__ = realloc(s__->base,                          \
+                    ((size_t)                           \
+                     ((UTILITY_STACK_RESIZE_FACTOR +    \
+                       1) *                             \
+                      size__) + 1) *                    \
+                    sizeof(*s__->base));                \
+                                                        \
+      if (b__ != NULL) {                                \
+        s__->base = b__;                                \
+        s__->read = s__->base + read_offset__;          \
+        s__->end  = s__->base +                         \
+          (size_t) ((UTILITY_STACK_RESIZE_FACTOR + 1) * \
+                    size__) + 1;                        \
+      }                                                 \
+    }                                                   \
+                                                        \
+    b__ == NULL ?                                       \
+      (typeof(*s__->base)) NULL :                       \
+      (*s__->read++ = e__);                             \
   })
 
 /**
