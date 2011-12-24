@@ -77,7 +77,7 @@ var string_toString(const var self) {
   return lib(acquire)((var) self);
 }
 
-const char * lang(chars) (const var _self) {
+const char * lang_string(chars) (const var _self) {
   const class(string) * self = _self;
 
   return self->str;

@@ -2,7 +2,11 @@
 #define COAL_LANG_STRING_H__
 
 #include <coal/coal.h>
+#include <coal/core/namespaces.h>
 #include <coal/lang/namespace.h>
+
+#define lang_string(identifier) \
+  lang(namespace(string, identifier))
 
 /**
  * lang(string)
@@ -23,11 +27,14 @@ cfundecl__ (const var lang(string) (void));
  * @param  (const var) string object
  * @return (const char *) characters of string
  */
-cfundecl__ (const char * lang(chars) (const var self));
+cfundecl__ (const char * lang_string(chars) (const var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define string lang(string)
-# define chars  lang(chars)
+#endif
+
+#ifdef LANG_STRING_NAMESPACE_POLLUTE
+# define chars lang_string(chars)
 #endif
 
 #endif /* COAL_LANG_STRING_H__ */

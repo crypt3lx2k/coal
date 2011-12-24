@@ -5,7 +5,7 @@ int io(fprint) (const var object, FILE * stream) {
   var s = lang(toString)(object);
   int r = 0;
 
-  r = fputs(lang(chars)(s), stream);
+  r = fputs(lang_string(chars)(s), stream);
 
   lib(del)(s);
 
@@ -16,7 +16,7 @@ int io(fprintln) (const var object, FILE * stream) {
   var s = lang(toString)(object);
   int r = 0;
 
-  r = fprintf(stream, "%s\n", lang(chars)(s));
+  r = fprintf(stream, "%s\n", lang_string(chars)(s));
 
   lib(del)(s);
 
