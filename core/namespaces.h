@@ -4,7 +4,7 @@
 #define namespace(namespace, identifier) \
   namespace ## _ ## identifier
 
-#define cfundecl__(name, args) \
-  extern inline name args
+#define cfundecl__(declaration) \
+  extern inline declaration
 
 #endif /* COAL_NAMESPACES__ */

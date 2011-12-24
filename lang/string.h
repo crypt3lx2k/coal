@@ -13,7 +13,7 @@
  * @param (const char *) printf-like format string
  * @param (type) printf-like arguments
  */
-cfundecl__ (const var lang(string), (void));
+cfundecl__ (const var lang(string) (void));
 
 /**
  * string(chars)
@@ -23,9 +23,9 @@ cfundecl__ (const var lang(string), (void));
  * @param  (const var) string object
  * @return (const char *) characters of string
  */
-cfundecl__ (const char * lang(chars), (const var self));
+cfundecl__ (const char * lang(chars) (const var self));
 
-#ifdef LIB_NAMESPACE_POLLUTE
+#ifdef LANG_NAMESPACE_POLLUTE
 # define string lang(string)
 # define chars  lang(chars)
 #endif

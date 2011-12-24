@@ -3,8 +3,6 @@
 
 #include <stddef.h>
 #include <stdarg.h>
-
-#include <coal/core/namespaces.h>
 #include <coal/namespace.h>
 
 /* Types */
@@ -56,7 +54,7 @@ typedef enum {
  * @param  (var) object which reference counter will be incremented
  * @return (var) object that was passed
  */
-cfundecl__ (var lib(acquire), (var object));
+cfundecl__ (var lib(acquire) (var object));
 
 /**
  * lib(del)
@@ -65,7 +63,7 @@ cfundecl__ (var lib(acquire), (var object));
  *
  * @param (var) object which reference counter will be decremented and possibly collected 
  */
-cfundecl__ (void lib(del), (var object));
+cfundecl__ (void lib(del) (var object));
 
 /**
  * lib(new)
@@ -75,7 +73,7 @@ cfundecl__ (void lib(del), (var object));
  * @param  (type) arguments to class constructor
  * @return (var) new instance of class
  */
-cfundecl__ (var lib(new), (const var class, ...)) __attribute__ ((malloc));
+cfundecl__ (var lib(new) (const var class, ...)) __attribute__ ((malloc));
 
 /* Functions - end */
 

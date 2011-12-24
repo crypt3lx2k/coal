@@ -6,13 +6,13 @@
 #include <coal/coal.h>
 #include <coal/io/namespace.h>
 
-cfundecl__ (int io(fprint), (const var object, FILE * stream));
+cfundecl__ (int io(fprint) (const var object, FILE * stream));
 
-cfundecl__ (int io(fprintln), (const var object, FILE * stream));
+cfundecl__ (int io(fprintln) (const var object, FILE * stream));
 
-cfundecl__ (int io(print), (const var object));
+cfundecl__ (int io(print) (const var object));
 
-cfundecl__ (int io(println), (const var object));
+cfundecl__ (int io(println) (const var object));
 
 #ifdef IO_NAMESPACE_POLLUTE
 # define fprint   io(fprint)

@@ -18,6 +18,6 @@
  * @param  (size_t) number of bytes to allocate
  * @return (void *) pointer to allocated memory
  */
-cfundecl__ (void * core(malloc), (size_t size));
+cfundecl__ (void * core(malloc) (size_t size));
 
 #endif /* COAL_CORE_MEMORY_H__ */

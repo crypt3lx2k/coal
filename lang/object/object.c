@@ -22,7 +22,7 @@ int object_hashCode (const var self) {
   return (int) self;
 }
 
-var object_toString (const var self __attribute__ ((unused))) {
+var object_toString (const var self) {
   const class(metaclass) * class = lang(getClass)(self);
 
   return lib(new)(lang(string)(), "%s@%x",
@@ -59,6 +59,14 @@ var metaclass_destructor (var self __attribute__ ((unused))) {
      it so that the reference count of a
      class description is the amount of instances */
   return null;
+}
+
+var metaclass_toString (const var _self) {
+  const class(metaclass) * self = _self;
+
+  return lib(new)(lang(string)(),
+		  "class %s",
+		  self->name);
 }
 
 /* we instansiate both of these at the same
@@ -98,7 +106,7 @@ static const class(metaclass) _objs [] = {
     metaclass_destructor,
     object_equals,
     object_hashCode,
-    object_toString
+    metaclass_toString
   }
 };
 

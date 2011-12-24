@@ -19,7 +19,7 @@
  * @param (int (*hashCode)(const var)) pointer to hash function
  * @param (var (*toString)(const var)) pointer to string function
  */
-cfundecl__ (const var lang(metaclass), (void));
+cfundecl__ (const var lang(metaclass) (void));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define metaclass lang(metaclass)
