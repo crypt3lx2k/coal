@@ -10,14 +10,14 @@
 #include <coal/lang/metaclass/metaclass.r>
 
 /* boilerplate for dynamically linked methods */
-#define ClassCallTemplate(method, self, ...)			\
-  const class(metaclass) * class = lang(getClass(self));	\
+#define ClassCallTemplate(method, self, ...)                    \
+  const class(metaclass) * class = lang(getClass(self));        \
   return class->method(self, ##__VA_ARGS__)
 
 /* overrides a method in a class description */
-#define OverrideMethod(self, method)					\
-  ({									\
-    typeof(self->method) external = va_arg(*app, typeof(self->method));	\
+#define OverrideMethod(self, method)                                    \
+  ({                                                                    \
+    typeof(self->method) external = va_arg(*app, typeof(self->method)); \
     self->method = external == INHERIT_METHOD ? self->method : external; \
   })
 

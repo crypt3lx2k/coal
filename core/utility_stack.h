@@ -18,7 +18,7 @@
  * @param (identifier) type contained
  */
 #define utility_stack(type)                     \
-  struct {					\
+  struct {                                      \
     type * base;                                \
     type * read;                                \
     type * end;                                 \
@@ -34,11 +34,11 @@
  * the same stack in several different
  * files.
  */
-#define named_utility_stack(name, type)		\
-  struct name {					\
-    type * base;				\
-    type * read;				\
-    type * end;					\
+#define named_utility_stack(name, type)         \
+  struct name {                                 \
+    type * base;                                \
+    type * read;                                \
+    type * end;                                 \
   }
 
 /**
