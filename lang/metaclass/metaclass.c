@@ -2,7 +2,8 @@
 #include <coal/implementation.h>
 
 int lang(cmp) (const var self, const var other) {
-  const class(metaclass) * s_class, *o_class;
+  const class(metaclass) * s_class;
+  const class(metaclass) * o_class;
 
   /* identically the same */
   if (self == other)
@@ -18,7 +19,8 @@ int lang(cmp) (const var self, const var other) {
   else if (lib(instanceof)(other, s_class))
     return s_class->cmp(self, other);
   /* completely different types,
-     we compare the class names. */
+     we compare the class names
+     as done in Python. */
   else
     return strcmp(s_class->name, o_class->name);
 }
@@ -32,7 +34,8 @@ var lang(destructor) (var self) {
 }
 
 bool lang(equals) (const var self, const var other) {
-  const class(metaclass) * s_class, o_class;
+  const class(metaclass) * s_class;
+  const class(metaclass) * o_class;
 
   /* identically the same */
   if (self == other)
