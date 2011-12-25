@@ -18,7 +18,7 @@ int string_cmp (const var _self, const var _other) {
 
 var string_constructor (var _self, va_list * app) {
   class(string) * self = _self;
-  char          * fmt = va_arg(*app, char *);
+  const char    * fmt = va_arg(*app, const char *);
   va_list         copy;
 
   va_copy(copy, *app);

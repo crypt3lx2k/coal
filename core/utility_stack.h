@@ -14,12 +14,31 @@
  * Provides O(1) push, peek,
  * pop, size, and is_empty
  * operations.
+ *
+ * @param (identifier) type contained
  */
 #define utility_stack(type)                     \
-  struct {                                      \
+  struct {					\
     type * base;                                \
     type * read;                                \
     type * end;                                 \
+  }
+
+/**
+ * named_utility_stack
+ * See utility_stack(type).
+ *
+ * The purpose of this macro is to define
+ * a struct with a name, which is useful
+ * in scenarios where you have to define
+ * the same stack in several different
+ * files.
+ */
+#define named_utility_stack(name, type)		\
+  struct name {					\
+    type * base;				\
+    type * read;				\
+    type * end;					\
   }
 
 /**

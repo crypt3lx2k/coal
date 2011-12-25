@@ -8,6 +8,7 @@
 #include <coal/core/object_orientation.h>
 #include <coal/core/reference_counting.h>
 #include <coal/core/virtual_methods.h>
+#include <coal/core/exceptions.h>
 
 #include <coal/lang/namespace.h>
 
