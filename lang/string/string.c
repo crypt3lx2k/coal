@@ -7,7 +7,7 @@
 #include <coal/implementation.h>
 
 #include <coal/lang/string.h>
-#include <coal/lang/string/string.r>
+#include <coal/lang/string/string.rep>
 
 int string_cmp (const var _self, const var _other) {
   const class(string) * self  = _self;

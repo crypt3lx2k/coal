@@ -5,7 +5,7 @@
 #include <coal/implementation.h>
 
 #include <coal/lang/throwable.h>
-#include <coal/lang/throwable/throwable.r>
+#include <coal/lang/throwable/throwable.rep>
 
 var throwable_constructor(var _self, va_list * app) {
   class(throwable) * self = _self;

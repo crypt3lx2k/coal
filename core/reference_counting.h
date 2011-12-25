@@ -7,7 +7,7 @@
 
 typedef unsigned long int reference_counter_type;
 
-#include <coal/lang/object/object.r>
+#include <coal/lang/object/object.rep>
 
 #define INCREMENT_REFERENCE_COUNT(ident)        \
   ({                                            \

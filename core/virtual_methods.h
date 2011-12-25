@@ -7,7 +7,7 @@
 # error "Never include <coal/core/virtual_methods.h> directly; use <coal/implementation.h> instead."
 #endif
 
-#include <coal/lang/metaclass/metaclass.r>
+#include <coal/lang/metaclass/metaclass.rep>
 
 /* boilerplate for dynamically linked methods */
 #define ClassCallTemplate(method, self, ...)                    \

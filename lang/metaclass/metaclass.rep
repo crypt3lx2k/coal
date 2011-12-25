@@ -2,7 +2,7 @@
 #define COAL_LANG_METACLASS_R__
 
 #include <coal/implementation.h>
-#include <coal/lang/object/object.r>
+#include <coal/lang/object/object.rep>
 
 class (metaclass) {
   extends(object);

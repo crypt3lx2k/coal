@@ -16,8 +16,8 @@
 #include <coal/lang/metaclass.h>
 #include <coal/lang/string.h>
 
-#include <coal/lang/object/object.r>
-#include <coal/lang/metaclass/metaclass.r>
-#include <coal/lang/string/string.r>
+#include <coal/lang/object/object.rep>
+#include <coal/lang/metaclass/metaclass.rep>
+#include <coal/lang/string/string.rep>
 
 #endif /* COAL_IMPLEMENTATION_H__ */
