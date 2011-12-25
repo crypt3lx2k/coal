@@ -90,7 +90,7 @@ cfundecl__ (void lib(del) (var object));
  * lib(new)
  * Creates and returns a new instance of a class.
  *
- * @param  (const var) class to be instansiated
+ * @param  (const var) class to be instantiated
  * @param  (type) arguments to class constructor
  * @return (var) new instance of class
  */

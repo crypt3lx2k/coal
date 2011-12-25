@@ -36,6 +36,6 @@ var lang(toString) (const var self) {
   ClassCallTemplate(toString, self);
 }
 
-/* The extern const var metaclass is instansiated
+/* The extern const var metaclass is instantiated
    in lang/object/object.c due to interdependency
    between object and metaclass */

@@ -69,7 +69,7 @@ var metaclass_toString (const var _self) {
 		  self->name);
 }
 
-/* we instansiate both of these at the same
+/* we instantiate both of these at the same
    place since metaclass extends object,
    while objects class description is
    metaclass */
