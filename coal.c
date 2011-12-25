@@ -9,6 +9,9 @@ var lib(acquire) (var object) {
 }
 
 void lib(del) (var object) {
+  if (object == NULL)
+    return;
+
   DECREMENT_REFERENCE_COUNT(object);
 
   if (IS_GARBAGE(object))
