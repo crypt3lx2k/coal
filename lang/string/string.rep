@@ -1,5 +1,5 @@
-#ifndef COAL_LANG_STRING_R__
-#define COAL_LANG_STRING_R__
+#ifndef COAL_LANG_STRING_REP__
+#define COAL_LANG_STRING_REP__
 
 #include <coal/implementation.h>
 
@@ -10,4 +10,4 @@ class (string) {
   size_t len;
 };
 
-#endif /* COAL_LANG_STRING_R__ */
+#endif /* COAL_LANG_STRING_REP__ */

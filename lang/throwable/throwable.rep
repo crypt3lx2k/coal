@@ -1,5 +1,5 @@
-#ifndef COAL_LANG_THROWABLE_R__
-#define COAL_LANG_THROWABLE_R__
+#ifndef COAL_LANG_THROWABLE_REP__
+#define COAL_LANG_THROWABLE_REP__
 
 class (throwable) {
   extends(object);
@@ -7,4 +7,4 @@ class (throwable) {
   char * message;
 };
 
-#endif /* COAL_LANG_THROWABLE_R__ */
+#endif /* COAL_LANG_THROWABLE_REP__ */

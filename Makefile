@@ -22,17 +22,14 @@ debug:
 	$(MAKE) $(PROJ) \
 	CFLAGS="$(DBFLAGS)"
 
-install: build
+install: libcoal.so
 	$(CP) libcoal.so /usr/lib/
 
-debug-install: debug
-	$(CP) libcoal.so /usr/lib/
-
-.c.o:
-	$(CC) $(CFLAGS) $(IFLAGS) $(WFLAGS) -c $<
+.c.o: $<
+	$(CC) $(CFLAGS) $(IFLAGS) $(WFLAGS) -c $< -o $@
 
 libcoal.so: $(OBJS)
-	$(CC) $(IFLAGS) *.o $(LDFLAGS) $(CFLAGS) $(LIBFLAGS) -o libcoal.so
+	$(CC) $(IFLAGS) $(OBJS) $(LDFLAGS) $(CFLAGS) $(LIBFLAGS) -o libcoal.so
 
 clean-obj:
 	$(RM) $(shell find -name "*.o")
