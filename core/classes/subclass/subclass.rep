@@ -1,0 +1,10 @@
+#ifndef COAL_CORE_CLASSES_SUBCLASS_REP__
+#define COAL_CORE_CLASSES_SUBCLASS_REP__
+
+#include <coal/core/implementation.h>
+
+class (subclass) {
+  extends(metaclass);
+};
+
+#endif /* COAL_CORE_CLASSES_SUBCLASS_REP__ */

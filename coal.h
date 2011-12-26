@@ -87,16 +87,6 @@ cfundecl__ (var lib(acquire) (var object));
 cfundecl__ (void lib(del) (var object));
 
 /**
- * lib(new)
- * Creates and returns a new instance of a class.
- *
- * @param  (const var) class to be instantiated
- * @param  (type) arguments to class constructor
- * @return (var) new instance of class
- */
-cfundecl__ (var lib(new) (const var class, ...)) __attribute__ ((malloc));
-
-/**
  * lib(instanceof)
  * Determines if the object is an instance
  * of class or any of its subclasses.
@@ -111,6 +101,16 @@ cfundecl__ (var lib(new) (const var class, ...)) __attribute__ ((malloc));
  * @return (bool) true if object is of type class
  */
 cfundecl__ (bool lib(instanceof) (const var object, const var class));
+
+/**
+ * lib(new)
+ * Creates and returns a new instance of a class.
+ *
+ * @param  (const var) class to be instantiated
+ * @param  (type) arguments to class constructor
+ * @return (var) new instance of class
+ */
+cfundecl__ (var lib(new) (const var class, ...)) __attribute__ ((malloc));
 
 /**
  * lib(throw)

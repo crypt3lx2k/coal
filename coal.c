@@ -1,5 +1,10 @@
-#include <stdlib.h>
 #include <setjmp.h>
+#include <stdlib.h>
+
+/* for throw */
+#include <stdio.h>    /* fputs, fprintf */
+#include <unistd.h>   /* STDERR_FILENO */
+#include <execinfo.h> /* backtrace* */
 
 #include <coal/core/implementation.h>
 #include <coal/io/io.h>
@@ -18,21 +23,6 @@ void lib(del) (var object) {
     free(lang(destructor)(object));
 }
 
-var lib(new) (const var _class, ...) {
-  const class(metaclass) * class = _class;
-  class(object) * object;
-  va_list ap;
-
-  object = core(malloc)(class->size);
-  object->class = class;
-
-  va_start(ap, _class);
-  object = lang(constructor)(object, &ap);
-  va_end(ap);
-
-  return lib(acquire(object));
-}
-
 bool lib(instanceof) (const var object, const var class) {
   const class(metaclass) * current = lang(getClass)(object);
 
@@ -49,10 +39,34 @@ bool lib(instanceof) (const var object, const var class) {
   return false;
 }
 
+var lib(new) (const var _class, ...) {
+  const class(metaclass) * class = _class;
+  class(object) * object;
+  va_list ap;
+
+  object = core(malloc)(class->size);
+  object->class = class;
+
+  va_start(ap, _class);
+  object = lang(constructor)(object, &ap);
+  va_end(ap);
+
+  return lib(acquire(object));
+}
+
 void lib(throw) (const var throwable) {
   if (utility_stack_is_empty(&exceptions_s__)) {
+    void * backtrace_buffer[100];
+
     fputs("unhandled exception ", stderr);
     io(fprintln)(throwable, stderr);
+
+    fprintf(stderr,
+	    "Backtrace:\n");
+
+    backtrace_symbols_fd(backtrace_buffer,
+			 backtrace(backtrace_buffer, 100),
+			 STDERR_FILENO);
 
     exit(EXIT_FAILURE);
   } else {
