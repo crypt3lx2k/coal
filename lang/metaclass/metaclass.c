@@ -1,5 +1,5 @@
 #include <string.h>
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 
 int lang(cmp) (const var self, const var other) {
   const class(metaclass) * s_class;

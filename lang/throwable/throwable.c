@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 
 #include <coal/lang/throwable.h>
 #include <coal/lang/throwable/throwable.rep>

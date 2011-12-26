@@ -3,8 +3,8 @@
 
 #include <coal/core/namespace.h>
 
-#ifndef COAL_IMPLEMENTATION_H__
-# error "Never include <coal/core/memory.h> directly; use <coal/implementation.h> instead."
+#ifndef COAL_CORE_IMPLEMENTATION_H__
+# error "Never include <coal/core/memory.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
 /**

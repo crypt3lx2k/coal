@@ -4,9 +4,9 @@
 #include <setjmp.h>
 #include <coal/core/utility_stack.h>
 
-#if !(defined COAL_IMPLEMENTATION_H__ || \
+#if !(defined COAL_CORE_IMPLEMENTATION_H__ || \
       defined COAL_USER_EXCEPTIONS)
-# error "Never include <coal/core/exceptions.h> directly; use <coal/implementation.h> instead."
+# error "Never include <coal/core/exceptions.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
 named_utility_stack(exceptions_stack__, void *);

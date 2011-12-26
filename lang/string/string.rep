@@ -1,7 +1,7 @@
 #ifndef COAL_LANG_STRING_REP__
 #define COAL_LANG_STRING_REP__
 
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 
 class (string) {
   extends(object);

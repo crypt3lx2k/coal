@@ -1,8 +1,8 @@
 #ifndef COAL_OBJECT_ORIENTATION_H__
 #define COAL_OBJECT_ORIENTATION_H__
 
-#ifndef COAL_IMPLEMENTATION_H__
-# error "Never include <coal/core/object_orientation.h> directly; use <coal/implementation.h> instead."
+#ifndef COAL_CORE_IMPLEMENTATION_H__
+# error "Never include <coal/core/object_orientation.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
 /* this is here in case of

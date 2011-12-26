@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <setjmp.h>
 
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 #include <coal/io/io.h>
 
 var lib(acquire) (var object) {

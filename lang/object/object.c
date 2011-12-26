@@ -1,6 +1,6 @@
 #include <string.h> /* memcpy */
 #include <stddef.h> /* offsetof */
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 
 int object_cmp (const var self, const var other) {
   return (int) self - (int) other;

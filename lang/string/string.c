@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 
 #include <coal/lang/string.h>
 #include <coal/lang/string/string.rep>

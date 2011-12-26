@@ -1,7 +1,7 @@
 #ifndef COAL_LANG_OBJECT_REP__
 #define COAL_LANG_OBJECT_REP__
 
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 
 class (object) {
   const class(metaclass) * class;

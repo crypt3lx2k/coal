@@ -1,7 +1,7 @@
 #ifndef COAL_LANG_METACLASS_REP__
 #define COAL_LANG_METACLASS_REP__
 
-#include <coal/implementation.h>
+#include <coal/core/implementation.h>
 #include <coal/lang/object/object.rep>
 
 class (metaclass) {

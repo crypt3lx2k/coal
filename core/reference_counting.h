@@ -1,8 +1,8 @@
 #ifndef COAL_CORE_REFERENCE_COUNTING_H__
 #define COAL_CORE_REFERENCE_COUNTING_H__
 
-#ifndef COAL_IMPLEMENTATION_H__
-# error "Never include <coal/core/reference_counting.h> directly; use <coal/implementation.h> instead."
+#ifndef COAL_CORE_IMPLEMENTATION_H__
+# error "Never include <coal/core/reference_counting.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
 typedef unsigned long int reference_counter_type;

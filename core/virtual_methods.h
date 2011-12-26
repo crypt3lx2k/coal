@@ -3,8 +3,8 @@
 
 #include <coal/core/object_orientation.h>
 
-#ifndef COAL_IMPLEMENTATION_H__
-# error "Never include <coal/core/virtual_methods.h> directly; use <coal/implementation.h> instead."
+#ifndef COAL_CORE_IMPLEMENTATION_H__
+# error "Never include <coal/core/virtual_methods.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
 #include <coal/lang/metaclass/metaclass.rep>
