@@ -70,7 +70,7 @@ void lib(throw) (const var throwable) {
 
     exit(EXIT_FAILURE);
   } else {
-    longjmp(utility_stack_peek(&exceptions_s__),
+    longjmp(*utility_stack_peek(&exceptions_s__),
 	    (int) throwable);
   }
 }
