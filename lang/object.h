@@ -8,6 +8,7 @@
  * lang(object)
  * Base class for objects.
  *
+ * @extends lang(object)
  * @constructor takes no arguments
  */
 cfundecl__ (const var lang(object) (void));
