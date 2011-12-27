@@ -21,4 +21,4 @@ cfundecl__ (const var lang(Error) (void));
 # define Error lang(Error)
 #endif
 
-#endif
+#endif /* COAL_LANG_ERROR_H__ */

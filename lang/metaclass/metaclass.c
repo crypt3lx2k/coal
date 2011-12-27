@@ -1,5 +1,7 @@
 #include <string.h>
+
 #include <coal/core/implementation.h>
+#include <coal/lang/NullPointerException.h>
 
 int lang(cmp) (const var self, const var other) {
   const class(metaclass) * s_class;
@@ -58,6 +60,14 @@ bool lang(equals) (const var self, const var other) {
 
 const var lang(getClass) (const var _self) {
   const class(object) * self = _self;
+
+  if (self == NULL)
+    lib(throw)(lib(new)(lang(NullPointerException)(),
+			"lang(getClass): null object"));
+
+  if (self->class == NULL)
+    lib(throw)(lib(new)(lang(NullPointerException)(),
+			"lang(getClass): null class description"));
 
   return self->class;
 }
