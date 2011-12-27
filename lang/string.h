@@ -13,6 +13,7 @@
  * Class that represents a sequence
  * of characters.
  *
+ * @extends lang(object)
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (type) printf-like arguments

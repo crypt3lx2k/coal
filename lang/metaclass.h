@@ -8,6 +8,7 @@
  * lang(metaclass)
  * Base class for, well, classes.
  *
+ * @extends lang(object)
  * @constructor takes 9 arguments
  * @param (const char *) name of class
  * @param (const class(metaclass) *) super class

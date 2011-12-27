@@ -8,6 +8,7 @@
  * lang(throwable)
  * Base class for exceptions and errors.
  *
+ * @extends lang(object)
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (type) printf-like arguments
