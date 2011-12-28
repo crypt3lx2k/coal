@@ -52,8 +52,8 @@ bool string_equals (const var _self, const var _other) {
 
 int string_hashCode(const var _self) {
   const class(string) * self = _self;
-  char * str = self->str;
-  size_t len = self->len;
+  const char * str = self->str;
+  const size_t len = self->len;
 
   register int i, x, m;
 
@@ -77,6 +77,12 @@ const char * lang_string(chars) (const var _self) {
   const class(string) * self = _self;
 
   return self->str;
+}
+
+size_t lang_string(length) (const var _self) {
+  const class(string) * self = _self;
+
+  return self->len;
 }
 
 static const var string__ = NULL;

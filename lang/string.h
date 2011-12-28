@@ -21,7 +21,7 @@
 cfundecl__ (const var lang(string) (void));
 
 /**
- * string(chars)
+ * lang_string(chars)
  * Returns the underlying string
  * as an immutable character array.
  *
@@ -30,12 +30,22 @@ cfundecl__ (const var lang(string) (void));
  */
 cfundecl__ (const char * lang_string(chars) (const var self));
 
+/**
+ * lang_string(length)
+ * Returns the length of the string.
+ *
+ * @param  (const var) string
+ * @return (size_t) length of string
+ */
+cfundecl__ (size_t lang_string(length) (const var self));
+
 #ifdef LANG_NAMESPACE_POLLUTE
 # define string lang(string)
 #endif
 
 #ifdef LANG_STRING_NAMESPACE_POLLUTE
-# define chars lang_string(chars)
+# define chars  lang_string(chars)
+# define length lang_string(length)
 #endif
 
 #endif /* COAL_LANG_STRING_H__ */
