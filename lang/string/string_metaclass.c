@@ -1,5 +1,5 @@
 #include <coal/core/implementation.h>
-#include <coal/lang/string/string_class.rep>
+#include <coal/lang/string/string_metaclass.rep>
 
 var string_class_constructor (var _self, va_list * app) {
   class(string_metaclass) * self  = _self;

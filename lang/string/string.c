@@ -8,7 +8,7 @@
 
 #include <coal/lang/string.h>
 #include <coal/lang/string/string.rep>
-#include <coal/lang/string/string_class.rep>
+#include <coal/lang/string/string_metaclass.rep>
 
 /* override lang.object methods */
 
