@@ -44,11 +44,7 @@ bool string_equals (const var _self, const var _other) {
   const class(string) * self  = _self;
   const class(string) * other = _other;
 
-  if (_self == _other)
-    return true;
-  else if (lang(getClass)(other) != lang(string)())
-    return false;
-  else if (self->len != other->len)
+  if (self->len != other->len)
     return false;
   else
     return strcmp(self->str, other->str) == 0;
