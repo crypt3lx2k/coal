@@ -112,7 +112,7 @@ static const var string__ = NULL;
 
 const var lang(string) (void) {
   return string__ ? string__ :
-    (string__ = lib(new)(string_class(),
+    (string__ = lib(new)(lang_string(metaclass)(),
 			 LIBRARY_STR ".lang.string",
 			 lang(object)(),
 			 sizeof(class(string)),

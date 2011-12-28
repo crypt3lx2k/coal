@@ -2,8 +2,8 @@
 #include <coal/lang/string/string_class.rep>
 
 var string_class_constructor (var _self, va_list * app) {
-  class(string_class)    * self  = _self;
-  const class(metaclass) * class = string_class();
+  class(string_metaclass) * self  = _self;
+  const class(metaclass)  * class = lang_string(metaclass)();
 
   class->super->constructor(_self, app);
 
@@ -25,19 +25,19 @@ size_t lang_string(length) (const var _self) {
 }
 
 var lang_string(concat) (const var self, const var other) {
-  ClassCallTemplate(concat, string_class, self, other);
+  ClassCallTemplate(concat, string_metaclass, self, other);
 }
 
 /* string_class class description */
 
 static const var string_class__ = NULL;
 
-const var string_class (void) {
+const var lang_string(metaclass) (void) {
   return string_class__ ? string_class__ :
     (string_class__ = lib(new)(lang(metaclass)(),
 			       LIBRARY_STR ".lang.string_class",
 			       lang(metaclass)(),
-			       sizeof(class(string_class)),
+			       sizeof(class(string_metaclass)),
 			       INHERIT_METHOD,
 			       string_class_constructor,
 			       INHERIT_METHOD,

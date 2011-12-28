@@ -4,7 +4,7 @@
 #include <coal/core/implementation.h>
 
 /**
- * string_class
+ * lang_string(metaclass)
  * Metaclass for strings.
  *
  * @extends lang(metaclass)
@@ -20,9 +20,9 @@
  * @param (var (*toString)(const var)) pointer to string function
  * @param (var (*concat)(const var, const var)) pointer to concatenation function
  */
-cfundecl__ (const var string_class (void));
+cfundecl__ (const var lang_string(metaclass) (void));
 
-class (string_class) {
+class (string_metaclass) {
   extends(metaclass);
 
   var (*concat)(const var self, const var other);
