@@ -3,6 +3,8 @@
 
 #include <coal/core/implementation.h>
 
+cfundecl__ (const var string_class (void));
+
 class (string_class) {
   extends(metaclass);
 
