@@ -9,7 +9,7 @@
 # error "Never include <coal/core/exceptions.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
-named_utility_stack(exceptions_stack__, jmp_buf *);
+named_utility_stack(exceptions_stack__, void *);
 
 extern struct exceptions_stack__ exceptions_s__;
 
@@ -48,7 +48,7 @@ extern struct exceptions_stack__ exceptions_s__;
 
 #define try_end                                         \
     }                                                   \
-    utility_stack_pop(&exceptions_s__);			\
+    (void) utility_stack_pop(&exceptions_s__);          \
     if (exceptions_res__ && ! exceptions_caught__)      \
       EXCEPTIONS_THROW(exceptions_res__);               \
     else                                                \

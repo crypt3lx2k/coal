@@ -29,6 +29,10 @@
  * atomic(type) is compatible
  * with type.
  */
+/* declared volatile so that
+   the compiler doesn't swap
+   things around or optimize
+   it out of existence. */
 #define atomic(type) \
   volatile type
 
