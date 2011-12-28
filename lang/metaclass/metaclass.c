@@ -48,10 +48,10 @@ bool lang(equals) (const var self, const var other) {
 
   /* self instance of other's class */
   if (lib(instanceof)(self, o_class))
-    return o_class->cmp(self, other);
+    return o_class->equals(self, other);
   /* other instance of self's class */
   else if (lib(instanceof)(other, s_class))
-    return s_class->cmp(self, other);
+    return s_class->equals(self, other);
   /* completely different types,
      can't be equal */
   else
