@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include <coal/core/implementation.h>
+#include <coal/lang/OutOfMemoryError.h>
 
 #include <coal/lang/throwable.h>
 #include <coal/lang/throwable/throwable.rep>
@@ -13,9 +14,11 @@ var throwable_constructor(var _self, va_list * app) {
   va_list            copy;
 
   va_copy(copy, *app);
-  vasprintf(&self->message,
-	    fmt,
-	    copy);
+
+  if (vasprintf(&self->message, fmt, copy) == -1)
+    lib(throw)(lib(new)(lang(OutOfMemoryError)(),
+			"throwable_constructor: string allocation failed."));
+
   va_end(copy);
 
   return _self;

@@ -28,11 +28,11 @@ int lang(cmp) (const var self, const var other) {
 }
 
 var lang(constructor) (var self, va_list * app) {
-  ClassCallTemplate(constructor, self, app);
+  ClassCallTemplate(constructor, metaclass, self, app);
 }
 
 var lang(destructor) (var self) {
-  ClassCallTemplate(destructor, self);
+  ClassCallTemplate(destructor, metaclass, self);
 }
 
 bool lang(equals) (const var self, const var other) {
@@ -79,11 +79,11 @@ size_t lang(getSize) (const var self) {
 }
 
 int lang(hashCode) (const var self) {
-  ClassCallTemplate(hashCode, self);
+  ClassCallTemplate(hashCode, metaclass, self);
 }
 
 var lang(toString) (const var self) {
-  ClassCallTemplate(toString, self);
+  ClassCallTemplate(toString, metaclass, self);
 }
 
 /* The extern const var metaclass is instantiated

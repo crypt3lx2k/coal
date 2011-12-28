@@ -1,13 +1,16 @@
 #define _GNU_SOURCE
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
 #include <coal/core/implementation.h>
+#include <coal/lang/OutOfMemoryError.h>
 
 #include <coal/lang/string.h>
 #include <coal/lang/string/string.rep>
+#include <coal/lang/string/string_class.rep>
+
+/* override lang.object methods */
 
 int string_cmp (const var _self, const var _other) {
   const class(string) * self  = _self;
@@ -22,9 +25,11 @@ var string_constructor (var _self, va_list * app) {
   va_list         copy;
 
   va_copy(copy, *app);
-  vasprintf(&self->str,
-	    fmt,
-	    copy);
+
+  if (vasprintf(&self->str, fmt, copy) == -1)
+    lib(throw)(lib(new)(lang(OutOfMemoryError)(),
+			"string_constructor: string allocation failed."));
+
   va_end(copy);
 
   self->len = strlen(self->str);
@@ -73,6 +78,51 @@ var string_toString(const var self) {
   return lib(acquire)((var) self);
 }
 
+/* lang.string methods */
+
+/* chars and length are
+   statically linked */
+
+var string_concat (const var _self, const var _other) {
+  const class(string) * self  = _self;
+  const class(string) * other = _other;
+  char * str;
+  size_t len;
+
+  len = self->len + other->len;
+  str = core(malloc)((len + 1) * sizeof(char));
+
+  memcpy(str, self->str, self->len);
+  memcpy(str + self->len, other->str, other->len);
+  str[len] = '\0';
+
+  /* a little bit inefficient, might
+     add a length parameter to the
+     constructor in the future,
+     use snprintf if it's not zero
+     and vasprintf otherwise. */
+  /* better idea, regular char array
+     and optional size constructor,
+     format function for string from
+     format. */
+  return lib(new)(lang(string)(), str);
+}
+
+/* string class */
+
+const var string_class (void);
+
+var string_class_constructor (var _self, va_list * app) {
+  class(string_class)    * self  = _self;
+  const class(metaclass) * class = string_class();
+
+  class->super->constructor(_self, app);
+
+  OverrideMethod(self, concat);
+
+  return _self;
+}
+
 const char * lang_string(chars) (const var _self) {
   const class(string) * self = _self;
 
@@ -85,11 +135,35 @@ size_t lang_string(length) (const var _self) {
   return self->len;
 }
 
+var lang_string(concat) (const var self, const var other) {
+  ClassCallTemplate(concat, string_class, self, other);
+}
+
+/* string_class class description */
+
+static const var string_class__ = NULL;
+
+const var string_class (void) {
+  return string_class__ ? string_class__ :
+    (string_class__ = lib(new)(lang(metaclass)(),
+			       LIBRARY_STR ".lang.string_class",
+			       lang(metaclass)(),
+			       sizeof(class(string_class)),
+			       INHERIT_METHOD,
+			       string_class_constructor,
+			       INHERIT_METHOD,
+			       INHERIT_METHOD,
+			       INHERIT_METHOD,
+			       INHERIT_METHOD));
+}
+
+/* class description */
+
 static const var string__ = NULL;
 
 const var lang(string) (void) {
   return string__ ? string__ :
-    (string__ = lib(new)(lang(metaclass)(),
+    (string__ = lib(new)(string_class(),
 			 LIBRARY_STR ".lang.string",
 			 lang(object)(),
 			 sizeof(class(string)),
@@ -98,5 +172,7 @@ const var lang(string) (void) {
 			 string_destructor,
 			 string_equals,
 			 string_hashCode,
-			 string_toString));
+			 string_toString,
+			 
+			 string_concat));
 }

@@ -7,6 +7,9 @@
 #include <execinfo.h> /* backtrace* */
 
 #include <coal/core/implementation.h>
+#include <coal/lang/NullPointerException.h>
+
+/* for throw */
 #include <coal/io/io.h>
 
 var lib(acquire) (var object) {
@@ -43,6 +46,10 @@ var lib(new) (const var _class, ...) {
   const class(metaclass) * class = _class;
   class(object) * object;
   va_list ap;
+
+  if (class == NULL)
+    lib(throw)(lib(new)(lang(NullPointerException)(),
+			"lib(new): null class description"));
 
   object = core(malloc)(class->size);
   object->class = class;

@@ -10,8 +10,8 @@
 #include <coal/lang/metaclass/metaclass.rep>
 
 /* boilerplate for dynamically linked methods */
-#define ClassCallTemplate(method, self, ...)                    \
-  const class(metaclass) * class = lang(getClass(self));        \
+#define ClassCallTemplate(method, klass, self, ...)             \
+  const class(klass) * class = lang(getClass(self));            \
   return class->method(self, ##__VA_ARGS__)
 
 /* overrides a method in a class description */
