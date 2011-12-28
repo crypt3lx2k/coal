@@ -8,7 +8,7 @@
    and it has very little
    functionality. More will
    be added on a need to
-   implement basis */
+   implement basis. */
 
 /**
  * atomic(type)
