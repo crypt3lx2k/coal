@@ -3,6 +3,23 @@
 
 #include <coal/core/implementation.h>
 
+/**
+ * string_class
+ * Metaclass for strings.
+ *
+ * @extends lang(metaclass)
+ * @constructor takes 10 arguments
+ * @param (const char *) name of class
+ * @param (const class(metaclass) *) super class
+ * @param (size_t) size of instances in bytes
+ * @param (int (*cmp)(const var, const var)) pointer to comparison function
+ * @param (var (*constructor)(var, va_list *)) pointer to constructor
+ * @param (var (*destructor)(var)) pointer to destructor
+ * @param (bool (*equals)(const var, const var)) pointer to equality function
+ * @param (int (*hashCode)(const var)) pointer to hash function
+ * @param (var (*toString)(const var)) pointer to string function
+ * @param (var (*concat)(const var, const var)) pointer to concatenation function
+ */
 cfundecl__ (const var string_class (void));
 
 class (string_class) {

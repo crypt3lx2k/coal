@@ -31,6 +31,17 @@ cfundecl__ (const var lang(string) (void));
 cfundecl__ (const char * lang_string(chars) (const var self));
 
 /**
+ * lang_string(concat)
+ * Concatenates two strings, returns
+ * a new string that has to be del'd.
+ *
+ * @param  (const var) first string
+ * @param  (const var) second string
+ * @return (var) concatenated string
+ */
+cfundecl__ (var lang_string(concat) (const var self, const var other));
+
+/**
  * lang_string(length)
  * Returns the length of the string.
  *
@@ -45,6 +56,7 @@ cfundecl__ (size_t lang_string(length) (const var self));
 
 #ifdef LANG_STRING_NAMESPACE_POLLUTE
 # define chars  lang_string(chars)
+# define concat lang_string(concat)
 # define length lang_string(length)
 #endif
 
