@@ -6,13 +6,13 @@
 
 /**
  * lang(string)
- * Class that represents a mutable
+ * Class that represents a
  * sequence of characters.
  *
  * @extends lang(object)
- * @constructor takes 2 arguments
- * @param (const char *) string
- * @param (int) size of string
+ * @constructor takes a variable amount of arguments
+ * @param (const char *) printf-like format string
+ * @param (...) printf-like arguments
  */
 cfundecl__ (const var lang(string) (void));
 
