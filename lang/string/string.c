@@ -86,26 +86,11 @@ var string_toString(const var self) {
 var string_concat (const var _self, const var _other) {
   const class(string) * self  = _self;
   const class(string) * other = _other;
-  char * str;
-  size_t len;
 
-  len = self->len + other->len;
-  str = core(malloc)((len + 1) * sizeof(char));
-
-  memcpy(str, self->str, self->len);
-  memcpy(str + self->len, other->str, other->len);
-  str[len] = '\0';
-
-  /* a little bit inefficient, might
-     add a length parameter to the
-     constructor in the future,
-     use snprintf if it's not zero
-     and vasprintf otherwise. */
-  /* better idea, regular char array
-     and optional size constructor,
-     format function for string from
-     format. */
-  return lib(new)(lang(string)(), str);
+  return lib(new)(lang(string),
+		  "%s%s",
+		  self->str,
+		  other->str);
 }
 
 static const var string__ = NULL;
