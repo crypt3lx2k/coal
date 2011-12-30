@@ -11,7 +11,7 @@
  * @extends lang(object)
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
- * @param (type) printf-like arguments
+ * @param (...) printf-like arguments
  */
 cfundecl__ (const var lang(throwable) (void));
 

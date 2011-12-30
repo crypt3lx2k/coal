@@ -8,7 +8,7 @@ int io(fprint) (const var object, FILE * stream) {
   /* the %s is to keep clang from
      complaining about chars(s)
      not being a format string */
-  r = fprintf(stream, "%s", lang_string(chars)(s));
+  r = fprintf(stream, "%s", lang(string_chars)(s));
 
   lib(del)(s);
 
@@ -19,7 +19,7 @@ int io(fprintln) (const var object, FILE * stream) {
   var s = lang(toString)(object);
   int r = 0;
 
-  r = fprintf(stream, "%s\n", lang_string(chars)(s));
+  r = fprintf(stream, "%s\n", lang(string_chars)(s));
 
   lib(del)(s);
 

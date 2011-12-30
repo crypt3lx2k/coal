@@ -86,18 +86,28 @@ var string_toString(const var self) {
 var string_concat (const var _self, const var _other) {
   const class(string) * self  = _self;
   const class(string) * other = _other;
+  char * str;
+  size_t len;
+  var    res;
 
-  return lib(new)(lang(string),
-		  "%s%s",
-		  self->str,
-		  other->str);
+  len = self->len + other->len;
+  str = core(malloc)((len + 1) * sizeof(char));
+
+  memcpy(str, self->str, self->len);
+  memcpy(str + self->len, other->str, other->len);
+  str[len] = '\0';
+
+  res = lib(new)(lang(string)(), str);
+  free(str);
+
+  return res;
 }
 
 static const var string__ = NULL;
 
 const var lang(string) (void) {
   return string__ ? string__ :
-    (string__ = lib(new)(lang_string(metaclass)(),
+    (string__ = lib(new)(lang(string_metaclass)(),
 			 LIBRARY_STR ".lang.string",
 			 lang(object)(),
 			 sizeof(class(string)),
