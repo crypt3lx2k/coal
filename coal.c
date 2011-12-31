@@ -22,12 +22,21 @@ void lib(del) (var object) {
 
   DECREMENT_REFERENCE_COUNT(object);
 
+  /* what if object is acquired
+     by another thread here? */
+
   if (IS_GARBAGE(object))
     free(lang(destructor)(object));
 }
 
 bool lib(instanceof) (const var object, const var class) {
-  const class(metaclass) * current = lang(getClass)(object);
+  const class(metaclass) * current;
+
+  if (class == NULL)
+    lib(throw)(lib(new)(lang(NullPointerException)(),
+			"lib(instanceof): null class description"));
+
+  current = lang(getClass)(object);
 
   if (current == class)
     return true;

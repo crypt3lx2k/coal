@@ -45,7 +45,7 @@ var throwable_toString(const var _self) {
 static const var throwable__ = NULL;
 
 const var lang(throwable) (void) {
-  return throwable__ ? throwable__ :
+  return throwable__ != NULL ? throwable__ :
     (throwable__ = lib(new)(lang(metaclass)(),
 			    LIBRARY_STR ".lang.throwable",
 			    lang(object)(),

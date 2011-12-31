@@ -52,7 +52,8 @@ bool string_equals (const var _self, const var _other) {
   if (self->len != other->len)
     return false;
   else
-    return strcmp(self->str, other->str) == 0;
+    return strncmp(self->str, other->str,
+		   MIN(self->len, other->len)) == 0;
 }
 
 int string_hashCode(const var _self) {
@@ -106,7 +107,7 @@ var string_concat (const var _self, const var _other) {
 static const var string__ = NULL;
 
 const var lang(string) (void) {
-  return string__ ? string__ :
+  return string__ != NULL ? string__ :
     (string__ = lib(new)(lang(string_metaclass)(),
 			 LIBRARY_STR ".lang.string",
 			 lang(object)(),

@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <coal/namespace.h>
 
 /*
@@ -29,40 +30,11 @@
 /* Types */
 
 /**
- * Boolean (bool) type
- */
-/* TODO: make true and false
-   Boolean objects? */
-#ifdef __bool_true_false_are_defined
-/* use stdbool.h */
-# undef true
-# undef false
-
-# define true  ((bool) 1)
-# define false ((bool) 0)
-#else /* not __bool_true_false_are_defined */
-/* make our own bool */
-typedef enum {
-  false = 0,
-  true  = 1
-} bool;
-
-/* we redefine these so that we may
-   use C1x style generic selections
-   in the future */
-# define true  ((bool) true)
-# define false ((bool) false)
-#endif /* __bool_true_false_are_defined */
-
-/**
  * Object variable type
  */
 /* not a typedef so `const var'
    behaves nicely */
 #define var void *
-
-/* TODO: change this to an object? */
-#define null ((var) NULL)
 
 /* Types - End */
 

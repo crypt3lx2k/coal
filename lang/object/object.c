@@ -58,7 +58,7 @@ var metaclass_destructor (var self __attribute__ ((unused))) {
   /* I consider this a hack, I might change
      it so that the reference count of a
      class description is the amount of instances */
-  return null;
+  return NULL;
 }
 
 var metaclass_toString (const var _self) {

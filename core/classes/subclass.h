@@ -24,7 +24,7 @@ cfundecl__ (const var core(subclass) (void));
   static const var name##__;                                            \
                                                                         \
   const var namespace(name) (void) {                                    \
-    return name##__ ? name##__ :                                        \
+    return name##__ != NULL ? name##__ :                                \
       (name##__ = lib(new)(core(subclass)(),                            \
                            location,                                    \
                            superclass()));                              \

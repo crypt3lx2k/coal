@@ -33,7 +33,7 @@ var lang(string_concat) (const var self, const var other) {
 static const var string_metaclass__ = NULL;
 
 const var lang(string_metaclass) (void) {
-  return string_metaclass__ ? string_metaclass__ :
+  return string_metaclass__ != NULL ? string_metaclass__ :
     (string_metaclass__ = lib(new)(lang(metaclass)(),
 				   LIBRARY_STR ".lang.string_class",
 				   lang(metaclass)(),
