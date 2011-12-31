@@ -10,7 +10,6 @@
 #endif
 
 named_utility_stack(exceptions_stack__, void *);
-
 extern struct exceptions_stack__ exceptions_s__;
 
 /*
@@ -34,7 +33,7 @@ extern struct exceptions_stack__ exceptions_s__;
                                                                         \
     if (! (exceptions_res__ =                                           \
            (var) setjmp(utility_stack_push(&exceptions_s__,             \
-                                           &exceptions_jmp_buf__))	\
+                                           &exceptions_jmp_buf__))      \
            )) {
 
 #define catch(exception, identifier)                                    \

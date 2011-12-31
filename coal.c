@@ -62,12 +62,13 @@ var lib(new) (const var _class, ...) {
 
   object = core(malloc)(class->size);
   object->class = class;
+  object->reference_count = 0;
 
   va_start(ap, _class);
   object = lang(constructor)(object, &ap);
   va_end(ap);
 
-  return lib(acquire(object));
+  return lib(acquire)(object);
 }
 
 void lib(throw) (const var throwable) {

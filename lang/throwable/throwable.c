@@ -28,6 +28,7 @@ var throwable_destructor(var _self) {
   class(throwable) * self = _self;
 
   free(self->message);
+  self->message = NULL;
 
   return _self;
 }
