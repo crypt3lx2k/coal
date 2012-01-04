@@ -3,7 +3,6 @@
 #include <coal/lang/throwable.h>
 #include <coal/core/classes/subclass.h>
 
-ExceptionDefinitionTemplate(lang,
+ExceptionDefinitionTemplate(coal_lang_Exception,
 			    LIBRARY_STR ".lang.Exception",
-			    Exception,
-			    lang(throwable))
+			    coal_lang_throwable)

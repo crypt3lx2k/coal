@@ -4,7 +4,17 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include <stdbool.h>
-#include <coal/namespace.h>
+
+/* this defines
+ * - LIBRARY_NAME
+ * - LIBRARY_STR
+ * - cfundecl__
+ *
+ * Don't rely on LIBRARY_NAME or
+ * LIBRARY_STR being defined in
+ * this file, will change.
+ */
+#include <coal/core/common.h>
 
 /*
  * Note that defining this macro will expose the user some to
@@ -41,51 +51,51 @@
 /* Functions */
 
 /**
- * lib(acquire)
+ * coal_acquire
  * Increments the reference counter.
  *
  * @param  (var) object which reference counter will be incremented
  * @return (var) object that was passed
  */
-cfundecl__ (var lib(acquire) (var object));
+cfundecl__ (var coal_acquire (var object));
 
 /**
- * lib(del)
+ * coal_del
  * Decrements the reference counter and
  * collects the object if the count is zero.
  *
  * @param (var) object which reference counter will be decremented and possibly collected 
  */
-cfundecl__ (void lib(del) (var object));
+cfundecl__ (void coal_del (var object));
 
 /**
- * lib(instanceof)
+ * coal_instanceof
  * Determines if the object is an instance
  * of class or any of its subclasses.
  * This means that if an object "o" is instance
- * of a class "klass", then lib(instanceof)(o, k)
+ * of a class "klass", then coal_instanceof(o, k)
  * will return true if klass is a subclass of k.
  *
- * lib(instanceof)(non_null, object()) - true
+ * coal_instanceof(non_null, object()) - true
  *
  * @param  (const var) object to check type of
  * @param  (class) type to check against
  * @return (bool) true if object is of type class
  */
-cfundecl__ (bool lib(instanceof) (const var object, const var class));
+cfundecl__ (bool coal_instanceof (const var object, const var class));
 
 /**
- * lib(new)
+ * coal_new
  * Creates and returns a new instance of a class.
  *
  * @param  (const var) class to be instantiated
  * @param  (type) arguments to class constructor
  * @return (var) new instance of class
  */
-cfundecl__ (var lib(new) (const var class, ...)) __attribute__ ((malloc));
+cfundecl__ (var coal_new (const var class, ...)) __attribute__ ((malloc));
 
 /**
- * lib(throw)
+ * coal_throw
  * Throws an exception.
  * Currently everything is a valid exception.
  *
@@ -93,16 +103,16 @@ cfundecl__ (var lib(new) (const var class, ...)) __attribute__ ((malloc));
  *
  * @param (const var) throwable object
  */
-cfundecl__ (void lib(throw) (const var throwable)) __attribute__ ((noreturn));
+cfundecl__ (void coal_throw (const var throwable)) __attribute__ ((noreturn));
 
 /* Functions - end */
 
 #ifdef LIB_NAMESPACE_POLLUTE
-# define acquire    lib(acquire)
-# define del        lib(del)
-# define new        lib(new)
-# define instanceof lib(instanceof)
-# define throw      lib(throw)
+# define acquire    coal_acquire
+# define del        coal_del
+# define new        coal_new
+# define instanceof coal_instanceof
+# define throw      coal_throw
 #endif
 
 #endif /* COAL_H__ */

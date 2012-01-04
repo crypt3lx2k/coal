@@ -2,23 +2,22 @@
 #define COAL_LANG_EXCEPTION_H__
 
 #include <coal/coal.h>
-#include <coal/lang/namespace.h>
 
 /**
- * lang(Exception)
+ * coal_lang_Exception
  * Base class for throwables that
  * a reasonable application might
  * want to catch.
  *
- * @extends lang(throwable)
+ * @extends coal_lang_throwable
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var lang(Exception) (void));
+cfundecl__ (const var coal_lang_Exception (void));
 
 #ifdef LANG_NAMESPACE_POLLUTE
-# define Exception lang(Exception)
+# define Exception coal_lang_Exception
 #endif
 
 #endif /* COAL_LANG_EXCEPTION_H__ */

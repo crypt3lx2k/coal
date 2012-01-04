@@ -11,7 +11,7 @@
 
 /* boilerplate for dynamically linked methods */
 #define ClassCallTemplate(method, klass, self, ...)             \
-  const class(klass) * class = lang(getClass(self));            \
+  const class(klass) * class = coal_lang_getClass(self);        \
   return class->method(self, ##__VA_ARGS__)
 
 /* overrides a method in a class description */
@@ -24,8 +24,8 @@
 /* boilerplate for throwing an exception
    when a method is missing in an object */
 #define CheckAndThrowMissingMethodException(method, self, class)        \
-  if (! lib(instanceof)(self, class))                                   \
-    lib(throw)(lib(new)(lang(NoSuchMethodException)(),                  \
+  if (! coal_instanceof(self, class))                                   \
+    coal_throw(coal_new(coal_lang_NoSuchMethodException(),                  \
                         method ": invoked on an unsuitable object"))
 
 #endif /* COAL_CORE_VIRTUAL_METHODS_H__ */

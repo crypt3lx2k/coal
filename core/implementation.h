@@ -11,8 +11,6 @@
 #include <coal/core/virtual_methods.h>
 #include <coal/core/exceptions.h>
 
-#include <coal/lang/namespace.h>
-
 #include <coal/lang/object.h>
 #include <coal/lang/metaclass.h>
 #include <coal/lang/string.h>

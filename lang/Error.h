@@ -2,23 +2,22 @@
 #define COAL_LANG_ERROR_H__
 
 #include <coal/coal.h>
-#include <coal/lang/namespace.h>
 
 /**
- * lang(Error)
+ * coal_lang_Error
  * Base class for throwables that
  * a reasonable application might
  * NOT want to catch.
  *
- * @extends lang(throwable)
+ * @extends coal_lang_throwable
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var lang(Error) (void));
+cfundecl__ (const var coal_lang_Error (void));
 
 #ifdef LANG_NAMESPACE_POLLUTE
-# define Error lang(Error)
+# define Error coal_lang_Error
 #endif
 
 #endif /* COAL_LANG_ERROR_H__ */

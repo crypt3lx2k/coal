@@ -3,7 +3,6 @@
 #include <coal/lang/Exception.h>
 #include <coal/core/classes/subclass.h>
 
-ExceptionDefinitionTemplate(lang,
+ExceptionDefinitionTemplate(coal_lang_NoSuchMethodException,
 			    LIBRARY_STR ".lang.NoSuchMethodException",
-			    NoSuchMethodException,
-			    lang(Exception))
+			    coal_lang_Exception)

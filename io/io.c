@@ -1,35 +1,35 @@
 #include <coal/core/implementation.h>
 #include <coal/io/io.h>
 
-int io(fprint) (const var object, FILE * stream) {
-  var s = lang(toString)(object);
+int coal_io_fprint (const var object, FILE * stream) {
+  var s = coal_lang_toString(object);
   int r = 0;
 
   /* the %s is to keep clang from
      complaining about chars(s)
      not being a format string */
-  r = fprintf(stream, "%s", lang(string_chars)(s));
+  r = fprintf(stream, "%s", coal_lang_string_chars(s));
 
-  lib(del)(s);
+  coal_del(s);
 
   return r;
 }
 
-int io(fprintln) (const var object, FILE * stream) {
-  var s = lang(toString)(object);
+int coal_io_fprintln (const var object, FILE * stream) {
+  var s = coal_lang_toString(object);
   int r = 0;
 
-  r = fprintf(stream, "%s\n", lang(string_chars)(s));
+  r = fprintf(stream, "%s\n", coal_lang_string_chars(s));
 
-  lib(del)(s);
+  coal_del(s);
 
   return r;
 }
 
-int io(print) (const var object) {
-  return io(fprint)(object, stdout);
+int coal_io_print (const var object) {
+  return coal_io_fprint(object, stdout);
 }
 
-int io(println) (const var object) {
-  return io(fprintln)(object, stdout);
+int coal_io_println (const var object) {
+  return coal_io_fprintln(object, stdout);
 }

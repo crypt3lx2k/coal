@@ -12,11 +12,11 @@
 /* for throw */
 #include <coal/io/io.h>
 
-var lib(acquire) (var object) {
+var coal_acquire (var object) {
   return INCREMENT_REFERENCE_COUNT(object);
 }
 
-void lib(del) (var object) {
+void coal_del (var object) {
   if (object == NULL)
     return;
 
@@ -26,17 +26,17 @@ void lib(del) (var object) {
      by another thread here? */
 
   if (IS_GARBAGE(object))
-    free(lang(destructor)(object));
+    free(coal_lang_destructor(object));
 }
 
-bool lib(instanceof) (const var object, const var class) {
+bool coal_instanceof (const var object, const var class) {
   const class(metaclass) * current;
 
   if (class == NULL)
-    lib(throw)(lib(new)(lang(NullPointerException)(),
-			"lib(instanceof): null class description"));
+    coal_throw(coal_new(coal_lang_NullPointerException(),
+			"coal_instanceof: null class description"));
 
-  current = lang(getClass)(object);
+  current = coal_lang_getClass(object);
 
   if (current == class)
     return true;
@@ -46,37 +46,37 @@ bool lib(instanceof) (const var object, const var class) {
 
     if (current == class)
       return true;
-  } while (current != lang(object)());
+  } while (current != coal_lang_object());
 
   return false;
 }
 
-var lib(new) (const var _class, ...) {
+var coal_new (const var _class, ...) {
   const class(metaclass) * class = _class;
   class(object) * object;
   va_list ap;
 
   if (class == NULL)
-    lib(throw)(lib(new)(lang(NullPointerException)(),
-			"lib(new): null class description"));
+    coal_throw(coal_new(coal_lang_NullPointerException(),
+			"coal_new: null class description"));
 
-  object = core(malloc)(class->size);
+  object = coal_core_malloc(class->size);
   object->class = class;
   object->reference_count = 0;
 
   va_start(ap, _class);
-  object = lang(constructor)(object, &ap);
+  object = coal_lang_constructor(object, &ap);
   va_end(ap);
 
-  return lib(acquire)(object);
+  return coal_acquire(object);
 }
 
-void lib(throw) (const var throwable) {
+void coal_throw (const var throwable) {
   if (utility_stack_is_empty(&exceptions_s__)) {
     void * backtrace_buffer[100];
 
     fputs("unhandled exception ", stderr);
-    io(fprintln)(throwable, stderr);
+    coal_io_fprintln(throwable, stderr);
 
     fprintf(stderr,
 	    "Backtrace:\n");

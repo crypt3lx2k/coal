@@ -2,13 +2,12 @@
 #define COAL_LANG_METACLASS_H__
 
 #include <coal/coal.h>
-#include <coal/lang/namespace.h>
 
 /**
- * lang(metaclass)
+ * coal_lang_metaclass
  * Base class for, well, classes.
  *
- * @extends lang(object)
+ * @extends coal_lang_object
  * @constructor takes 9 arguments
  * @param (const char *) name of class
  * @param (const class(metaclass) *) super class
@@ -20,10 +19,10 @@
  * @param (int (*hashCode)(const var)) pointer to hash function
  * @param (var (*toString)(const var)) pointer to string function
  */
-cfundecl__ (const var lang(metaclass) (void));
+cfundecl__ (const var coal_lang_metaclass (void));
 
 #ifdef LANG_NAMESPACE_POLLUTE
-# define metaclass lang(metaclass)
+# define metaclass coal_lang_metaclass
 #endif
 
 #endif /* COAL_LANG_METACLASS_H__ */

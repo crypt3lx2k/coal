@@ -2,19 +2,18 @@
 #define COAL_LANG_OBJECT_H__
 
 #include <coal/coal.h>
-#include <coal/lang/namespace.h>
 
 /**
- * lang(object)
+ * coal_lang_object
  * Base class for objects.
  *
- * @extends lang(object)
+ * @extends coal_lang_object
  * @constructor takes no arguments
  */
-cfundecl__ (const var lang(object) (void));
+cfundecl__ (const var coal_lang_object (void));
 
 /**
- * lang(cmp)
+ * coal_lang_cmp
  * Compares two objects, returns an
  * int less than zero, zero or greater than
  * zero if self is found to be less, equal
@@ -24,10 +23,10 @@ cfundecl__ (const var lang(object) (void));
  * @param  (const var) second object to be compared
  * @return (int) integer that indicates difference between parameters
  */
-cfundecl__ (int lang(cmp) (const var self, const var other));
+cfundecl__ (int coal_lang_cmp (const var self, const var other));
 
 /**
- * lang(constructor)
+ * coal_lang_constructor
  * Initializes object properly, takes a
  * variable argument list with the arguments
  * to the constructor. This is visible to the
@@ -38,10 +37,10 @@ cfundecl__ (int lang(cmp) (const var self, const var other));
  * @param  (va_list *) list with arguments for the constructor
  * @return (var) the initialized object
  */
-cfundecl__ (var lang(constructor) (var self, va_list * app));
+cfundecl__ (var coal_lang_constructor (var self, va_list * app));
 
 /**
- * lang(destructor)
+ * coal_lang_destructor
  * Destroys and clears objects properly.
  * This is visible to the end user so that
  * in the future you may allocate objects
@@ -50,67 +49,67 @@ cfundecl__ (var lang(constructor) (var self, va_list * app));
  * @param  (var) object to be cleared
  * @return (var) the cleared object
  */
-cfundecl__ (var lang(destructor) (var self));
+cfundecl__ (var coal_lang_destructor (var self));
 
 /**
- * lang(equals)
+ * coal_lang_equals
  * Checks whether two objects are equal.
  * 
  * @param  (const var) first object to be compared
  * @param  (const var) second object to be compared
  * @return (bool) true if the objects were found to be equal, false otherwise
  */
-cfundecl__ (bool lang(equals) (const var self, const var other));
+cfundecl__ (bool coal_lang_equals (const var self, const var other));
 
 /**
- * lang(getClass)
+ * coal_lang_getClass
  * Returns the metaclass that object
  * is an instance of.
  *
  * @param  (const var) instance
  * @return (const var) metaclass of instance
  */
-cfundecl__ (const var lang(getClass) (const var self));
+cfundecl__ (const var coal_lang_getClass (const var self));
 
 /**
- * lang(getSize)
+ * coal_lang_getSize
  * Returns the size in bytes of an
  * object in memory.
  *
  * @param  (const var) object to be measured
  * @return (size_t) size of object in bytes
  */
-cfundecl__ (size_t lang(getSize) (const var self));
+cfundecl__ (size_t coal_lang_getSize (const var self));
 
 /**
- * lang(hashCode)
+ * coal_lang_hashCode
  * Returns the hash of an object.
  *
  * @param  (const var) object to be hashed
  * @return (int) hash of object
  */
-cfundecl__ (int lang(hashCode) (const var self));
+cfundecl__ (int coal_lang_hashCode (const var self));
 
 /**
- * lang(toString)
+ * coal_lang_toString
  * Returns a string representation of
  * an object.
  *
  * @param  (const var) object that is to be representated as a string
  * @return (var) string representation of object
  */
-cfundecl__ (var lang(toString) (const var self));
+cfundecl__ (var coal_lang_toString (const var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
-# define object      lang(object)
-# define cmp         lang(cmp)
-# define constructor lang(constructor)
-# define destructor  lang(destructor)
-# define equals      lang(equals)
-# define getClass    lang(getClass)
-# define getSize     lang(getSize)
-# define hashCode    lang(hashCode)
-# define toString    lang(toString)
+# define object      coal_lang_object
+# define cmp         coal_lang_cmp
+# define constructor coal_lang_constructor
+# define destructor  coal_lang_destructor
+# define equals      coal_lang_equals
+# define getClass    coal_lang_getClass
+# define getSize     coal_lang_getSize
+# define hashCode    coal_lang_hashCode
+# define toString    coal_lang_toString
 #endif
 
 #endif /* COAL_LANG_OBJECT_H__ */

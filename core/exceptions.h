@@ -12,19 +12,6 @@
 named_utility_stack(exceptions_stack__, void *);
 extern struct exceptions_stack__ exceptions_s__;
 
-/*
- * These might be in user space.
- */
-#ifdef LIB_NAMESPACE_POLLUTE
-# define EXCEPTIONS_INSTANCEOF instanceof
-# define EXCEPTIONS_THROW      throw
-# define EXCEPTIONS_DEL        del
-#else /* not LIB_NAMESPACE_POLLUTE */
-# define EXCEPTIONS_INSTANCEOF lib(instanceof)
-# define EXCEPTIONS_THROW      lib(throw)
-# define EXCEPTIONS_DEL        lib(del)
-#endif /* LIB_NAMESPACE_POLLUTE */
-
 #define try                                                             \
   ({                                                                    \
     jmp_buf exceptions_jmp_buf__;                                       \
@@ -38,7 +25,7 @@ extern struct exceptions_stack__ exceptions_s__;
 
 #define catch(exception, identifier)                                    \
   }                                                                     \
-  else if (EXCEPTIONS_INSTANCEOF(exceptions_res__, exception)) {        \
+  else if (coal_instanceof(exceptions_res__, exception)) {              \
     var identifier = exceptions_res__;                                  \
     exceptions_caught__ = true;
 
@@ -49,9 +36,9 @@ extern struct exceptions_stack__ exceptions_s__;
     }                                                   \
     (void) utility_stack_pop(&exceptions_s__);          \
     if (exceptions_res__ && ! exceptions_caught__)      \
-      EXCEPTIONS_THROW(exceptions_res__);               \
+      coal_throw(exceptions_res__);                     \
     else                                                \
-      EXCEPTIONS_DEL(exceptions_res__);                 \
+      coal_del(exceptions_res__);                       \
   })
 
 #endif /* COAL_CORE_EXCEPTIONS_H__ */

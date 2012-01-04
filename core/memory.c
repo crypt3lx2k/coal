@@ -3,14 +3,14 @@
 #include <coal/core/implementation.h>
 #include <coal/lang/OutOfMemoryError.h>
 
-void * core(malloc) (size_t size) {
+void * coal_core_malloc (size_t size) {
   void * block;
 
   block = malloc(size);
 
   if (block == NULL) 
-    lib(throw)(lib(new)(lang(OutOfMemoryError)(),
-			"core(malloc): failed malloc of size %u.",
+    coal_throw(coal_new(coal_lang_OutOfMemoryError(),
+			"coal_core_malloc: failed malloc of size %u.",
 			size));
 
   return block;

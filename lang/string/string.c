@@ -27,7 +27,7 @@ var string_constructor (var _self, va_list * app) {
   va_copy(copy, *app);
 
   if (vasprintf(&self->str, fmt, copy) == -1)
-    lib(throw)(lib(new)(lang(OutOfMemoryError)(),
+    coal_throw(coal_new(coal_lang_OutOfMemoryError(),
 			"string_constructor: string allocation failed."));
 
   va_end(copy);
@@ -76,7 +76,7 @@ int string_hashCode(const var _self) {
 }
 
 var string_toString(const var self) {
-  return lib(acquire)((var) self);
+  return coal_acquire((var) self);
 }
 
 /* lang.string methods */
@@ -92,13 +92,13 @@ var string_concat (const var _self, const var _other) {
   var    res;
 
   len = self->len + other->len;
-  str = core(malloc)((len + 1) * sizeof(char));
+  str = coal_core_malloc((len + 1) * sizeof(char));
 
   memcpy(str, self->str, self->len);
   memcpy(str + self->len, other->str, other->len);
   str[len] = '\0';
 
-  res = lib(new)(lang(string)(), str);
+  res = coal_new(coal_lang_string(), str);
   free(str);
 
   return res;
@@ -106,11 +106,11 @@ var string_concat (const var _self, const var _other) {
 
 static const var string__ = NULL;
 
-const var lang(string) (void) {
+const var coal_lang_string (void) {
   return string__ != NULL ? string__ :
-    (string__ = lib(new)(lang(string_metaclass)(),
+    (string__ = coal_new(coal_lang_string_metaclass(),
 			 LIBRARY_STR ".lang.string",
-			 lang(object)(),
+			 coal_lang_object(),
 			 sizeof(class(string)),
 			 /* object */
 			 string_cmp,

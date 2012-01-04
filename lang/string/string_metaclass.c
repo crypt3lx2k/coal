@@ -3,7 +3,7 @@
 
 var string_metaclass_constructor (var _self, va_list * app) {
   class(string_metaclass) * self  = _self;
-  const class(metaclass)  * class = lang(string_metaclass)();
+  const class(metaclass)  * class = coal_lang_string_metaclass();
 
   class->super->constructor(_self, app);
 
@@ -12,33 +12,33 @@ var string_metaclass_constructor (var _self, va_list * app) {
   return _self;
 }
 
-const char * lang(string_chars) (const var _self) {
+const char * coal_lang_string_chars (const var _self) {
   const class(string) * self = _self;
 
-  CheckAndThrowMissingMethodException("lang(string_chars)", _self, lang(string)());
+  CheckAndThrowMissingMethodException("coal_lang_string_chars", _self, coal_lang_string());
 
   return self->str;
 }
 
-size_t lang(string_length) (const var _self) {
+size_t coal_lang_string_length (const var _self) {
   const class(string) * self = _self;
 
-  CheckAndThrowMissingMethodException("lang(string_length)", _self, lang(string)());
+  CheckAndThrowMissingMethodException("coal_lang_string_length", _self, coal_lang_string());
 
   return self->len;
 }
 
-var lang(string_concat) (const var self, const var other) {
+var coal_lang_string_concat (const var self, const var other) {
   const class(string_metaclass) * s_class;
   const class(string_metaclass) * o_class;
 
-  CheckAndThrowMissingMethodException("lang(string_concat)", self, lang(string)());
-  CheckAndThrowMissingMethodException("lang(string_concat)", other, lang(string)());
+  CheckAndThrowMissingMethodException("coal_lang_string_concat", self, coal_lang_string());
+  CheckAndThrowMissingMethodException("coal_lang_string_concat", other, coal_lang_string());
 
-  s_class = lang(getClass)(self);
-  o_class = lang(getClass)(other);
+  s_class = coal_lang_getClass(self);
+  o_class = coal_lang_getClass(other);
 
-  if (lib(instanceof)(self, o_class))
+  if (coal_instanceof(self, o_class))
     return o_class->concat(self, other);
   else
     return s_class->concat(self, other);
@@ -48,11 +48,11 @@ var lang(string_concat) (const var self, const var other) {
 
 static const var string_metaclass__ = NULL;
 
-const var lang(string_metaclass) (void) {
+const var coal_lang_string_metaclass (void) {
   return string_metaclass__ != NULL ? string_metaclass__ :
-    (string_metaclass__ = lib(new)(lang(metaclass)(),
+    (string_metaclass__ = coal_new(coal_lang_metaclass(),
 				   LIBRARY_STR ".lang.string_class",
-				   lang(metaclass)(),
+				   coal_lang_metaclass(),
 				   sizeof(class(string_metaclass)),
 				   INHERIT_METHOD,
 				   string_metaclass_constructor,

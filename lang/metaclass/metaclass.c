@@ -3,7 +3,7 @@
 #include <coal/core/implementation.h>
 #include <coal/lang/NullPointerException.h>
 
-int lang(cmp) (const var self, const var other) {
+int coal_lang_cmp (const var self, const var other) {
   const class(metaclass) * s_class;
   const class(metaclass) * o_class;
 
@@ -11,14 +11,14 @@ int lang(cmp) (const var self, const var other) {
   if (self == other)
     return 0;
 
-  s_class = lang(getClass)(self);
-  o_class = lang(getClass)(other);
+  s_class = coal_lang_getClass(self);
+  o_class = coal_lang_getClass(other);
 
   /* self instance of other's class? */
-  if (lib(instanceof)(self, o_class))
+  if (coal_instanceof(self, o_class))
     return o_class->cmp(self, other);
   /* other instance of self's class? */
-  else if (lib(instanceof)(other, s_class))
+  else if (coal_instanceof(other, s_class))
     return s_class->cmp(self, other);
   /* completely different types,
      we compare the class names
@@ -27,15 +27,15 @@ int lang(cmp) (const var self, const var other) {
     return strcmp(s_class->name, o_class->name);
 }
 
-var lang(constructor) (var self, va_list * app) {
+var coal_lang_constructor (var self, va_list * app) {
   ClassCallTemplate(constructor, metaclass, self, app);
 }
 
-var lang(destructor) (var self) {
+var coal_lang_destructor (var self) {
   ClassCallTemplate(destructor, metaclass, self);
 }
 
-bool lang(equals) (const var self, const var other) {
+bool coal_lang_equals (const var self, const var other) {
   const class(metaclass) * s_class;
   const class(metaclass) * o_class;
 
@@ -43,14 +43,14 @@ bool lang(equals) (const var self, const var other) {
   if (self == other)
     return true;
 
-  s_class = lang(getClass)(self);
-  o_class = lang(getClass)(other);
+  s_class = coal_lang_getClass(self);
+  o_class = coal_lang_getClass(other);
 
   /* self instance of other's class */
-  if (lib(instanceof)(self, o_class))
+  if (coal_instanceof(self, o_class))
     return o_class->equals(self, other);
   /* other instance of self's class */
-  else if (lib(instanceof)(other, s_class))
+  else if (coal_instanceof(other, s_class))
     return s_class->equals(self, other);
   /* completely different types,
      can't be equal */
@@ -58,31 +58,31 @@ bool lang(equals) (const var self, const var other) {
     return false;
 }
 
-const var lang(getClass) (const var _self) {
+const var coal_lang_getClass (const var _self) {
   const class(object) * self = _self;
 
   if (self == NULL)
-    lib(throw)(lib(new)(lang(NullPointerException)(),
-			"lang(getClass): null object"));
+    coal_throw(coal_new(coal_lang_NullPointerException(),
+			"coal_lang_getClass: null object"));
 
   if (self->class == NULL)
-    lib(throw)(lib(new)(lang(NullPointerException)(),
-			"lang(getClass): null class description"));
+    coal_throw(coal_new(coal_lang_NullPointerException(),
+			"coal_lang_getClass: null class description"));
 
   return self->class;
 }
 
-size_t lang(getSize) (const var self) {
-  const class(metaclass) * class = lang(getClass)(self);
+size_t coal_lang_getSize (const var self) {
+  const class(metaclass) * class = coal_lang_getClass(self);
 
   return class->size;
 }
 
-int lang(hashCode) (const var self) {
+int coal_lang_hashCode (const var self) {
   ClassCallTemplate(hashCode, metaclass, self);
 }
 
-var lang(toString) (const var self) {
+var coal_lang_toString (const var self) {
   ClassCallTemplate(toString, metaclass, self);
 }
 

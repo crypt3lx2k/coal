@@ -3,7 +3,6 @@
 #include <coal/lang/Error.h>
 #include <coal/core/classes/subclass.h>
 
-ExceptionDefinitionTemplate(lang,
+ExceptionDefinitionTemplate(coal_lang_OutOfMemoryError,
 			    LIBRARY_STR ".lang.OutOfMemoryError",
-			    OutOfMemoryError,
-			    lang(Error))
+			    coal_lang_Error)

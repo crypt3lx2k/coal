@@ -12,7 +12,7 @@ typedef atomic(unsigned long int) reference_counter_type;
 #include <coal/lang/object/object.rep>
 
 /* Don't use these macros, use
-   lib(acquire) and lib(del) instead */
+   coal_acquire and coal_del instead */
 /**
  * INCREMENT_REFERENCE_COUNT
  * Increments the reference counter

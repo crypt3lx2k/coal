@@ -2,19 +2,18 @@
 #define COAL_LANG_STRING_H__
 
 #include <coal/coal.h>
-#include <coal/lang/namespace.h>
 
 /**
- * lang(string)
+ * coal_lang_string
  * Class that represents a
  * sequence of characters.
  *
- * @extends lang(object)
+ * @extends coal_lang_object
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var lang(string) (void));
+cfundecl__ (const var coal_lang_string (void));
 
 /**
  * lang_string(chars)
@@ -24,7 +23,7 @@ cfundecl__ (const var lang(string) (void));
  * @param  (const var) string object
  * @return (const char *) characters of string
  */
-cfundecl__ (const char * lang(string_chars) (const var self));
+cfundecl__ (const char * coal_lang_string_chars (const var self));
 
 /**
  * lang_string(concat)
@@ -35,7 +34,7 @@ cfundecl__ (const char * lang(string_chars) (const var self));
  * @param  (const var) second string
  * @return (var) concatenated string
  */
-cfundecl__ (var lang(string_concat) (const var self, const var other));
+cfundecl__ (var coal_lang_string_concat (const var self, const var other));
 
 /**
  * lang_string(length)
@@ -44,13 +43,13 @@ cfundecl__ (var lang(string_concat) (const var self, const var other));
  * @param  (const var) string
  * @return (size_t) length of string
  */
-cfundecl__ (size_t lang(string_length) (const var self));
+cfundecl__ (size_t coal_lang_string_length (const var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
-# define string        lang(string)
-# define string_chars  lang(string_chars)
-# define string_concat lang(string_concat)
-# define string_length lang(string_length)
+# define string        coal_lang_string
+# define string_chars  coal_lang_string_chars
+# define string_concat coal_lang_string_concat
+# define string_length coal_lang_string_length
 #endif
 
 #endif /* COAL_LANG_STRING_H__ */

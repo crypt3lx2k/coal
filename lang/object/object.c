@@ -23,11 +23,11 @@ int object_hashCode (const var self) {
 }
 
 var object_toString (const var self) {
-  const class(metaclass) * class = lang(getClass)(self);
+  const class(metaclass) * class = coal_lang_getClass(self);
 
-  return lib(new)(lang(string)(), "%s@%x",
+  return coal_new(coal_lang_string(), "%s@%x",
 		  class->name,
-		  lang(hashCode)(self));
+		  coal_lang_hashCode(self));
 }
 
 var metaclass_constructor (var _self, va_list * app) {
@@ -40,7 +40,7 @@ var metaclass_constructor (var _self, va_list * app) {
 
   memcpy((char *) self + offset,
 	 (char *) self->super + offset,
-	 lang(getSize)(self->super) - offset);
+	 coal_lang_getSize(self->super) - offset);
 
   OverrideMethod(self, cmp);
   OverrideMethod(self, constructor);
@@ -64,7 +64,7 @@ var metaclass_destructor (var self __attribute__ ((unused))) {
 var metaclass_toString (const var _self) {
   const class(metaclass) * self = _self;
 
-  return lib(new)(lang(string)(),
+  return coal_new(coal_lang_string(),
 		  "class %s",
 		  self->name);
 }
@@ -110,11 +110,11 @@ static const class(metaclass) _objs [] = {
   }
 };
 
-const var lang(object) (void) {
+const var coal_lang_object (void) {
   return _object;
 }
 
-const var lang(metaclass) (void) {
+const var coal_lang_metaclass (void) {
   return _metaclass;
 }
 

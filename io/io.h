@@ -4,20 +4,19 @@
 #include <stdio.h>
 
 #include <coal/coal.h>
-#include <coal/io/namespace.h>
 
 /**
- * io(fprint)
+ * coal_io_fprint
  * Prints object to stream.
  *
  * @param  (const var) object to be printed
  * @param  (FILE *) stream to print to
  * @return (int) the number of characters printed
  */
-cfundecl__ (int io(fprint) (const var object, FILE * stream));
+cfundecl__ (int coal_io_fprint (const var object, FILE * stream));
 
 /**
- * io(fprintln)
+ * coal_io_fprintln
  * Prints object to stream
  * with a trailing newline.
  *
@@ -25,32 +24,32 @@ cfundecl__ (int io(fprint) (const var object, FILE * stream));
  * @param  (FILE *) stream to print to
  * @return (int) the number of characters printed
  */
-cfundecl__ (int io(fprintln) (const var object, FILE * stream));
+cfundecl__ (int coal_io_fprintln (const var object, FILE * stream));
 
 /**
- * io(print)
+ * coal_io_print
  * Prints object to stdout.
  *
  * @param  (const var) object to be printed
  * @return (int) the number of characters printed
  */
-cfundecl__ (int io(print) (const var object));
+cfundecl__ (int coal_io_print (const var object));
 
 /**
- * io(println)
+ * coal_io_println
  * Prints object to stdout
  * with a trailing newline.
  *
  * @param  (const var) object to be printed
  * @return (int) the number of characters printed
  */
-cfundecl__ (int io(println) (const var object));
+cfundecl__ (int coal_io_println (const var object));
 
 #ifdef IO_NAMESPACE_POLLUTE
-# define fprint   io(fprint)
-# define fprintln io(fprintln)
-# define print    io(prin)
-# define println  io(println)
+# define fprint   coal_io_fprint
+# define fprintln coal_io_fprintln
+# define print    coal_io_prin
+# define println  coal_io_println
 #endif
 
 #endif /* COAL_IO_IO_H__ */

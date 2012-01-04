@@ -14,7 +14,7 @@ var subclass_constructor (var _self, va_list * app) {
 
   memcpy(self,
 	 super,
-	 lang(getSize)(super));
+	 coal_lang_getSize(super));
 
   self->name  = name;
   self->super = super;
@@ -24,11 +24,11 @@ var subclass_constructor (var _self, va_list * app) {
 
 static const var subclass__ = NULL;
 
-const var core(subclass) (void) {
+const var coal_core_subclass (void) {
   return subclass__ ? subclass__ :
-    (subclass__ = lib(new)(lang(metaclass)(),
+    (subclass__ = coal_new(coal_lang_metaclass(),
 			   LIBRARY_STR ".core.classes.subclass",
-			   lang(metaclass)(),
+			   coal_lang_metaclass(),
 			   sizeof(class(subclass)),
 			   INHERIT_METHOD,
 			   subclass_constructor,
