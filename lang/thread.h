@@ -24,17 +24,17 @@ cfundecl__ (const var coal_lang_thread (void));
 cfundecl__ (void coal_lang_thread_join (var self));
 
 /**
- * coal_lang_thread_run
+ * coal_lang_thread_start
  * Starts executing thread.
  *
  * @param (var) the thread in question
  */
-cfundecl__ (void coal_lang_thread_run (var self));
+cfundecl__ (void coal_lang_thread_start (var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define thread coal_lang_thread
 # define join   coal_lang_thread_join
-# define run    coal_lang_thread_run
+# define start  coal_lang_thread_start
 #endif
 
 #endif /* COAL_LANG_THREAD_H__ */

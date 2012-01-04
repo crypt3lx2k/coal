@@ -22,19 +22,19 @@ var thread_destructor (var _self) {
   return _self;
 }
 
-void coal_lang_thread_run (var _self) {
+void coal_lang_thread_join (var _self) {
+  class(thread) * self = _self;
+
+  pthread_join(self->thread, NULL);
+}
+
+void coal_lang_thread_start (var _self) {
   class(thread) * self = _self;
 
   (void) pthread_create(&self->thread,
 			&self->attr,
 			self->start_routine,
 			self->arg);
-}
-
-void coal_lang_thread_join (var _self) {
-  class(thread) * self = _self;
-
-  pthread_join(self->thread, NULL);
 }
 
 static const var thread__ = NULL;

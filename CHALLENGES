@@ -7,34 +7,41 @@ Exceptions need to be revised, the utility_stack is not thread safe, perhaps the
 More to come.
 
 Here is a test program which should work with this version.
-I have not yet tested it for memory leaks.
+It is an implementation of the sleepsort algorithm.
 
 #include <stdio.h>
+#include <unistd.h>
+
 #include <coal/lang/thread.h>
 
-#define THREADS 10
-
-void * fun (void * args) {
-  int number = (int) args;
-
-  printf("hello: %d\n", number);
-
-  return NULL;
+void target (int number) {
+  sleep(number);
+  printf("%d\n", number);
+  fflush(stdout);
 }
 
-int main (void) {
+int main (int argc, char ** argv) {
   int i;
-  var threads[THREADS];
+  var * threads;
 
-  for (i = 0; i < THREADS; i++) {
+  threads = malloc(sizeof(var) * (argc-1));
+
+  for (i = 0; i < argc-1; i++) {
+    int number = atoi(argv[i+1]);
+
     threads[i] = new(thread(),
-		     fun,
-		     (void *) i);
-    run(threads[i]);
+		     target,
+		     number);
+    start(threads[i]);
   }
 
-  for (i = 0; i < THREADS; i++)
+  /* del on a thread object
+     implicitly joins with
+     the thread */
+  for (i = 0; i < argc-1; i++)
     del(threads[i]);
+
+  free(threads);
 
   exit(EXIT_SUCCESS);
 }
