@@ -107,7 +107,7 @@ cfundecl__ (void coal_throw (const var throwable)) __attribute__ ((noreturn));
 
 /* Functions - end */
 
-#ifdef LIB_NAMESPACE_POLLUTE
+#ifdef COAL_NAMESPACE_POLLUTE
 # define acquire    coal_acquire
 # define del        coal_del
 # define new        coal_new

@@ -12,7 +12,7 @@ static inline int
 divide (int n, int m) {
   if (m == 0)
     throw(new(throwable(),
-	      "division by zero in %d\\%d",
+	      "division by zero in %d/%d",
 	      n, m));
 
   return n/m;
@@ -42,7 +42,7 @@ int main (int argc, char ** argv) {
 }
 
 If you have installed the libcoal.so to your /usr/lib you may compile it with
-$ gcc -I ../ -DLIB_NAMESPACE_POLLUTE -DLANG_NAMESPACE_POLLUTE -DIO_NAMESPACE_POLLUTE -DCOAL_USER_EXCEPTIONS -O0 -g -lcoal test.c
+$ gcc -I ../ -DCOAL_NAMESPACE_POLLUTE -DLANG_NAMESPACE_POLLUTE -DIO_NAMESPACE_POLLUTE -DCOAL_USER_EXCEPTIONS -O0 -g -lcoal test.c
 
 And run it with
 $ ./a.out
