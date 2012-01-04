@@ -1,6 +1,9 @@
 #ifndef COAL_CORE_IMPLEMENTATION_H__
 #define COAL_CORE_IMPLEMENTATION_H__
 
+/* BRANCH THREADING */
+#include <pthread.h>
+
 #include <coal/coal.h>
 
 #include <coal/core/common.h>

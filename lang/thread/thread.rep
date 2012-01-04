@@ -1,0 +1,18 @@
+#ifndef COAL_LANG_THREAD_REP__
+#define COAL_LANG_THREAD_REP__
+
+#include <coal/core/implementation.h>
+
+class (thread) {
+  extends(object);
+
+  /* see pthread create
+     will add new attributes
+     as we need them */
+  pthread_t thread;
+  pthread_attr_t attr;
+  void *(*start_routine) (void *);
+  void * arg;
+};
+
+#endif /* COAL_LANG_THREAD_REP__ */

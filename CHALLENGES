@@ -1,0 +1,40 @@
+There are a couple of challenges with making this library successfully multi-threaded.
+
+Static variables must go, although it is possible to make static variables thread local in GNU-C (and C11) we will probably want things like class descriptions global in shared memory, currently it's not safe to create new objects in a multi-threaded manner, there is a data race in every function which creates a new class description.
+
+Exceptions need to be revised, the utility_stack is not thread safe, perhaps the solution is simple by making the exception stack thread local, but I'll need to look over this.
+
+More to come.
+
+Here is a test program which should work with this version.
+I have not yet tested it for memory leaks.
+
+#include <stdio.h>
+#include <coal/lang/thread.h>
+
+#define THREADS 10
+
+void * fun (void * args) {
+  int number = (int) args;
+
+  printf("hello: %d\n", number);
+
+  return NULL;
+}
+
+int main (void) {
+  int i;
+  var threads[THREADS];
+
+  for (i = 0; i < THREADS; i++) {
+    threads[i] = new(thread(),
+		     fun,
+		     (void *) i);
+    run(threads[i]);
+  }
+
+  for (i = 0; i < THREADS; i++)
+    del(threads[i]);
+
+  exit(EXIT_SUCCESS);
+}

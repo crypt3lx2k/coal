@@ -3,7 +3,7 @@ COAL = ../
 IFLAGS = -I$(COAL)
 CFLAGS = -O2 -DNDEBUG -fomit-frame-pointer
 DBFLAGS = -g -O0 -rdynamic
-LDFLAGS = 
+LDFLAGS = -pthread
 WFLAGS = -Wall -Wextra
 LIBFLAGS = -shared -fPIC
 
