@@ -73,17 +73,20 @@ var coal_new (const var _class, ...) {
 
 void coal_throw (const var throwable) {
   if (utility_stack_is_empty(&exceptions_s__)) {
-    void * backtrace_buffer[100];
-
     fputs("unhandled exception ", stderr);
     coal_io_fprintln(throwable, stderr);
 
-    fprintf(stderr,
-	    "Backtrace:\n");
+    /* glibc specific */
+    {
+      void * backtrace_buffer[100];
 
-    backtrace_symbols_fd(backtrace_buffer,
-			 backtrace(backtrace_buffer, 100),
-			 STDERR_FILENO);
+      fprintf(stderr,
+	      "Backtrace:\n");
+
+      backtrace_symbols_fd(backtrace_buffer,
+			   backtrace(backtrace_buffer, 100),
+			   STDERR_FILENO);
+    }
 
     exit(EXIT_FAILURE);
   } else {
