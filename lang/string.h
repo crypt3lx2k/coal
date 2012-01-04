@@ -16,7 +16,7 @@
 cfundecl__ (const var coal_lang_string (void));
 
 /**
- * lang_string(chars)
+ * coal_lang_string_chars
  * Returns the underlying string
  * as an immutable character array.
  *
@@ -26,7 +26,7 @@ cfundecl__ (const var coal_lang_string (void));
 cfundecl__ (const char * coal_lang_string_chars (const var self));
 
 /**
- * lang_string(concat)
+ * coal_lang_string_concat
  * Concatenates two strings, returns
  * a new string that has to be del'd.
  *
@@ -37,7 +37,7 @@ cfundecl__ (const char * coal_lang_string_chars (const var self));
 cfundecl__ (var coal_lang_string_concat (const var self, const var other));
 
 /**
- * lang_string(length)
+ * coal_lang_string_length
  * Returns the length of the string.
  *
  * @param  (const var) string
