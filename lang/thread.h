@@ -32,9 +32,14 @@ cfundecl__ (void coal_lang_thread_join (var self));
 cfundecl__ (void coal_lang_thread_start (var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
-# define thread coal_lang_thread
-# define join   coal_lang_thread_join
-# define start  coal_lang_thread_start
+# define thread       coal_lang_thread
+# define thread_join  coal_lang_thread_join
+# define thread_start coal_lang_thread_start
+#endif
+
+#ifdef THREAD_NAMESPACE_POLLUTE
+# define join  coal_lang_thread_join
+# define start coal_lang_thread_start
 #endif
 
 #endif /* COAL_LANG_THREAD_H__ */

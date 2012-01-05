@@ -4,6 +4,8 @@ Static variables must go, although it is possible to make static variables threa
 
 Exceptions need to be revised, the utility_stack is not thread safe, perhaps the solution is simple by making the exception stack thread local, but I'll need to look over this.
 
+Short term solution, lock everything with mutexes, gradually and carefully change to lock free variants where performance is needed.
+
 More to come.
 
 Here is a test program which should work with this version.
@@ -32,7 +34,7 @@ int main (int argc, char ** argv) {
     threads[i] = new(thread(),
 		     target,
 		     number);
-    start(threads[i]);
+    thread_start(threads[i]);
   }
 
   /* del on a thread object
