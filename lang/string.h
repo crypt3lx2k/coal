@@ -52,4 +52,10 @@ cfundecl__ (size_t coal_lang_string_length (const var self));
 # define string_length coal_lang_string_length
 #endif
 
+#ifdef STRING_NAMESPACE_POLLUTE
+# define chars  coal_lang_string_chars
+# define concat coal_lang_string_concat
+# define length coal_lang_string_length
+#endif
+
 #endif /* COAL_LANG_STRING_H__ */
