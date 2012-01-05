@@ -22,4 +22,8 @@
  */
 cfundecl__ (const var coal_lang_iterable (void));
 
+#ifdef LANG_NAMESPACE_POLLUTE
+# define iterable coal_lang_iterable
+#endif
+
 #endif /* COAL_LANG_ITERABLE_H__ */

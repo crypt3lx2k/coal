@@ -5,11 +5,11 @@
 
 var iterable_constructor (var _self, va_list * app) {
   class(iterable)  * self  = _self;
-  class(metaclass) * class = coal_lang_iterable();
+  const class(metaclass) * class = coal_lang_iterable();
 
   class->super->constructor(_self, app);
 
-  OverrideMethod(iterator);
+  OverrideMethod(self, iterator);
 
   return _self;
 }
