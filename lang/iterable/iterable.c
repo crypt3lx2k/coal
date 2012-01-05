@@ -4,8 +4,8 @@
 #include <coal/lang/iterable/iterable.rep>
 
 var iterable_constructor (var _self, va_list * app) {
-  class(iterable)  * self  = _self;
   const class(metaclass) * class = coal_lang_iterable();
+  class(iterable) * self = _self;
 
   class->super->constructor(_self, app);
 
@@ -24,8 +24,8 @@ var coal_lang_iterable_iterator (const var _self) {
 
 static const var iterable__ = NULL;
 
-const var iterable (void) {
-  return iterable__ ? iterable__ :
+const var coal_lang_iterable (void) {
+  return iterable__ != NULL ? iterable__ :
     (iterable__ = coal_new(coal_lang_metaclass(),
 			   LIBRARY_STR ".lang.iterable",
 			   coal_lang_metaclass(),

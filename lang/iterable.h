@@ -22,8 +22,22 @@
  */
 cfundecl__ (const var coal_lang_iterable (void));
 
+/**
+ * coal_lang_iterable_iterator
+ * Returns an iterator for the iterable object.
+ *
+ * @param  (const var) iterable object
+ * @return (var) iterator over the object
+ */
+cfundecl__ (var coal_lang_iterable_iterator (const var self));
+
 #ifdef LANG_NAMESPACE_POLLUTE
-# define iterable coal_lang_iterable
+# define iterable          coal_lang_iterable
+# define iterable_iterator coal_lang_iterable_iterator
+#endif
+
+#ifdef ITERABLE_NAMESPACE_POLLUTE
+# define iterator coal_lang_iterable_iterator
 #endif
 
 #endif /* COAL_LANG_ITERABLE_H__ */

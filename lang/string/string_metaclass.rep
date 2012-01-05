@@ -8,7 +8,7 @@
  * Metaclass for strings.
  *
  * @extends coal_lang_metaclass
- * @constructor takes 10 arguments
+ * @constructor takes 10__ arguments
  * @param (const char *) name of class
  * @param (const class(metaclass) *) super class
  * @param (size_t) size of instances in bytes
