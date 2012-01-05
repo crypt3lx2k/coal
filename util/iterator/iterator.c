@@ -18,7 +18,7 @@ var iterator_constructor (var _self, va_list * app) {
 bool coal_util_iterator_hasNext (const var _self) {
   const class(iterator) * class = coal_lang_getClass(_self);
 
-  CheckAndThrowMissingMethodException("coal_util_iterator_hasNext", _self, coal_util_iterator());
+  CheckAndThrowMissingMethodException("coal_util_iterator_hasNext", class, coal_util_iterator());
 
   return class->hasNext(_self);
 }
@@ -26,7 +26,7 @@ bool coal_util_iterator_hasNext (const var _self) {
 var coal_util_iterator_next (var _self) {
   const class(iterator) * class = coal_lang_getClass(_self);
 
-  CheckAndThrowMissingMethodException("coal_util_iterator_next", _self, coal_util_iterator());
+  CheckAndThrowMissingMethodException("coal_util_iterator_next", class, coal_util_iterator());
 
   return class->next(_self);
 }

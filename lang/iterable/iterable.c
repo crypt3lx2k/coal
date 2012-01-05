@@ -17,7 +17,7 @@ var iterable_constructor (var _self, va_list * app) {
 var coal_lang_iterable_iterator (const var _self) {
   const class(iterable) * class = coal_lang_getClass(_self);
 
-  CheckAndThrowMissingMethodException("coal_lang_iterable_iterator", _self, coal_lang_iterable());
+  CheckAndThrowMissingMethodException("coal_lang_iterable_iterator", class, coal_lang_iterable());
 
   return class->iterator(_self);
 }
