@@ -53,7 +53,7 @@ static const var string_metaclass__ = NULL;
 const var coal_lang_string_metaclass (void) {
   return string_metaclass__ != NULL ? string_metaclass__ :
     (string_metaclass__ = coal_new(coal_lang_metaclass(),
-				   LIBRARY_STR ".lang.string_class",
+				   LIBRARY_STR ".lang.string.class",
 				   coal_lang_iterable(),
 				   sizeof(class(string_metaclass)),
 				   INHERIT_METHOD,
