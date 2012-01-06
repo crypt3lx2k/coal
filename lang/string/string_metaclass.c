@@ -50,7 +50,7 @@ var coal_lang_string_concat (const var self, const var other) {
 SETUP_CLASS_DESCRIPTION(coal_lang_string_metaclass,
 			coal_lang_metaclass(),
 			LIBRARY_STR ".lang.string_class",
-			coal_lang_metaclass(),
+			coal_lang_iterable(),
 			sizeof(class(string_metaclass)),
 			INHERIT_METHOD,
 			string_metaclass_constructor,

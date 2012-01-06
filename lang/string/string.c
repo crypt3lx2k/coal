@@ -127,5 +127,7 @@ SETUP_CLASS_DESCRIPTION(coal_lang_string,
 			string_equals,
 			string_hashCode,
 			string_toString,
+			/* iterable */
+			string_iterator,
 			/* string */
 			string_concat);
