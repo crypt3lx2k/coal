@@ -22,10 +22,9 @@ void coal_del (var object) {
 
   DECREMENT_REFERENCE_COUNT(object);
 
-  /* what if object is acquired
-     by another thread here? */
-
   if (IS_GARBAGE(object))
+    /* what if object is acquired
+       by another thread here? */
     free(coal_lang_destructor(object));
 }
 
