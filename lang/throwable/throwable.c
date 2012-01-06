@@ -43,18 +43,14 @@ var throwable_toString(const var _self) {
 		  self->message);
 }
 
-static const var throwable__ = NULL;
-
-const var coal_lang_throwable (void) {
-  return throwable__ != NULL ? throwable__ :
-    (throwable__ = coal_new(coal_lang_metaclass(),
-			    LIBRARY_STR ".lang.throwable",
-			    coal_lang_object(),
-			    sizeof(class(throwable)),
-			    INHERIT_METHOD,
-			    throwable_constructor,
-			    throwable_destructor,
-			    INHERIT_METHOD,
-			    INHERIT_METHOD,
-			    throwable_toString));
-}
+SETUP_CLASS_DESCRIPTION(coal_lang_throwable,
+			coal_lang_metaclass(),
+			LIBRARY_STR ".lang.throwable",
+			coal_lang_object(),
+			sizeof(class(throwable)),
+			INHERIT_METHOD,
+			throwable_constructor,
+			throwable_destructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			throwable_toString);

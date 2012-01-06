@@ -5,4 +5,4 @@
 
 ExceptionDefinitionTemplate(coal_lang_NullPointerException,
 			    LIBRARY_STR ".lang.NullPointerException",
-			    coal_lang_Exception)
+			    coal_lang_Exception())

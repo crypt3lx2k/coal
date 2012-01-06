@@ -22,19 +22,15 @@ var subclass_constructor (var _self, va_list * app) {
   return _self;
 }
 
-static const var subclass__ = NULL;
-
-const var coal_core_subclass (void) {
-  return subclass__ ? subclass__ :
-    (subclass__ = coal_new(coal_lang_metaclass(),
-			   LIBRARY_STR ".core.classes.subclass",
-			   coal_lang_metaclass(),
-			   sizeof(class(subclass)),
-			   INHERIT_METHOD,
-			   subclass_constructor,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD));
-}
+SETUP_CLASS_DESCRIPTION(coal_core_subclass,
+			coal_lang_metaclass(),
+			LIBRARY_STR ".core.subclass",
+			coal_lang_metaclass(),
+			sizeof(class(subclass)),
+			INHERIT_METHOD,
+			subclass_constructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD);

@@ -5,4 +5,4 @@
 
 ExceptionDefinitionTemplate(coal_lang_OutOfMemoryError,
 			    LIBRARY_STR ".lang.OutOfMemoryError",
-			    coal_lang_Error)
+			    coal_lang_Error())

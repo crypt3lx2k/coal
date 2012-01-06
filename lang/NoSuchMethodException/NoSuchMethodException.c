@@ -5,4 +5,4 @@
 
 ExceptionDefinitionTemplate(coal_lang_NoSuchMethodException,
 			    LIBRARY_STR ".lang.NoSuchMethodException",
-			    coal_lang_Exception)
+			    coal_lang_Exception())
