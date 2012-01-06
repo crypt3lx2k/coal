@@ -1,12 +1,13 @@
 #ifndef COAL_LANG_THREAD_REP__
 #define COAL_LANG_THREAD_REP__
 
+#include <pthread.h>
 #include <coal/core/implementation.h>
 
 class (thread) {
   extends(object);
 
-  /* see pthread create
+  /* see pthread_create,
      will add new attributes
      as we need them */
   pthread_t thread;
