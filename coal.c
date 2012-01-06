@@ -10,9 +10,15 @@
 #include <coal/lang/NullPointerException.h>
 
 /* for throw */
+#include <coal/core/exceptions.h>
 #include <coal/io/io.h>
 
 var coal_acquire (var object) {
+  if (IS_GARBAGE(object))
+    /* object is in an
+       invalid state */
+    return object;
+
   return INCREMENT_REFERENCE_COUNT(object);
 }
 
@@ -61,16 +67,16 @@ var coal_new (const var _class, ...) {
 
   object = coal_core_malloc(class->size);
   object->class = class;
-  object->reference_count = 0;
+  object->reference_count = 1;
 
   va_start(ap, _class);
   object = coal_lang_constructor(object, &ap);
   va_end(ap);
 
-  return coal_acquire(object);
+  return object;
 }
 
-void coal_throw (const var throwable) {
+void coal_throw (var throwable) {
   if (utility_stack_is_empty(&exceptions_s__)) {
     fputs("unhandled exception ", stderr);
     coal_io_fprintln(throwable, stderr);
@@ -87,7 +93,8 @@ void coal_throw (const var throwable) {
 			   STDERR_FILENO);
     }
 
-    exit(EXIT_FAILURE);
+    coal_del(throwable);
+    pthread_exit(NULL);
   } else {
     longjmp(*(jmp_buf *)
 	    utility_stack_peek(&exceptions_s__),

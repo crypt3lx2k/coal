@@ -2,6 +2,8 @@
 #define COAL_CORE_EXCEPTIONS_H__
 
 #include <setjmp.h>
+#include <coal/core/cdefs.h>
+#include <coal/core/threading.h>
 #include <coal/core/utility_stack.h>
 
 #if !(defined COAL_CORE_IMPLEMENTATION_H__ || \
@@ -10,7 +12,7 @@
 #endif
 
 named_utility_stack(exceptions_stack__, void *);
-extern struct exceptions_stack__ exceptions_s__;
+extern thread_local struct exceptions_stack__ exceptions_s__;
 
 #define try                                                             \
   ({                                                                    \

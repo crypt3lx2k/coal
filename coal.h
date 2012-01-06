@@ -85,7 +85,7 @@ cfundecl__ (var coal_new (const var class, ...)) __attribute__ ((malloc));
  *
  * @param (const var) throwable object
  */
-cfundecl__ (void coal_throw (const var throwable)) __attribute__ ((noreturn));
+cfundecl__ (void coal_throw (var throwable)) __attribute__ ((noreturn));
 
 /* Functions - end */
 

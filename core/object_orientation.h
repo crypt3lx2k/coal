@@ -1,9 +1,6 @@
 #ifndef COAL_OBJECT_ORIENTATION_H__
 #define COAL_OBJECT_ORIENTATION_H__
 
-/* for SETUP_CLASS_DESCRIPTION */
-#include <pthread.h>
-
 #ifndef COAL_CORE_IMPLEMENTATION_H__
 # error "Never include <coal/core/object_orientation.h> directly; use <coal/core/implementation.h> instead."
 #endif

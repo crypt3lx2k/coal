@@ -1,4 +1,6 @@
 #include <pthread.h>
+
+#include <coal/core/threading.h>
 #include <coal/core/implementation.h>
 
 #include <coal/lang/thread.h>

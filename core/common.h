@@ -5,6 +5,8 @@
 # error "Never include <coal/core/common.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
+#include <coal/core/threading.h>
+
 /**
  * Sets up a class description.
  */

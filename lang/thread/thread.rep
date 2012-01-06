@@ -2,6 +2,8 @@
 #define COAL_LANG_THREAD_REP__
 
 #include <pthread.h>
+
+#include <coal/core/threading.h>
 #include <coal/core/implementation.h>
 
 class (thread) {
