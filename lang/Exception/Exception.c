@@ -5,4 +5,4 @@
 
 ExceptionDefinitionTemplate(coal_lang_Exception,
 			    LIBRARY_STR ".lang.Exception",
-			    coal_lang_throwable)
+			    coal_lang_throwable())

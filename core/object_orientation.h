@@ -17,4 +17,15 @@
  */
 #define INHERIT_METHOD 0
 
+/**
+ * Sets up class description.
+ */
+#define SETUP_CLASS_DESCRIPTION(name, ...)	\
+  static const var name##__ = NULL;		\
+						\
+  const var name (void) {			\
+    return name##__ != NULL ? name##__ :	\
+      (name##__ = coal_new(__VA_ARGS__));	\
+  }
+
 #endif /* COAL_OBJECT_ORIENTATION_H__ */

@@ -104,21 +104,17 @@ var string_concat (const var _self, const var _other) {
   return res;
 }
 
-static const var string__ = NULL;
-
-const var coal_lang_string (void) {
-  return string__ != NULL ? string__ :
-    (string__ = coal_new(coal_lang_string_metaclass(),
-			 LIBRARY_STR ".lang.string",
-			 coal_lang_object(),
-			 sizeof(class(string)),
-			 /* object */
-			 string_cmp,
-			 string_constructor,
-			 string_destructor,
-			 string_equals,
-			 string_hashCode,
-			 string_toString,
-			 /* string */
-			 string_concat));
-}
+SETUP_CLASS_DESCRIPTION(coal_lang_string,
+			coal_lang_string_metaclass(),
+			LIBRARY_STR ".lang.string",
+			coal_lang_object(),
+			sizeof(class(string)),
+			/* object */
+			string_cmp,
+			string_constructor,
+			string_destructor,
+			string_equals,
+			string_hashCode,
+			string_toString,
+			/* string */
+			string_concat);
