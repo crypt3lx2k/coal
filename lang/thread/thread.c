@@ -25,6 +25,10 @@ var thread_destructor (var _self) {
   return _self;
 }
 
+void coal_lang_thread_exit (void) {
+  pthread_exit(NULL);
+}
+
 void coal_lang_thread_join (var _self) {
   class(thread) * self = _self;
 

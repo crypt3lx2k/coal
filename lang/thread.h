@@ -16,6 +16,13 @@
 cfundecl__ (const var coal_lang_thread (void));
 
 /**
+ * coal_lang_thread_exit
+ * Causes the calling thread to
+ * stop executing.
+ */
+cfundecl__ (void coal_lang_thread_exit (void)) __attribute__ ((noreturn));
+
+/**
  * coal_lang_thread_join
  * Waits for thread to finish.
  *
@@ -33,11 +40,13 @@ cfundecl__ (void coal_lang_thread_start (var self));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define thread       coal_lang_thread
+# define thread_exit  coal_lang_thread_exit
 # define thread_join  coal_lang_thread_join
 # define thread_start coal_lang_thread_start
 #endif
 
 #ifdef THREAD_NAMESPACE_POLLUTE
+# define exit  coal_lang_thread_exit
 # define join  coal_lang_thread_join
 # define start coal_lang_thread_start
 #endif

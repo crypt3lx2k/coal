@@ -1,10 +1,10 @@
 There are a couple of challenges with making this library successfully multi-threaded.
 
 Static variables must go, although it is possible to make static variables thread local in GNU-C (and C11) we will probably want things like class descriptions global in shared memory, currently it's not safe to create new objects in a multi-threaded manner, there is a data race in every function which creates a new class description.
+- This point should be done now, every static variable has had its access synchronized.
 
 Exceptions need to be revised, the utility_stack is not thread safe, perhaps the solution is simple by making the exception stack thread local, but I'll need to look over this.
-
-Short term solution, lock everything with mutexes, gradually and carefully change to lock free variants where performance is needed.
+- Each thread now has its own exception stack, and threads get killed in a safe manner if they have no corresponding try clause.
 
 More to come.
 
@@ -16,10 +16,12 @@ It is an implementation of the sleepsort algorithm.
 
 #include <coal/lang/thread.h>
 
-void target (int number) {
+void * target (int number) {
   sleep(number);
   printf("%d\n", number);
   fflush(stdout);
+
+  return NULL;
 }
 
 int main (int argc, char ** argv) {

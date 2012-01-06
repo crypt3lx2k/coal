@@ -7,6 +7,7 @@
 #include <execinfo.h> /* backtrace* */
 
 #include <coal/core/implementation.h>
+#include <coal/lang/thread.h>
 #include <coal/lang/NullPointerException.h>
 
 /* for throw */
@@ -94,7 +95,7 @@ void coal_throw (var throwable) {
     }
 
     coal_del(throwable);
-    pthread_exit(NULL);
+    coal_lang_thread_exit();
   } else {
     longjmp(*(jmp_buf *)
 	    utility_stack_peek(&exceptions_s__),
