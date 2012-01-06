@@ -5,16 +5,9 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
-/* this defines
- * - LIBRARY_NAME
- * - LIBRARY_STR
- * - cfundecl__
- *
- * Don't rely on LIBRARY_NAME or
- * LIBRARY_STR being defined in
- * this file, will change.
- */
-#include <coal/core/common.h>
+/* this defines cfundecl__ and
+   the var datatype. */
+#include <coal/core/cdefs.h>
 
 /*
  * Note that defining this macro will expose the user some to
@@ -36,17 +29,6 @@
 #ifdef COAL_USER_EXCEPTIONS
 # include <coal/core/exceptions.h>
 #endif
-
-/* Types */
-
-/**
- * Object variable type
- */
-/* not a typedef so `const var'
-   behaves nicely */
-#define var void *
-
-/* Types - End */
 
 /* Functions */
 
