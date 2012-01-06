@@ -31,18 +31,14 @@ var coal_util_iterator_next (var _self) {
   return class->next(_self);
 }
 
-static const var iterator__ = NULL;
-
-const var coal_util_iterator (void) {
-  return iterator__ != NULL ? iterator__ :
-    (iterator__ = coal_new(coal_lang_metaclass(),
-			   LIBRARY_STR ".util.iterator",
-			   coal_lang_metaclass(),
-			   sizeof(class(iterator)),
-			   INHERIT_METHOD,
-			   iterator_constructor,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD));
-}
+SETUP_CLASS_DESCRIPTION(coal_util_iterator,
+			coal_lang_metaclass(),
+			LIBRARY_STR ".util.iterator",
+			coal_lang_metaclass(),
+			sizeof(class(iterator)),
+			INHERIT_METHOD,
+			iterator_constructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD);

@@ -22,18 +22,14 @@ var coal_lang_iterable_iterator (const var _self) {
   return class->iterator(_self);
 }
 
-static const var iterable__ = NULL;
-
-const var coal_lang_iterable (void) {
-  return iterable__ != NULL ? iterable__ :
-    (iterable__ = coal_new(coal_lang_metaclass(),
-			   LIBRARY_STR ".lang.iterable",
-			   coal_lang_metaclass(),
-			   sizeof(class(iterable)),
-			   INHERIT_METHOD,
-			   iterable_constructor,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD,
-			   INHERIT_METHOD));
-}
+SETUP_CLASS_DESCRIPTION(coal_lang_iterable,
+			coal_lang_metaclass(),
+			LIBRARY_STR ".lang.iterable",
+			coal_lang_metaclass(),
+			sizeof(class(iterable)),
+			INHERIT_METHOD,
+			iterable_constructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD);

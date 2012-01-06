@@ -25,20 +25,16 @@ var string_iterator_next (var _self) {
   return (var) (int) self->str[self->current++];
 }
 
-static const var string_iterator__ = NULL;
-
-const var coal_lang_string_iterator (void) {
-  return string_iterator__ != NULL ? string_iterator__ :
-    (string_iterator__ = coal_new(coal_util_iterator(),
-				  LIBRARY_STR ".lang.string.iterator",
-				  coal_lang_object(),
-				  sizeof(class(string_iterator)),
-				  INHERIT_METHOD,
-				  string_iterator_constructor,
-				  INHERIT_METHOD,
-				  INHERIT_METHOD,
-				  INHERIT_METHOD,
-				  INHERIT_METHOD,
-				  string_iterator_hasNext,
-				  string_iterator_next));
-}
+SETUP_CLASS_DESCRIPTION(coal_lang_string_iterator,
+			coal_util_iterator(),
+			LIBRARY_STR ".lang.string.iterator",
+			coal_lang_object(),
+			sizeof(class(string_iterator)),
+			INHERIT_METHOD,
+			string_iterator_constructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			string_iterator_hasNext,
+			string_iterator_next);
