@@ -47,19 +47,14 @@ var coal_lang_string_concat (const var self, const var other) {
 }
 
 /* string_class class description */
-
-static const var string_metaclass__ = NULL;
-
-const var coal_lang_string_metaclass (void) {
-  return string_metaclass__ != NULL ? string_metaclass__ :
-    (string_metaclass__ = coal_new(coal_lang_metaclass(),
-				   LIBRARY_STR ".lang.string.class",
-				   coal_lang_iterable(),
-				   sizeof(class(string_metaclass)),
-				   INHERIT_METHOD,
-				   string_metaclass_constructor,
-				   INHERIT_METHOD,
-				   INHERIT_METHOD,
-				   INHERIT_METHOD,
-				   INHERIT_METHOD));
-}
+SETUP_CLASS_DESCRIPTION(coal_lang_string_metaclass,
+			coal_lang_metaclass(),
+			LIBRARY_STR ".lang.string_class",
+			coal_lang_metaclass(),
+			sizeof(class(string_metaclass)),
+			INHERIT_METHOD,
+			string_metaclass_constructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD);
