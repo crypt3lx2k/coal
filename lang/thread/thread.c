@@ -38,18 +38,14 @@ void coal_lang_thread_start (var _self) {
 			self->arg);
 }
 
-static const var thread__ = NULL;
-
-const var coal_lang_thread (void) {
-  return thread__ != NULL ? thread__ :
-    (thread__ = coal_new(coal_lang_metaclass(),
-			 LIBRARY_STR ".lang.thread",
-			 coal_lang_object(),
-			 sizeof(class(thread)),
-			 INHERIT_METHOD,
-			 thread_constructor,
-			 thread_destructor,
-			 INHERIT_METHOD,
-			 INHERIT_METHOD,
-			 INHERIT_METHOD));
-}
+SETUP_CLASS_DESCRIPTION(coal_lang_thread,
+			coal_lang_metaclass(),
+			LIBRARY_STR ".lang.thread",
+			coal_lang_object(),
+			sizeof(class(thread)),
+			INHERIT_METHOD,
+			thread_constructor,
+			thread_destructor,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD);
