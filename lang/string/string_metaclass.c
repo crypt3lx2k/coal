@@ -49,7 +49,7 @@ var coal_lang_string_concat (const var self, const var other) {
 /* string_class class description */
 SETUP_CLASS_DESCRIPTION(coal_lang_string_metaclass,
 			coal_lang_metaclass(),
-			LIBRARY_STR ".lang.string_class",
+			LIBRARY_STR ".lang.string.class",
 			coal_lang_iterable(),
 			sizeof(class(string_metaclass)),
 			INHERIT_METHOD,

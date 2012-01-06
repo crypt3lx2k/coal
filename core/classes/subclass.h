@@ -19,11 +19,11 @@ cfundecl__ (const var coal_core_subclass (void));
 /* boilerplate for defining
    new exceptions in the
    exception hierarchy */
-#define ExceptionDefinitionTemplate(name, string, superclass)	\
-  SETUP_CLASS_DESCRIPTION(name,					\
-			  coal_core_subclass(),			\
-			  string,				\
-			  superclass)
+#define ExceptionDefinitionTemplate(name, string, superclass)   \
+  SETUP_CLASS_DESCRIPTION(name,                                 \
+                          coal_core_subclass(),                 \
+                          string,                               \
+                          superclass)
 
 
 #endif /* COAL_CORE_CLASSES_SUBCLASS_H__ */
