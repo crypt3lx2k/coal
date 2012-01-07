@@ -8,10 +8,13 @@ Exceptions need to be revised, the utility_stack is not thread safe, perhaps the
 
 There is no main thread object, I suppose it is possible to create a main thread object, whether such a thing is useful or not I am unsure but it would make the interface more uniform.
 
+What should happen if the main thread dies, whilst there are other threads spawned? Currently they just keep running and their successful exit will result in a successful return to the OS.
+
 More to come.
 
 Here is a test program which should work with this version.
 It is an implementation of the sleepsort algorithm.
+Remember to compile with the -DLANG_NAMESPACE_POLLUTE and -DCOAL_NAMESPACE_POLLUTE macro definitions.
 
 #include <stdio.h>
 #include <unistd.h>
