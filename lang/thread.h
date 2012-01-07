@@ -16,13 +16,6 @@
 cfundecl__ (const var coal_lang_thread (void));
 
 /**
- * coal_lang_thread_exit
- * Causes the calling thread to
- * stop executing.
- */
-cfundecl__ (void coal_lang_thread_exit (void)) __attribute__ ((noreturn));
-
-/**
  * coal_lang_thread_join
  * Waits for thread to finish.
  *

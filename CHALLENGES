@@ -6,6 +6,8 @@ Static variables must go, although it is possible to make static variables threa
 Exceptions need to be revised, the utility_stack is not thread safe, perhaps the solution is simple by making the exception stack thread local, but I'll need to look over this.
 - Each thread now has its own exception stack, and threads get killed in a safe manner if they have no corresponding try clause.
 
+There is no main thread object, I suppose it is possible to create a main thread object, whether such a thing is useful or not I am unsure but it would make the interface more uniform.
+
 More to come.
 
 Here is a test program which should work with this version.

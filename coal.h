@@ -1,5 +1,5 @@
-#ifndef COAL_H__
-#define COAL_H__
+#ifndef COAL_COAL_H__
+#define COAL_COAL_H__
 
 #include <stddef.h>
 #include <stdarg.h>
@@ -97,4 +97,4 @@ cfundecl__ (void coal_throw (var throwable)) __attribute__ ((noreturn));
 # define throw      coal_throw
 #endif
 
-#endif /* COAL_H__ */
+#endif /* COAL_COAL_H__ */

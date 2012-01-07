@@ -7,18 +7,20 @@
 #include <execinfo.h> /* backtrace* */
 
 #include <coal/core/implementation.h>
-#include <coal/lang/thread.h>
+
+#include <coal/coal.h>
 #include <coal/lang/NullPointerException.h>
+#include <coal/lang/IllegalStateException.h>
 
 /* for throw */
+#include <coal/concurrent.h>
 #include <coal/core/exceptions.h>
 #include <coal/io/io.h>
 
 var coal_acquire (var object) {
   if (IS_GARBAGE(object))
-    /* object is in an
-       invalid state */
-    return object;
+    coal_throw(coal_new(coal_lang_IllegalStateException(),
+			"coal_acquire: tried to acquire an object with a zero reference count"));
 
   return INCREMENT_REFERENCE_COUNT(object);
 }
@@ -30,8 +32,6 @@ void coal_del (var object) {
   DECREMENT_REFERENCE_COUNT(object);
 
   if (IS_GARBAGE(object))
-    /* what if object is acquired
-       by another thread here? */
     free(coal_lang_destructor(object));
 }
 
@@ -95,7 +95,7 @@ void coal_throw (var throwable) {
     }
 
     coal_del(throwable);
-    coal_lang_thread_exit();
+    coal_concurrent_exit();
   } else {
     longjmp(*(jmp_buf *)
 	    utility_stack_peek(&exceptions_s__),
