@@ -1,8 +1,8 @@
-#ifndef COAL_CORE_UTIL_H__
-#define COAL_CORE_UTIL_H__
+#ifndef COAL_CORE_UTILITIES_H__
+#define COAL_CORE_UTILITIES_H__
 
 #ifndef COAL_CORE_IMPLEMENTATION_H__
-# error "Never include <coal/core/util.h> directly; use <coal/core/implementation.h> instead."
+# error "Never include <coal/core/utilities.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
 /**
