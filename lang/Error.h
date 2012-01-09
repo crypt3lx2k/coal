@@ -14,7 +14,8 @@
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var coal_lang_Error (void));
+cfundecl__ (const var coal_lang_Error (void))
+  __attribute__ ((const));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define Error coal_lang_Error

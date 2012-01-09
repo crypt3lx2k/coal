@@ -13,7 +13,8 @@
  * @param (void *(*start_routine) (void *)) thread target
  * @param (void *) arguments to target
  */
-cfundecl__ (const var coal_lang_thread (void));
+cfundecl__ (const var coal_lang_thread (void))
+  __attribute__ ((const));
 
 /**
  * coal_lang_thread_join

@@ -12,7 +12,8 @@
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var coal_lang_throwable (void));
+cfundecl__ (const var coal_lang_throwable (void))
+  __attribute__ ((const));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define throwable coal_lang_throwable

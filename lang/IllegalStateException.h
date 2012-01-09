@@ -16,7 +16,8 @@
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var coal_lang_IllegalStateException (void));
+cfundecl__ (const var coal_lang_IllegalStateException (void))
+  __attribute__ ((const));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define IllegalStateException coal_lang_IllegalStateException

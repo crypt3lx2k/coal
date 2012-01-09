@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include <coal/core/implementation.h>
 #include <coal/io/io.h>
 

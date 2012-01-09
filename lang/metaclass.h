@@ -19,7 +19,8 @@
  * @param (int (*hashCode)(const var)) pointer to hash function
  * @param (var (*toString)(const var)) pointer to string function
  */
-cfundecl__ (const var coal_lang_metaclass (void));
+cfundecl__ (const var coal_lang_metaclass (void))
+  __attribute__ ((const));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define metaclass coal_lang_metaclass

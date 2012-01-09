@@ -14,7 +14,8 @@
  * @param (const char *) name of subclass
  * @param (const var) class to extend
  */
-cfundecl__ (const var coal_core_subclass (void));
+cfundecl__ (const var coal_core_subclass (void))
+  __attribute__ ((const));
 
 /* boilerplate for defining
    new exceptions in the

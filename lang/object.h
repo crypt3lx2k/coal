@@ -10,7 +10,8 @@
  * @extends coal_lang_object
  * @constructor takes no arguments
  */
-cfundecl__ (const var coal_lang_object (void));
+cfundecl__ (const var coal_lang_object (void))
+  __attribute__ ((const));
 
 /**
  * coal_lang_cmp

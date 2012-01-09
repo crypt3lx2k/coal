@@ -14,7 +14,8 @@
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var coal_lang_NoSuchMethodException (void));
+cfundecl__ (const var coal_lang_NoSuchMethodException (void))
+  __attribute__ ((const));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define NoSuchMethodException coal_lang_NoSuchMethodException

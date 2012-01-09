@@ -13,7 +13,8 @@
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var coal_lang_string (void));
+cfundecl__ (const var coal_lang_string (void))
+  __attribute__ ((const));
 
 /**
  * coal_lang_string_chars

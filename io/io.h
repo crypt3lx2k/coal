@@ -1,8 +1,6 @@
 #ifndef COAL_IO_IO_H__
 #define COAL_IO_IO_H__
 
-#include <stdio.h>
-
 #include <coal/coal.h>
 
 /**

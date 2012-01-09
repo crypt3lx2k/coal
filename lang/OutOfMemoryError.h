@@ -13,7 +13,8 @@
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
  */
-cfundecl__ (const var coal_lang_OutOfMemoryError (void));
+cfundecl__ (const var coal_lang_OutOfMemoryError (void))
+  __attribute__ ((const));
 
 #ifdef LANG_NAMESPACE_POLLUTE
 # define OutOfMemoryError coal_lang_OutOfMemoryError
