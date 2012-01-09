@@ -22,7 +22,8 @@
  * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
  * @param (var (*concat)(const var, const var)) pointer to concatenation function
  */
-cfundecl__ (const var coal_lang_string_metaclass (void));
+cfundecl__ (const var coal_lang_string_metaclass (void))
+  __attribute__ ((const));
 
 class (string_metaclass) {
   extends(iterable);

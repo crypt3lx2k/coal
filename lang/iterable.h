@@ -20,7 +20,8 @@
  * @param (var (*toString)(const var)) pointer to string function
  * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
  */
-cfundecl__ (const var coal_lang_iterable (void));
+cfundecl__ (const var coal_lang_iterable (void))
+  __attribute__ ((const));
 
 /**
  * coal_lang_iterable_iterator

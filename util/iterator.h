@@ -21,7 +21,8 @@
  * @param (bool (*hasNext)(const var)) pointer to function which returns whether the iterator has more elements
  * @param (var (*next)(var)) pointer to function which returns the next element
  */
-cfundecl__ (const var coal_util_iterator (void));
+cfundecl__ (const var coal_util_iterator (void))
+  __attribute__ ((const));
 
 /**
  * coal_util_iterator_hasNext

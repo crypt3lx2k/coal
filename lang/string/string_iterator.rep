@@ -12,7 +12,8 @@
  * @param (const char *) underlying string
  * @param (size_t) length of string
  */
-cfundecl__ (const var coal_lang_string_iterator (void));
+cfundecl__ (const var coal_lang_string_iterator (void))
+  __attribute__ ((const));
 
 class (string_iterator) {
   extends(object);
