@@ -4,7 +4,7 @@ Static variables must go, although it is possible to make static variables threa
 - This point should be done now, every static variable has had its access synchronized.
 
 Exceptions need to be revised, the utility_stack is not thread safe, perhaps the solution is simple by making the exception stack thread local, but I'll need to look over this.
-- Each thread now has its own exception stack, and threads get killed in a safe manner if they have no corresponding try clause.
+- Each thread now has its own exception stack, and threads get killed in a safe manner if they have no corresponding try clause. A thread that dies in this manner might not have freed all of its resources, should I keep a thread local list of objects allocated by the thread and attempt to free them if the reference count is one?
 
 There is no main thread object, I suppose it is possible to create a main thread object, whether such a thing is useful or not I am unsure but it would make the interface more uniform.
 

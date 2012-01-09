@@ -3,6 +3,7 @@
 #include <coal/core/atomic.h>
 #include <coal/core/implementation.h>
 #include <coal/lang/IllegalStateException.h>
+#include <coal/lang/OutOfMemoryError.h>
 
 #include <coal/lang/thread.h>
 #include <coal/lang/thread/thread.rep>
@@ -51,10 +52,13 @@ void coal_lang_thread_start (var _self) {
       break;
   }
 
-  (void) pthread_create(&self->thread,
-			&self->attr,
-			self->start_routine,
-			self->arg);
+  if (pthread_create(&self->thread, &self->attr,
+		     self->start_routine, self->arg))
+    /* until the user gains access to
+       setting attributes the only
+       error here must be EAGAIN. */
+    coal_throw(coal_new(coal_lang_OutOfMemoryError(),
+			"coal_lang_thread_start: unable to start thread, out of system resources"));
 }
 
 SETUP_CLASS_DESCRIPTION(coal_lang_thread,
