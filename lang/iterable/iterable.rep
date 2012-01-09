@@ -1,0 +1,12 @@
+#ifndef COAL_LANG_ITERABLE_REP__
+#define COAL_LANG_ITERABLE_REP__
+
+#include <coal/core/implementation.h>
+
+class (iterable) {
+  extends(metaclass);
+
+  var (*iterator)(const var self);
+};
+
+#endif /* COAL_LANG_ITERABLE_REP__ */

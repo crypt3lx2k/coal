@@ -9,6 +9,7 @@
 #include <coal/lang/string.h>
 #include <coal/lang/string/string.rep>
 #include <coal/lang/string/string_metaclass.rep>
+#include <coal/lang/string/string_iterator.rep>
 
 /* override lang.object methods */
 
@@ -79,6 +80,16 @@ var string_toString(const var self) {
   return coal_acquire((var) self);
 }
 
+/* lang.iterable methods */
+
+var string_iterator (const var _self) {
+  const class(string) * self = _self;
+
+  return coal_new(coal_lang_string_iterator(),
+		  self->str,
+		  self->len);
+}
+
 /* lang.string methods */
 
 /* chars and length are
@@ -116,5 +127,7 @@ SETUP_CLASS_DESCRIPTION(coal_lang_string,
 			string_equals,
 			string_hashCode,
 			string_toString,
+			/* iterable */
+			string_iterator,
 			/* string */
 			string_concat);

@@ -1,0 +1,13 @@
+#ifndef COAL_UTIL_ITERATOR_REP__
+#define COAL_UTIL_ITERATOR_REP__
+
+#include <coal/core/implementation.h>
+
+class (iterator) {
+  extends(metaclass);
+
+  bool (*hasNext) (const var self);
+  var  (*next) (var self);
+};
+
+#endif /* COAL_UTIL_ITERATOR_REP__ */

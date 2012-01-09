@@ -1,4 +1,6 @@
 #include <coal/core/implementation.h>
+
+#include <coal/lang/iterable.h>
 #include <coal/lang/string/string_metaclass.rep>
 
 var string_metaclass_constructor (var _self, va_list * app) {
@@ -48,7 +50,7 @@ var coal_lang_string_concat (const var self, const var other) {
 SETUP_CLASS_DESCRIPTION(coal_lang_string_metaclass,
 			coal_lang_metaclass(),
 			LIBRARY_STR ".lang.string.class",
-			coal_lang_metaclass(),
+			coal_lang_iterable(),
 			sizeof(class(string_metaclass)),
 			INHERIT_METHOD,
 			string_metaclass_constructor,
