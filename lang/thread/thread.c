@@ -28,7 +28,7 @@ var thread_destructor (var _self) {
   return _self;
 }
 
-void coal_concurrent_exit (void) {
+void coal_lang_thread_exit (void) {
   pthread_exit(NULL);
 }
 
