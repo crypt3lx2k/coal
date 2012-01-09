@@ -13,7 +13,7 @@
 #include <coal/lang/IllegalStateException.h>
 
 /* for throw */
-#include <coal/concurrent.h>
+#include <coal/lang/thread.h>
 #include <coal/core/exceptions.h>
 #include <coal/io/io.h>
 
@@ -95,7 +95,7 @@ void coal_throw (var throwable) {
     }
 
     coal_del(throwable);
-    coal_concurrent_exit();
+    coal_lang_thread_exit();
   } else {
     longjmp(*(jmp_buf *)
 	    utility_stack_peek(&exceptions_s__),
