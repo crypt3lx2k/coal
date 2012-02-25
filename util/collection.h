@@ -21,7 +21,7 @@
  * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
  * @param (bool (*contains)(const var, const var)) pointer to that specifies if an object is in the collection
  * @param (bool (*isEmpty)(const var)) pointer to function that specifies if the collection is empty
- * @parma (int (*size)(const var)) pointer to function that returns the number of elements in the collection
+ * @param (int (*size)(const var)) pointer to function that returns the number of elements in the collection
  */
 cfundecl__ (const var coal_util_collection (void))
   __attribute__ ((const));

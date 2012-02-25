@@ -1,14 +1,9 @@
 #ifndef COAL_CORE_MEMORY_H__
 #define COAL_CORE_MEMORY_H__
 
-/**
- * coal_core_collector
- * Calls del on the object pointed to.
- * Needed to implement the coal_local macro.
- *
- * @param (var *) pointer to object that is to be deleted
- */
-cfundecl__ (void coal_core_collector (var * ptr));
+#ifndef COAL_CORE_IMPLEMENTATION_H__
+# error "Never include <coal/core/memory.h> directly; use <coal/core/implementation.h> instead."
+#endif
 
 /**
  * coal_core_malloc

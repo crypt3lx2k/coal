@@ -3,10 +3,6 @@
 #include <coal/core/implementation.h>
 #include <coal/lang/OutOfMemoryError.h>
 
-void coal_core_collector (var * obj) {
-  coal_del(*obj);
-}
-
 void * coal_core_malloc (size_t size) {
   void * block;
 

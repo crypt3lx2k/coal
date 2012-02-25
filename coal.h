@@ -36,7 +36,6 @@
  * - foreach_end
  * - everything in lang/iterable.h
  * - everything in util/iterator.h
- * - everything in core/memory.h
  * - everything in core/local.h
  */
 #ifdef COAL_USER_FOREACH
