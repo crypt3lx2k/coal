@@ -13,7 +13,7 @@ var ArrayList_constructor (var _self, va_list * app) {
   class(ArrayList) * self = _self;
   size_t size = va_arg(*app, size_t);
 
-  self->base = size ? coal_core_malloc(size) : NULL;
+  self->base = size ? coal_core_malloc(size * sizeof(var)) : NULL;
   self->head = self->base;
   self->end  = self->base + size;
 
@@ -21,7 +21,11 @@ var ArrayList_constructor (var _self, va_list * app) {
 }
 
 var ArrayList_destructor (var _self) {
+  var * i;
   class(ArrayList) * self = _self;
+
+  for (i = self->base; i < self->head; i++)
+    coal_del(*i);
 
   free(self->base);
   self->base = NULL;
@@ -42,6 +46,33 @@ var ArrayList_iterator (const var _self) {
 }
 
 /* util.collection methods */
+
+/* temporary, I'll probably let this
+   be chosen at constructor time */
+#define RESIZE_FACTOR 0.70
+
+static inline ptrdiff_t __attribute__ ((pure))
+ArrayList_newSize (ptrdiff_t old_size) {
+  return ((RESIZE_FACTOR + 1) * old_size) + 1;
+}
+
+bool ArrayList_add (var _self, const var object) {
+  class(ArrayList) * self = _self;
+
+  if (self->head == self->end) {
+    ptrdiff_t offset = self->end - self->base;
+
+    self->base = coal_core_realloc(self->base,
+				   ArrayList_newSize(offset) *
+				   sizeof(var));
+    self->head = self->base + offset;
+    self->end  = self->base + ArrayList_newSize(offset);
+  }
+
+  *self->head++ = (var) object;
+
+  return true;
+}
 
 int ArrayList_size (const var _self) {
   const class(ArrayList) * self = _self;
@@ -68,7 +99,7 @@ SETUP_CLASS_DESCRIPTION(coal_util_ArrayList,
 			/* iterable */
 			ArrayList_iterator,
 			/* collection */
-			INHERIT_METHOD, /* add */
+			ArrayList_add,
 			INHERIT_METHOD, /* clear */
 			INHERIT_METHOD, /* contains */
 			INHERIT_METHOD, /* isEmpty */
