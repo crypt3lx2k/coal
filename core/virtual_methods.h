@@ -13,7 +13,7 @@
  * coal_core_abstract_method
  * Throws an AbstractMethodException when called.
  */
-cfundecl__ (void coal_core_abstract_method (void))
+cfundecl__ (void coal_core_abstract_method ())
   __attribute__ ((noreturn));
 
 /* boilerplate for dynamically linked methods */

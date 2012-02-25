@@ -68,6 +68,9 @@ SETUP_CLASS_DESCRIPTION(coal_util_ArrayList,
 			/* iterable */
 			ArrayList_iterator,
 			/* collection */
-			INHERIT_METHOD,
-			INHERIT_METHOD,
+			INHERIT_METHOD, /* add */
+			INHERIT_METHOD, /* clear */
+			INHERIT_METHOD, /* contains */
+			INHERIT_METHOD, /* isEmpty */
+			INHERIT_METHOD, /* remove */
 			ArrayList_size);

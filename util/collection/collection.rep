@@ -7,8 +7,11 @@
 class (collection) {
   extends(iterable);
 
+  bool (*add)(var self, const var object);
+  bool (*clear)(var self);
   bool (*contains)(const var self, const var object);
   bool (*isEmpty)(const var self);
+  bool (*remove)(var self, const var object);
   int  (*size)(const var self);
 };
 

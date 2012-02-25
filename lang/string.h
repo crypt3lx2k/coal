@@ -28,14 +28,13 @@ cfundecl__ (const char * coal_lang_string_chars (const var self));
 
 /**
  * coal_lang_string_concat
- * Concatenates two strings, returns
- * a new string that has to be del'd.
+ * Concatenates two strings.
  *
- * @param  (const var) first string
+ * @param  (var) first string
  * @param  (const var) second string
  * @return (var) concatenated string
  */
-cfundecl__ (var coal_lang_string_concat (const var self, const var other));
+cfundecl__ (var coal_lang_string_concat (var self, const var other));
 
 /**
  * coal_lang_string_length

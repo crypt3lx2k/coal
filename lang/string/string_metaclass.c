@@ -30,20 +30,15 @@ size_t coal_lang_string_length (const var _self) {
   return self->len;
 }
 
-var coal_lang_string_concat (const var self, const var other) {
-  const class(string_metaclass) * s_class;
-  const class(string_metaclass) * o_class;
+var coal_lang_string_concat (var self, const var other) {
+  const class(string_metaclass) * class;
 
   CheckAndThrowMissingMethodException("coal_lang_string_concat", self, coal_lang_string());
   CheckAndThrowMissingMethodException("coal_lang_string_concat", other, coal_lang_string());
 
-  s_class = coal_lang_getClass(self);
-  o_class = coal_lang_getClass(other);
+  class = coal_lang_getClass(self);
 
-  if (coal_instanceof(self, o_class))
-    return o_class->concat(self, other);
-  else
-    return s_class->concat(self, other);
+  return class->concat(self, other);
 }
 
 /* string_class class description */

@@ -1,7 +1,10 @@
 #include <coal/core/implementation.h>
 
 #include <coal/lang/abstract.h>
+#include <coal/lang/iterable.h>
+
 #include <coal/util/collection.h>
+#include <coal/util/iterator.h>
 
 #include <coal/util/AbstractCollection.h>
 #include <coal/util/AbstractCollection/AbstractCollection.rep>
@@ -19,6 +22,43 @@ bool AbstractCollection_equals (const var self, const var other) {
   } foreach_end;
 
   return true;
+}
+
+int AbstractCollection_hashCode (const var self) {
+  int hash = 0;
+
+  foreach (var elem, self) {
+    hash += coal_lang_hashCode(elem);
+  } foreach_end;
+
+  return hash;
+}
+
+var AbstractCollection_toString (const var self) {
+  var s = coal_new(coal_lang_string(), "[");
+  var d = coal_new(coal_lang_string(), ", ");
+  var e = coal_new(coal_lang_string(), "]");
+  var i = coal_lang_iterable_iterator(self);
+
+  while (coal_util_iterator_hasNext(i)) {
+    var elem = coal_util_iterator_next(i);
+    var t = coal_lang_toString(elem);
+
+    s = coal_lang_string_concat(s, t);
+
+    if (coal_util_iterator_hasNext(i))
+      s = coal_lang_string_concat(s, d);
+
+    coal_del(t);
+  }
+
+  s = coal_lang_string_concat(s, e);
+
+  coal_del(i);
+  coal_del(e);
+  coal_del(d);
+
+  return s;
 }
 
 /* util.collection methods */
@@ -56,11 +96,14 @@ SETUP_CLASS_DESCRIPTION(coal_util_AbstractCollection,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
-			INHERIT_METHOD,
-			INHERIT_METHOD,
+			AbstractCollection_hashCode,
+			AbstractCollection_toString,
 			/* iterable */
 			ABSTRACT_METHOD,
 			/* collection */
+			ABSTRACT_METHOD, /* add */
+			ABSTRACT_METHOD, /* clear */
 			AbstractCollection_contains,
 			AbstractCollection_isEmpty,
+			ABSTRACT_METHOD, /* remove */
 			AbstractCollection_size);

@@ -95,24 +95,21 @@ var string_iterator (const var _self) {
 /* chars and length are
    statically linked */
 
-var string_concat (const var _self, const var _other) {
-  const class(string) * self  = _self;
+var string_concat (var _self, const var _other) {
+  class(string) * self  = _self;
   const class(string) * other = _other;
-  char * str;
   size_t len;
-  var    res;
 
   len = self->len + other->len;
-  str = coal_core_malloc((len + 1) * sizeof(char));
+  self->str =
+    coal_core_realloc(self->str, (len + 1) * sizeof(char));
 
-  memcpy(str, self->str, self->len);
-  memcpy(str + self->len, other->str, other->len);
-  str[len] = '\0';
+  memcpy(self->str + self->len, other->str, other->len);
+  self->str[len] = '\0';
 
-  res = coal_new(coal_lang_string(), str);
-  free(str);
+  self->len = len;
 
-  return res;
+  return _self;
 }
 
 SETUP_CLASS_DESCRIPTION(coal_lang_string,

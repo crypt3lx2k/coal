@@ -10,11 +10,30 @@ var collection_constructor (var _self, va_list * app) {
 
   class->super->constructor(_self, app);
 
+  OverrideMethod(self, add);
+  OverrideMethod(self, clear);
   OverrideMethod(self, contains);
   OverrideMethod(self, isEmpty);
+  OverrideMethod(self, remove);
   OverrideMethod(self, size);
 
   return self;
+}
+
+bool coal_util_collection_add (var _self, const var object) {
+  const class(collection) * class = coal_lang_getClass(_self);
+
+  CheckAndThrowMissingMethodException("coal_util_collection_add", class, coal_util_collection());
+
+  return class->add(_self, object);
+}
+
+void coal_util_collection_clear (var _self) {
+  const class(collection) * class = coal_lang_getClass(_self);
+
+  CheckAndThrowMissingMethodException("coal_util_collection_clear", class, coal_util_collection());
+
+  class->clear(_self);
 }
 
 bool coal_util_collection_contains (const var _self, const var object) {
@@ -31,6 +50,14 @@ bool coal_util_collection_isEmpty (const var _self) {
   CheckAndThrowMissingMethodException("coal_util_collection_isEmpty", class, coal_util_collection());
 
   return class->isEmpty(_self);
+}
+
+bool coal_util_collection_remove (var _self, const var object) {
+  const class(collection) * class = coal_lang_getClass(_self);
+
+  CheckAndThrowMissingMethodException("coal_util_collection_remove", class, coal_util_collection());
+
+  return class->remove(_self, object);
 }
 
 int coal_util_collection_size (const var _self) {
