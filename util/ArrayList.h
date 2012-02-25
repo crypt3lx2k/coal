@@ -7,7 +7,7 @@
  * coal_util_ArrayList
  * A list implemented with a dynamic array.
  *
- * @extends coal_lang_AbstractCollection
+ * @extends coal_util_AbstractCollection
  * @constructor takes 1 argument
  * @param (size_t) the number of elements to pre-allocate space for
  */
