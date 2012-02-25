@@ -1,0 +1,25 @@
+#ifndef COAL_UTIL_ARRAYLIST_ITERATOR_REP__
+#define COAL_UTIL_ARRAYLIST_ITERATOR_REP__
+
+#include <coal/core/implementation.h>
+
+/**
+ * coal_util_ArrayList_iterator
+ * Iterator for ArrayLists.
+ *
+ * @extends coal_util_object
+ * @constructor takes 2 arguments
+ * @param (var *) base of underlying array
+ * @param (var *) head of underlying array
+ */
+cfundecl__ (const var coal_util_ArrayList_iterator (void))
+  __attribute__ ((const));
+
+class (ArrayList_iterator) {
+  extends(object);
+
+  var * base;
+  var * head;
+};
+
+#endif /* COAL_UTIL_ARRAYLIST_ITERATOR_REP__ */

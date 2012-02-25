@@ -1,0 +1,15 @@
+#ifndef COAL_UTIL_ARRAYLIST_REP__
+#define COAL_UTIL_ARRAYLIST_REP__
+
+#include <coal/core/implementation.h>
+#include <coal/util/AbstractCollection/AbstractCollection.rep>
+
+class (ArrayList) {
+  extends(AbstractCollection);
+
+  var * base;
+  var * head;
+  var * end;
+};
+
+#endif /* COAL_UTIL_ARRAYLIST_REP__ */

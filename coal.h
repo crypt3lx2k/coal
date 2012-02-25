@@ -30,6 +30,19 @@
 # include <coal/core/exceptions.h>
 #endif
 
+/*
+ * This pollutes the namespace with
+ * - foreach
+ * - foreach_end
+ * - everything in lang/iterable.h
+ * - everything in util/iterator.h
+ * - everything in core/memory.h
+ * - everything in core/local.h
+ */
+#ifdef COAL_USER_FOREACH
+# include <coal/core/foreach.h>
+#endif
+
 /* Functions */
 
 /**

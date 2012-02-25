@@ -3,6 +3,10 @@
 #include <coal/core/implementation.h>
 #include <coal/lang/OutOfMemoryError.h>
 
+void coal_core_collector (var * obj) {
+  coal_del(*obj);
+}
+
 void * coal_core_malloc (size_t size) {
   void * block;
 
@@ -10,8 +14,19 @@ void * coal_core_malloc (size_t size) {
 
   if (block == NULL) 
     coal_throw(coal_new(coal_lang_OutOfMemoryError(),
-			"coal_core_malloc: failed malloc of size %u.",
-			size));
+			"coal_core_malloc: failed malloc."));
+
+  return block;
+}
+
+void * coal_core_realloc (void * ptr, size_t size) {
+  void * block;
+
+  block = realloc(ptr, size);
+
+  if (block == NULL)
+    coal_throw(coal_new(coal_lang_OutOfMemoryError(),
+			"coal_core_realloc: failed realloc."));
 
   return block;
 }

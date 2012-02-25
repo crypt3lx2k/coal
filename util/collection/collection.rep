@@ -1,0 +1,15 @@
+#ifndef COAL_UTIL_COLLECTION_REP__
+#define COAL_UTIL_COLLECTION_REP__
+
+#include <coal/core/implementation.h>
+#include <coal/lang/iterable/iterable.rep>
+
+class (collection) {
+  extends(iterable);
+
+  bool (*contains)(const var self, const var object);
+  bool (*isEmpty)(const var self);
+  int  (*size)(const var self);
+};
+
+#endif /* COAL_UTIL_COLLECTION_REP__ */

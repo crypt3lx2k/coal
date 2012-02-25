@@ -5,7 +5,9 @@
 
 #include <coal/core/common.h>
 #include <coal/core/exceptions.h>
+#include <coal/core/foreach.h>
 #include <coal/core/library.h>
+#include <coal/core/local.h>
 #include <coal/core/memory.h>
 #include <coal/core/object_orientation.h>
 #include <coal/core/reference_counting.h>

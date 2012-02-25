@@ -1,0 +1,11 @@
+#ifndef COAL_UTIL_ABSTRACTCOLLECTION_REP__
+#define COAL_UTIL_ABSTRACTCOLLECTION_REP__
+
+#include <coal/core/implementation.h>
+#include <coal/lang/abstract/abstract.rep>
+
+class (AbstractCollection) {
+  extends(abstract);
+};
+
+#endif /* COAL_UTIL_ABSTRACTCOLLECTION_REP__ */

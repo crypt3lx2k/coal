@@ -8,7 +8,7 @@
  * Base class for objects.
  *
  * @extends coal_lang_object
- * @constructor takes no arguments
+ * @constructor takes 0 arguments
  */
 cfundecl__ (const var coal_lang_object (void))
   __attribute__ ((const));
