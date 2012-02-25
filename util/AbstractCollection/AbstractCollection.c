@@ -59,7 +59,7 @@ SETUP_CLASS_DESCRIPTION(coal_util_AbstractCollection,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
 			/* iterable */
-			INHERIT_METHOD,
+			ABSTRACT_METHOD,
 			/* collection */
 			AbstractCollection_contains,
 			AbstractCollection_isEmpty,

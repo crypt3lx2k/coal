@@ -17,4 +17,10 @@
  */
 #define INHERIT_METHOD 0
 
+/**
+ * ABSTRACT_METHOD
+ * Tags a method for being abstract.
+ */
+#define ABSTRACT_METHOD 1
+
 #endif /* COAL_OBJECT_ORIENTATION_H__ */

@@ -13,7 +13,7 @@ var ArrayList_constructor (var _self, va_list * app) {
   class(ArrayList) * self = _self;
   size_t size = va_arg(*app, size_t);
 
-  self->base = coal_core_malloc(size);
+  self->base = size ? coal_core_malloc(size) : NULL;
   self->head = self->base;
   self->end  = self->base + size;
 
