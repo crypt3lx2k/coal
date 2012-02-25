@@ -15,8 +15,23 @@
 cfundecl__ (const var coal_lang_throwable (void))
   __attribute__ ((const));
 
+/**
+ * coal_lang_throwable_getMessage
+ * Returns the underlying message of a throwable
+ * as an immutable char array.
+ *
+ * @param  (const var) throwable in question
+ * @return (const char *) message of throwable
+ */
+cfundecl__ (const char * coal_lang_throwable_getMessage (const var self));
+
 #ifdef LANG_NAMESPACE_POLLUTE
 # define throwable coal_lang_throwable
+# define throwable_getMessage coal_lang_throwable_getMessage
+#endif
+
+#ifdef THROWABLE_NAMESPACE_POLLUTE
+# define getMessage coal_lang_throwable_getMessage
 #endif
 
 #endif /* COAL_LANG_THROWABLE_H__ */

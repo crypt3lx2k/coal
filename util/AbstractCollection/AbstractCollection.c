@@ -4,6 +4,7 @@
 #include <coal/util/collection.h>
 
 #include <coal/util/AbstractCollection.h>
+#include <coal/util/AbstractCollection/AbstractCollection.rep>
 
 /* override lang.object methods */
 
@@ -12,7 +13,7 @@ bool AbstractCollection_equals (const var self, const var other) {
       coal_util_collection_size(other))
     return false;
 
-  foreach(var elem, self) {
+  foreach (var elem, self) {
     if (! coal_util_collection_contains(other, elem))
       return false;
   } foreach_end;
@@ -49,7 +50,7 @@ SETUP_CLASS_DESCRIPTION(coal_util_AbstractCollection,
 			coal_util_collection(),
 			LIBRARY_STR ".util.AbstractCollection",
 			coal_lang_abstract(),
-			0,
+			sizeof(class(AbstractCollection)),
 			/* object */
 			AbstractCollection_equals,
 			INHERIT_METHOD,

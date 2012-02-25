@@ -8,6 +8,8 @@
 #include <coal/lang/throwable.h>
 #include <coal/lang/throwable/throwable.rep>
 
+/* override lang.object methods */
+
 var throwable_constructor(var _self, va_list * app) {
   class(throwable) * self = _self;
   const char       * fmt  = va_arg(*app, const char *);
@@ -41,6 +43,14 @@ var throwable_toString(const var _self) {
 		  "%s: %s",
 		  class->name,
 		  self->message);
+}
+
+/* statically linked */
+
+const char * coal_lang_throwable_getMessage (const var _self) {
+  const class(throwable) * self = _self;
+
+  return self->message;
 }
 
 SETUP_CLASS_DESCRIPTION(coal_lang_throwable,
