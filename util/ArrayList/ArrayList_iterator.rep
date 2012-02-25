@@ -7,7 +7,7 @@
  * coal_util_ArrayList_iterator
  * Iterator for ArrayLists.
  *
- * @extends coal_util_object
+ * @extends coal_lang_object
  * @constructor takes 2 arguments
  * @param (var *) base of underlying array
  * @param (var *) head of underlying array
