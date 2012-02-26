@@ -10,6 +10,8 @@ class (ArrayList) {
   var * base;
   var * head;
   var * end;
+
+  float resize_factor;
 };
 
 #endif /* COAL_UTIL_ARRAYLIST_REP__ */

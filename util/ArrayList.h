@@ -8,8 +8,9 @@
  * A list implemented with a dynamic array.
  *
  * @extends coal_util_AbstractCollection
- * @constructor takes 1 argument
+ * @constructor takes 2 arguments
  * @param (size_t) the number of elements to pre-allocate space for
+ * @param (float) the resize factor of the underlying array
  */
 cfundecl__ (const var coal_util_ArrayList (void))
   __attribute__ ((const));
