@@ -31,10 +31,20 @@ cfundecl__ (const char * coal_lang_string_chars (const var self));
  * Concatenates two strings.
  *
  * @param  (var) first string
- * @param  (const var) second string
+ * @param  (var) second string
  * @return (var) concatenated string
  */
-cfundecl__ (var coal_lang_string_concat (var self, const var other));
+cfundecl__ (var coal_lang_string_concat (var self, var other));
+
+/**
+ * coal_lang_string_join
+ * Uses string as a delimiter to join together an iterable.
+ *
+ * @param  (const var) the delimiter
+ * @param  (const var) iterable to join with delimiter
+ * @return (var) the resulting string
+ */
+cfundecl__ (var coal_lang_string_join (var self, const var iterable));
 
 /**
  * coal_lang_string_length
@@ -49,12 +59,14 @@ cfundecl__ (size_t coal_lang_string_length (const var self));
 # define string        coal_lang_string
 # define string_chars  coal_lang_string_chars
 # define string_concat coal_lang_string_concat
+# define string_join   coal_lang_string_join
 # define string_length coal_lang_string_length
 #endif
 
 #ifdef STRING_NAMESPACE_POLLUTE
 # define chars  coal_lang_string_chars
 # define concat coal_lang_string_concat
+# define join   coal_lang_string_join
 # define length coal_lang_string_length
 #endif
 

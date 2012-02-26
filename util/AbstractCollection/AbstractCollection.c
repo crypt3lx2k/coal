@@ -36,29 +36,11 @@ int AbstractCollection_hashCode (const var self) {
 
 var AbstractCollection_toString (const var self) {
   var s = coal_new(coal_lang_string(), "[");
-  var d = coal_new(coal_lang_string(), ", ");
-  var e = coal_new(coal_lang_string(), "]");
-  var i = coal_lang_iterable_iterator(self);
+  var b = coal_lang_string_join(coal_new(coal_lang_string(), ", "), self);
 
-  while (coal_util_iterator_hasNext(i)) {
-    var elem = coal_util_iterator_next(i);
-    var t = coal_lang_toString(elem);
+  s = coal_lang_string_concat(s, b);
 
-    s = coal_lang_string_concat(s, t);
-
-    if (coal_util_iterator_hasNext(i))
-      s = coal_lang_string_concat(s, d);
-
-    coal_del(t);
-  }
-
-  s = coal_lang_string_concat(s, e);
-
-  coal_del(i);
-  coal_del(e);
-  coal_del(d);
-
-  return s;
+  return coal_lang_string_concat(s, coal_new(coal_lang_string(), "]"));
 }
 
 /* util.collection methods */

@@ -10,6 +10,7 @@ var string_metaclass_constructor (var _self, va_list * app) {
   class->super->constructor(_self, app);
 
   OverrideMethod(self, concat);
+  OverrideMethod(self, join);
 
   return _self;
 }
@@ -30,7 +31,7 @@ size_t coal_lang_string_length (const var _self) {
   return self->len;
 }
 
-var coal_lang_string_concat (var self, const var other) {
+var coal_lang_string_concat (var self, var other) {
   const class(string_metaclass) * s_class;
   const class(string_metaclass) * o_class;
 
@@ -49,11 +50,22 @@ var coal_lang_string_concat (var self, const var other) {
   return s_class->concat(self, other);
 }
 
+var coal_lang_string_join (var self, const var iterable) {
+  const class(string_metaclass) * class;
+  const class(metaclass) * i_class = coal_lang_getClass(iterable);
+
+  CheckAndThrowMissingMethodException("coal_lang_string_join", self, coal_lang_string());
+  CheckAndThrowMissingMethodException("coal_lang_string_join", i_class, coal_lang_iterable());
+
+  class = coal_lang_getClass(self);
+  return class->join(self, iterable);
+}
+
 /* string_class class description */
 SETUP_CLASS_DESCRIPTION(coal_lang_string_metaclass,
 			coal_lang_metaclass(),
 			LIBRARY_STR ".lang.string.class",
-			coal_lang_iterable(),
+			coal_lang_metaclass(),
 			sizeof(class(string_metaclass)),
 			INHERIT_METHOD,
 			string_metaclass_constructor,

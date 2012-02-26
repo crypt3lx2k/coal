@@ -6,10 +6,12 @@
 #include <coal/core/implementation.h>
 #include <coal/lang/OutOfMemoryError.h>
 
+#include <coal/lang/iterable.h>
+#include <coal/util/iterator.h>
+
 #include <coal/lang/string.h>
 #include <coal/lang/string/string.rep>
 #include <coal/lang/string/string_metaclass.rep>
-#include <coal/lang/string/string_iterator.rep>
 
 /* override lang.object methods */
 
@@ -80,24 +82,14 @@ var string_toString(const var self) {
   return coal_acquire((var) self);
 }
 
-/* lang.iterable methods */
-
-var string_iterator (const var _self) {
-  const class(string) * self = _self;
-
-  return coal_new(coal_lang_string_iterator(),
-		  self->str,
-		  self->len);
-}
-
 /* lang.string methods */
 
 /* chars and length are
    statically linked */
 
-var string_concat (var _self, const var _other) {
+var string_concat (var _self, var _other) {
   class(string) * self  = _self;
-  const class(string) * other = _other;
+  class(string) * other = _other;
   size_t len;
 
   len = self->len + other->len;
@@ -109,8 +101,28 @@ var string_concat (var _self, const var _other) {
 
   self->len = len;
 
+  coal_del(_other);
   return _self;
 }
+
+var string_join (var self, const var iterable) {
+  var s = coal_new(coal_lang_string(), "");
+  var i = coal_lang_iterable_iterator(iterable);
+
+  while (coal_util_iterator_hasNext(i)) {
+    var elem = coal_util_iterator_next(i);
+
+    s = coal_lang_string_concat(s, coal_lang_toString(elem));
+
+    if (coal_util_iterator_hasNext(i))
+      s = coal_lang_string_concat(s, coal_acquire(self));
+  }
+
+  coal_del(self);
+  coal_del(i);
+  return s;
+}
+
 
 SETUP_CLASS_DESCRIPTION(coal_lang_string,
 			coal_lang_string_metaclass(),
@@ -124,7 +136,6 @@ SETUP_CLASS_DESCRIPTION(coal_lang_string,
 			string_equals,
 			string_hashCode,
 			string_toString,
-			/* iterable */
-			string_iterator,
 			/* string */
-			string_concat);
+			string_concat,
+			string_join);

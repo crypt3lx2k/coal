@@ -19,7 +19,7 @@
  * @param (int (*hashCode)(const var)) pointer to hash function
  * @param (var (*toString)(const var)) pointer to string function
  * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
- * @param (bool (*add)(var, const var) pointer to function that adds element to the collection
+ * @param (bool (*add)(var, var) pointer to function that adds element to the collection
  * @param (void (*clear)(var)) pointer to function that clears the collection
  * @param (bool (*contains)(const var, const var)) pointer to that specifies if an object is in the collection
  * @param (bool (*isEmpty)(const var)) pointer to function that specifies if the collection is empty
@@ -34,10 +34,10 @@ cfundecl__ (const var coal_util_collection (void))
  * Adds an element to the collection.
  *
  * @param  (var) the collection in question
- * @param  (const var) the object to add
+ * @param  (var) the object to add
  * @return (bool) true if the collection was altered and false otherwise
  */
-cfundecl__ (bool coal_util_collection_add (var self, const var object));
+cfundecl__ (bool coal_util_collection_add (var self, var object));
 
 /**
  * coal_util_collection_clear

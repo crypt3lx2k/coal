@@ -38,9 +38,10 @@ os.path.walk(".", walker, classes)
 
 print 'digraph hierarchy {'
 
-for key in classes:
+for key in sorted(classes):
     print '"%s" -> "%s";' % (
         classes[key],
-        key)
+        key
+    )
 
 print '}'

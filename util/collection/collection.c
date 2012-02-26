@@ -20,7 +20,7 @@ var collection_constructor (var _self, va_list * app) {
   return self;
 }
 
-bool coal_util_collection_add (var _self, const var object) {
+bool coal_util_collection_add (var _self, var object) {
   const class(collection) * class = coal_lang_getClass(_self);
 
   CheckAndThrowMissingMethodException("coal_util_collection_add", class, coal_util_collection());

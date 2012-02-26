@@ -2,13 +2,12 @@
 #define COAL_LANG_STRING_CLASS_REP__
 
 #include <coal/core/implementation.h>
-#include <coal/lang/iterable/iterable.rep>
 
 /**
  * coal_lang_string_metaclass
  * Metaclass for strings.
  *
- * @extends coal_lang_iterable
+ * @extends coal_lang_metaclass
  * @constructor takes 11 arguments
  * @param (const char *) name of class
  * @param (const class(metaclass) *) super class
@@ -19,16 +18,17 @@
  * @param (bool (*equals)(const var, const var)) pointer to equality function
  * @param (int (*hashCode)(const var)) pointer to hash function
  * @param (var (*toString)(const var)) pointer to string function
- * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
- * @param (var (*concat)(const var, const var)) pointer to concatenation function
+ * @param (var (*concat)(const var, var)) pointer to function that concatenates strings
+ * @param (var (*join)(var, const var)) pointer to function that joins an iterable with a delimiter
  */
 cfundecl__ (const var coal_lang_string_metaclass (void))
   __attribute__ ((const));
 
 class (string_metaclass) {
-  extends(iterable);
+  extends(metaclass);
 
-  var (*concat)(const var self, const var other);
+  var (*concat)(var self, var other);
+  var (*join)(var self, const var iterable);
 };
 
 #endif /* COAL_LANG_STRING_REP__ */
