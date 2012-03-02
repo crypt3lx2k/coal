@@ -21,9 +21,9 @@
  * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
  * @param (bool (*add)(var, var) pointer to function that adds element to the collection
  * @param (void (*clear)(var)) pointer to function that clears the collection
- * @param (bool (*contains)(const var, const var)) pointer to that specifies if an object is in the collection
+ * @param (bool (*contains)(const var, var)) pointer to that specifies if an object is in the collection
  * @param (bool (*isEmpty)(const var)) pointer to function that specifies if the collection is empty
- * @param (bool (*remove)(var, const var)) pointer to function that removes element from the collection
+ * @param (bool (*remove)(var, var)) pointer to function that removes element from the collection
  * @param (int (*size)(const var)) pointer to function that returns the number of elements in the collection
  */
 cfundecl__ (const var coal_util_collection (void))
@@ -56,7 +56,7 @@ cfundecl__ (void coal_util_collection_clear (var self));
  * @param  (const var) the object to check for existence
  * @return (bool) true if the object is contained in the collection and false otherwise
  */
-cfundecl__ (bool coal_util_collection_contains (const var self, const var object));
+cfundecl__ (bool coal_util_collection_contains (const var self, var object));
 
 /**
  * coal_util_collection_isEmpty
@@ -75,7 +75,7 @@ cfundecl__ (bool coal_util_collection_isEmpty (const var self));
  * @param  (const var) the element to remove from the collection
  * @return (bool) true if the collection was altered and false otherwise
  */
-cfundecl__ (bool coal_util_collection_remove (var self, const var object));
+cfundecl__ (bool coal_util_collection_remove (var self, var object));
 
 /**
  * coal_util_collection_size

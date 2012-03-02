@@ -9,9 +9,9 @@ class (collection) {
 
   bool (*add)(var self, var object);
   bool (*clear)(var self);
-  bool (*contains)(const var self, const var object);
+  bool (*contains)(const var self, var object);
   bool (*isEmpty)(const var self);
-  bool (*remove)(var self, const var object);
+  bool (*remove)(var self, var object);
   int  (*size)(const var self);
 };
 

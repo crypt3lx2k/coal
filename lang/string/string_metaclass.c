@@ -34,6 +34,7 @@ size_t coal_lang_string_length (const var _self) {
 var coal_lang_string_concat (var self, var other) {
   const class(string_metaclass) * s_class;
   const class(string_metaclass) * o_class;
+  var ret;
 
   CheckAndThrowMissingMethodException("coal_lang_string_concat", self, coal_lang_string());
   CheckAndThrowMissingMethodException("coal_lang_string_concat", other, coal_lang_string());
@@ -42,23 +43,31 @@ var coal_lang_string_concat (var self, var other) {
   o_class = coal_lang_getClass(other);
 
   if (coal_instanceof(self, o_class))
-    return o_class->concat(self, other);
+    ret = o_class->concat(self, other);
   else if (coal_instanceof(other, s_class))
-    return s_class->concat(self, other);
+    ret = s_class->concat(self, other);
+  else {
+    s_class = coal_lang_string();
+    ret = s_class->concat(self, other);
+  }
 
-  s_class = coal_lang_string();
-  return s_class->concat(self, other);
+  coal_del(other);
+  return ret;
 }
 
 var coal_lang_string_join (var self, const var iterable) {
   const class(string_metaclass) * class;
   const class(metaclass) * i_class = coal_lang_getClass(iterable);
+  var ret;
 
   CheckAndThrowMissingMethodException("coal_lang_string_join", self, coal_lang_string());
   CheckAndThrowMissingMethodException("coal_lang_string_join", i_class, coal_lang_iterable());
 
   class = coal_lang_getClass(self);
-  return class->join(self, iterable);
+  ret = class->join(self, iterable);
+
+  coal_del(self);
+  return ret;
 }
 
 /* string_class class description */

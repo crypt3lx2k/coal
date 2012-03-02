@@ -13,10 +13,12 @@ var ArrayList_constructor (var _self, va_list * app) {
   class(ArrayList) * self = _self;
   size_t size = va_arg(*app, size_t);
 
-  self->resize_factor = va_arg(*app, float);
+  /* floats are promoted to double when passed
+     through a variable argument list */
+  self->resize_factor = (float) va_arg(*app, double);
 
   /* default sane value */
-  if (! self->resize_factor > 0.0)
+  if (self->resize_factor <= 0.0)
     self->resize_factor = 0.70;
 
   self->base = size ? coal_core_malloc(size * sizeof(var)) : NULL;
@@ -54,7 +56,7 @@ var ArrayList_iterator (const var _self) {
 
 /* util.collection methods */
 
-bool ArrayList_add (var _self, const var object) {
+bool ArrayList_add (var _self, var object) {
   class(ArrayList) * self = _self;
 
   if (self->head == self->end) {
@@ -85,7 +87,7 @@ void ArrayList_clear (var _self) {
   self->head = self->base;
 }
 
-bool ArrayList_contains (const var _self, const var object) {
+bool ArrayList_contains (const var _self, var object) {
   const class(ArrayList) * self = _self;
   int i;
   int size = self->head - self->base;
@@ -103,7 +105,7 @@ bool ArrayList_isEmpty (const var _self) {
   return self->base == self->head;
 }
 
-bool ArrayList_remove (var _self, const var object) {
+bool ArrayList_remove (var _self, var object) {
   class(ArrayList) * self = _self;
   int i, j;
   int size = self->head - self->base;

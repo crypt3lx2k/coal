@@ -36,7 +36,7 @@ void coal_util_collection_clear (var _self) {
   class->clear(_self);
 }
 
-bool coal_util_collection_contains (const var _self, const var object) {
+bool coal_util_collection_contains (const var _self, var object) {
   const class(collection) * class = coal_lang_getClass(_self);
 
   CheckAndThrowMissingMethodException("coal_util_collection_contains", class, coal_util_collection());
@@ -52,7 +52,7 @@ bool coal_util_collection_isEmpty (const var _self) {
   return class->isEmpty(_self);
 }
 
-bool coal_util_collection_remove (var _self, const var object) {
+bool coal_util_collection_remove (var _self, var object) {
   const class(collection) * class = coal_lang_getClass(_self);
 
   CheckAndThrowMissingMethodException("coal_util_collection_remove", class, coal_util_collection());

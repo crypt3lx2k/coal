@@ -101,7 +101,6 @@ var string_concat (var _self, var _other) {
 
   self->len = len;
 
-  coal_del(_other);
   return _self;
 }
 
@@ -118,7 +117,6 @@ var string_join (var self, const var iterable) {
       s = coal_lang_string_concat(s, coal_acquire(self));
   }
 
-  coal_del(self);
   coal_del(i);
   return s;
 }
