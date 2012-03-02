@@ -1,0 +1,15 @@
+#ifndef COAL_UTIL_LIST_REP__
+#define COAL_UTIL_LIST_REP__
+
+#include <coal/core/implementation.h>
+#include <coal/util/collection/collection.rep>
+
+class (list) {
+  extends(collection);
+
+  var (*get)(const var self, int index);
+  bool (*insert)(var self, int index, var elem);
+  var (*set)(var self, int index, var elem);
+};
+
+#endif /* COAL_UTIL_LIST_REP__ */

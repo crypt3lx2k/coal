@@ -74,10 +74,10 @@ SETUP_CLASS_DESCRIPTION(coal_util_AbstractCollection,
 			coal_lang_abstract(),
 			sizeof(class(AbstractCollection)),
 			/* object */
+			INHERIT_METHOD,
+			INHERIT_METHOD,
+			INHERIT_METHOD,
 			AbstractCollection_equals,
-			INHERIT_METHOD,
-			INHERIT_METHOD,
-			INHERIT_METHOD,
 			AbstractCollection_hashCode,
 			AbstractCollection_toString,
 			/* iterable */

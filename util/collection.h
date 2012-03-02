@@ -41,7 +41,7 @@ cfundecl__ (bool coal_util_collection_add (var self, var object));
 
 /**
  * coal_util_collection_clear
- * Empties the colllection.
+ * Empties the collection.
  *
  * @param (var) the collection to empty
  */

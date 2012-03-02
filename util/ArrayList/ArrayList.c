@@ -1,7 +1,9 @@
 #include <coal/core/implementation.h>
 
-#include <coal/util/collection.h>
-#include <coal/util/AbstractCollection.h>
+#include <coal/lang/IndexOutOfBoundsException.h>
+
+#include <coal/util/list.h>
+#include <coal/util/AbstractList.h>
 
 #include <coal/util/ArrayList.h>
 #include <coal/util/ArrayList/ArrayList.rep>
@@ -131,14 +133,65 @@ int ArrayList_size (const var _self) {
   return self->head - self->base;
 }
 
+/* util.list methods */
+
+var ArrayList_get (const var _self, int index) {
+  const class(ArrayList) * self = _self;
+  int size = self->head - self->base;
+
+  if (index >= size || index < 0)
+    coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
+			"ArrayList_get: index out of bounds."));
+
+  return self->base[index];
+}
+
+bool ArrayList_insert (var _self, int index, var elem) {
+  class(ArrayList) * self = _self;
+  int i;
+  var s;
+  int size = self->head - self->base;
+
+  if (index > size || index < 0)
+    coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
+			"ArrayList_insert: index out of bounds."));
+
+  if (index == size)
+    return ArrayList_add(_self, elem);
+
+  s = self->base[size-1];
+
+  for (i = size-1; i > index; i--)
+    self->base[i] = self->base[i-1];
+
+  self->base[i] = elem;
+
+  return ArrayList_add(_self, s);
+}
+
+var ArrayList_set (var _self, int index, var elem) {
+  class(ArrayList) * self = _self;
+  int size = self->head - self->base;
+  var o;
+
+  if (index >= size || index < 0)
+    coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
+			"ArrayList_set: index out of bounds."));
+
+  o = self->base[index];
+  self->base[index] = elem;
+
+  return o;
+}
+
 /* util.ArrayList methods */
 
 /* ... */
 
 SETUP_CLASS_DESCRIPTION(coal_util_ArrayList,
-			coal_util_collection(),
+			coal_util_list(),
 			LIBRARY_STR ".util.ArrayList",
-			coal_util_AbstractCollection(),
+			coal_util_AbstractList(),
 			sizeof(class(ArrayList)),
 			/* object */
 			INHERIT_METHOD,
@@ -155,4 +208,8 @@ SETUP_CLASS_DESCRIPTION(coal_util_ArrayList,
 			ArrayList_contains,
 			ArrayList_isEmpty,
 			ArrayList_remove,
-			ArrayList_size);
+			ArrayList_size,
+			/* list */
+			ArrayList_get,
+			ArrayList_insert,
+			ArrayList_set);

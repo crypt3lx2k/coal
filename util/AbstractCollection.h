@@ -6,7 +6,8 @@
 /**
  * coal_util_AbstractCollection
  * Abstract base class for collections.
- * Subclasses need only implement an iterator.
+ * Subclasses need only implement an iterator
+ * and the destructive operations.
  *
  * @extends coal_lang_abstract
  * @constructor takes 0 arguments
