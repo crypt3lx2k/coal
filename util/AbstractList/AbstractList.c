@@ -1,6 +1,7 @@
 #include <coal/core/implementation.h>
 
 #include <coal/lang/IndexOutOfBoundsException.h>
+#include <coal/lang/UnsupportedOperationException.h>
 
 #include <coal/lang/iterable.h>
 #include <coal/util/iterator.h>
@@ -11,6 +12,8 @@
 
 #include <coal/util/AbstractList.h>
 #include <coal/util/AbstractList/AbstractList.rep>
+
+/* override lang.object methods */
 
 bool AbstractList_equals (const var self, const var other) {
   var i coal_local;
@@ -30,6 +33,8 @@ bool AbstractList_equals (const var self, const var other) {
 
   return true;
 }
+
+/* util.list methods */
 
 var AbstractList_get (const var self, int index) {
   var elem = NULL;

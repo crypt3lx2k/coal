@@ -1,5 +1,7 @@
 #include <coal/core/implementation.h>
 
+#include <coal/lang/UnsupportedOperationException.h>
+
 #include <coal/lang/abstract.h>
 #include <coal/lang/iterable.h>
 
@@ -45,6 +47,14 @@ var AbstractCollection_toString (const var self) {
 
 /* util.collection methods */
 
+void AbstractCollection_unsupported (const var self) {
+  const class(metaclass) * class = coal_lang_getClass(self);
+
+  coal_throw(coal_new(coal_lang_UnsupportedOperationException(),
+		      "%s does not support the attempted operation.",
+		      class->name));
+}
+
 bool AbstractCollection_contains (const var self, const var object) {
   foreach (var elem, self) {
     if (coal_lang_equals(elem, object))
@@ -83,9 +93,9 @@ SETUP_CLASS_DESCRIPTION(coal_util_AbstractCollection,
 			/* iterable */
 			ABSTRACT_METHOD,
 			/* collection */
-			ABSTRACT_METHOD, /* add */
-			ABSTRACT_METHOD, /* clear */
+			AbstractCollection_unsupported, /* add */
+			AbstractCollection_unsupported, /* clear */
 			AbstractCollection_contains,
 			AbstractCollection_isEmpty,
-			ABSTRACT_METHOD, /* remove */
+			AbstractCollection_unsupported, /* remove */
 			AbstractCollection_size);
