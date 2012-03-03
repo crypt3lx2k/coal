@@ -9,7 +9,10 @@ from collections import defaultdict
 class ClassTree (object):
     colors = [
         'aquamarine', 'antiquewhite',
-        'lightblue', 'palegreen', 'thistle'
+        'lightblue', 'palegreen', 'thistle',
+        'cadetblue', 'lightpink', 'lightsalmon',
+        'lavenderblush', 'lemonchiffon',
+        'turquoise'
     ]
 
     def __init__ (self):
@@ -19,7 +22,7 @@ class ClassTree (object):
         self.all = set()
 
         self.cmp = lambda coll : lambda a, b : (
-            (coll[a] - coll[b]) or cmp(a, b)
+            (coll[b] - coll[a]) or cmp(a, b)
         )
 
     def addMajor (self, klass):
@@ -33,8 +36,9 @@ class ClassTree (object):
             absmode += '.'
 
     def push (self, klass, subklass):
-        self.hierarchy[klass].append(subklass)
-        self.reverse[subklass] = klass
+        if klass != subklass:
+            self.hierarchy[klass].append(subklass)
+            self.reverse[subklass] = klass
 
         self.all.add(klass)
         self.all.add(subklass)
@@ -52,6 +56,18 @@ class ClassTree (object):
 
         return classes
 
+    def _indent (self, string):
+        lines = string.split('\n')
+        indented_lines = []
+
+        for line in lines:
+            if line:
+                indented_lines.append('\t' + line)
+            else:
+                indented_lines.append(line)
+
+        return '\n'.join(indented_lines)
+
     def _formatMajors (self, majors, colors=None):
         s = ''
         re_empty = False
@@ -62,20 +78,22 @@ class ClassTree (object):
                 colors = [self.palette.pop()]
                 colors.extend(['%s%d' % (colors[0], i) for i in range(1,4)])
 
-            s += 'subgraph "cluster_%s" {\n\t\t' % major
-            s += 'label="%s";\n\t\t' % major
-            s += 'labelloc=b;\n\t\t'
-            s += 'color=%s;\n\t\t' % colors.pop()
-            s += 'style=filled;\n\t\t'
+            s += '\tsubgraph "cluster_%s" {\n' % major
+            s += '\t\tlabel="%s";\n' % major
+            s += '\t\tlabelloc=b;\n'
+            s += '\t\tcolor=%s;\n' % colors.pop()
+            s += '\t\tstyle=filled;\n'
 
-            s += self._formatMajors(majors[major], colors).replace('\n', '\n\t')
+            s += self._indent(self._formatMajors(majors[major], colors))
 
             for klass in sorted(self.copy, self.cmp(self.counts)):
                 if klass.startswith(major):
                     subklasses = filter(lambda s : s.startswith(major),
                                         self.hierarchy[klass])
 
-                    s += '"%s" -> { %s };\n\t\t' % (
+                    subklasses = sorted(subklasses, self.cmp(self.counts))
+
+                    s += '\t\t"%s" -> { %s };\n' % (
                         klass,
                         ' '.join(['"%s"' % s for s in subklasses])
                     )
@@ -83,7 +101,7 @@ class ClassTree (object):
                     for subklass in subklasses:
                         self.hierarchy[klass].remove(subklass)
                     self.copy.remove(klass)
-            s += '\n\t}\n\t'
+            s += '\t}\n'
 
             if re_empty:
                 colors = []
@@ -102,20 +120,20 @@ class ClassTree (object):
 
         self.copy = self.all.copy()
 
-        s = 'digraph {\n\t'
-        s += 'node [shape=box,style=filled,color=white];\n\t'
+        s = 'digraph {\n'
+        s += '\tnode [shape=box,style=filled,color=white];\n'
 
         s += self._formatMajors(self.majors, ['antiquewhite'])
 
         for klass in sorted(self.hierarchy, self.cmp(self.counts)):
             subklasses = sorted(self.hierarchy[klass], self.cmp(self.counts))
             if subklasses:
-                s += '"%s" -> { %s };\n\t' % (
+                s += '\t"%s" -> { %s };\n' % (
                     klass,
                     ' '.join(['"%s"' % s for s in subklasses])
                 )
 
-        s += '\n}\n'
+        s += '}\n'
         return s
 
 description_r = re.compile(r'''
@@ -150,5 +168,4 @@ def walker (classes, dirname, fnames):
 
 classes = ClassTree()
 os.path.walk(".", walker, classes)
-
 print classes

@@ -7,7 +7,7 @@
 # error "Never include <coal/core/virtual_methods.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
-#include <coal/lang/NoSuchMethodException.h>
+#include <coal/lang/NoSuchMethodError.h>
 
 /**
  * coal_core_abstract_method
@@ -40,7 +40,7 @@ cfundecl__ (void coal_core_abstract_method ())
    when a method is missing in an object */
 #define CheckAndThrowMissingMethodException(method, self, class)        \
   if (! coal_instanceof(self, class))                                   \
-    coal_throw(coal_new(coal_lang_NoSuchMethodException(),              \
+    coal_throw(coal_new(coal_lang_NoSuchMethodError(),                  \
                         method ": invoked on an unsuitable object"))
 
 #endif /* COAL_CORE_VIRTUAL_METHODS_H__ */

@@ -8,7 +8,7 @@
  * Error that indicates that an attempt was
  * made to instantiate an abstract class.
  *
- * @extends coal_lang_Error
+ * @extends coal_lang_AbstractError
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments
