@@ -36,11 +36,14 @@ extern thread_local struct exceptions_stack__ exceptions_s__;
 
 #define try_end                                         \
     }                                                   \
-    (void) utility_stack_pop(&exceptions_s__);          \
-    if (exceptions_res__ && ! exceptions_caught__)      \
+    if (exceptions_res__ && ! exceptions_caught__) {    \
       coal_throw(exceptions_res__);                     \
-    else                                                \
+    } else {                                            \
+      (void) utility_stack_pop(&exceptions_s__);        \
       coal_del(exceptions_res__);                       \
+    }                                                   \
+    if (utility_stack_is_empty(&exceptions_s__))        \
+      utility_stack_clear(&exceptions_s__);             \
   })
 
 #endif /* COAL_CORE_EXCEPTIONS_H__ */

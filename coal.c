@@ -98,7 +98,7 @@ void coal_throw (var throwable) {
     coal_lang_thread_exit();
   } else {
     longjmp(*(jmp_buf *)
-	    utility_stack_peek(&exceptions_s__),
+	    utility_stack_pop(&exceptions_s__),
 	    (int) throwable);
   }
 }

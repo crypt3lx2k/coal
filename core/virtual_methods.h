@@ -22,18 +22,18 @@ cfundecl__ (void coal_core_abstract_method ())
   return class->method(self, ##__VA_ARGS__)
 
 /* overrides a method in a class description */
-#define OverrideMethod(self, method)				\
-  ({								\
-    typeof(self->method) external =				\
-      va_arg(*app, typeof(self->method));			\
-								\
-    if ((int) external == INHERIT_METHOD)			\
-      self->method = self->method;				\
-    else if ((int) external == ABSTRACT_METHOD)			\
-      self->method =						\
-	(typeof(self->method)) coal_core_abstract_method;	\
-    else							\
-      self->method = external;					\
+#define OverrideMethod(self, method)                            \
+  ({                                                            \
+    typeof(self->method) external =                             \
+      va_arg(*app, typeof(self->method));                       \
+                                                                \
+    if ((int) external == INHERIT_METHOD)                       \
+      self->method = self->method;                              \
+    else if ((int) external == ABSTRACT_METHOD)                 \
+      self->method =                                            \
+        (typeof(self->method)) coal_core_abstract_method;       \
+    else                                                        \
+      self->method = external;                                  \
   })
 
 /* boilerplate for throwing an exception
