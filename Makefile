@@ -4,7 +4,7 @@ IFLAGS = -I$(COAL)
 CFLAGS = -O2 -DNDEBUG -fomit-frame-pointer
 DBFLAGS = -g -O0
 LDFLAGS = -pthread
-WFLAGS = -Wall -Wextra
+WFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -shared -fPIC
 
 DOLLAR = $

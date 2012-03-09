@@ -1,0 +1,17 @@
+#ifndef COAL_IO_FILE_REP__
+#define COAL_IO_FILE_REP__
+
+#include <stdio.h>
+#include <coal/core/implementation.h>
+
+class (File) {
+  extends(object);
+
+  FILE * fp;
+  const char * path;
+  const char * mode;
+
+  bool open;
+};
+
+#endif /* COAL_IO_FILE_REP__ */

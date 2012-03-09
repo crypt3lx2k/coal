@@ -12,7 +12,8 @@ class ClassTree (object):
         'lightblue', 'palegreen', 'thistle',
         'cadetblue', 'lightpink', 'lightsalmon',
         'lavenderblush', 'lemonchiffon',
-        'turquoise'
+        'turquoise', 'goldenrod', 'honeydew',
+        'khaki'
     ]
 
     def __init__ (self):
@@ -22,10 +23,10 @@ class ClassTree (object):
         self.all = set()
 
         self.cmp = lambda coll : lambda a, b : (
-            (coll[b] - coll[a]) or cmp(a, b)
+            (coll[a] - coll[b]) or cmp(a, b)
         )
 
-    def addMajor (self, klass):
+    def _addMajor (self, klass):
         modes = klass.split('.')[:-1]
         node = self.majors
 
@@ -43,8 +44,8 @@ class ClassTree (object):
         self.all.add(klass)
         self.all.add(subklass)
 
-        self.addMajor(klass)
-        self.addMajor(subklass)
+        self._addMajor(klass)
+        self._addMajor(subklass)
 
     def _totalSubclasses (self, klass):
         classes = 0
@@ -68,6 +69,18 @@ class ClassTree (object):
 
         return '\n'.join(indented_lines)
 
+    def _belongsToMajor (self, klass, major):
+        if not klass.startswith(major):
+            return False
+
+        if klass == major:
+            return True
+
+        if klass.startswith(major + '.'):
+            return True
+
+        return False
+
     def _formatMajors (self, majors, colors=None):
         s = ''
         re_empty = False
@@ -87,7 +100,7 @@ class ClassTree (object):
             s += self._indent(self._formatMajors(majors[major], colors))
 
             for klass in sorted(self.copy, self.cmp(self.counts)):
-                if klass.startswith(major):
+                if self._belongsToMajor(klass, major):
                     subklasses = filter(lambda s : s.startswith(major),
                                         self.hierarchy[klass])
 

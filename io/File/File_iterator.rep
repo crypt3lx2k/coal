@@ -1,0 +1,28 @@
+#ifndef COAL_IO_FILE_ITERATOR_REP__
+#define COAL_IO_FILE_ITERATOR_REP__
+
+#include <stdio.h>
+#include <coal/core/implementation.h>
+
+#define BUFFER_SIZE 256
+
+/**
+ * coal_io_File_iterator
+ * Iterator for files.
+ *
+ * @extends coal_lang_object
+ * @constructor takes 1 argument
+ * @param (FILE *) underlying file pointer
+ */
+cfundecl__ (const var coal_io_File_iterator (void))
+  __attribute__ ((const));
+
+class (File_iterator) {
+  extends(object);
+
+  FILE * fp;
+  bool done;
+  char buffer[BUFFER_SIZE];
+};
+
+#endif /* COAL_IO_FILE_ITERATOR_REP__ */

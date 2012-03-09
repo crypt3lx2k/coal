@@ -47,7 +47,7 @@ cfundecl__ (int coal_io_println (const var object));
 #ifdef IO_NAMESPACE_POLLUTE
 # define fprint   coal_io_fprint
 # define fprintln coal_io_fprintln
-# define print    coal_io_prin
+# define print    coal_io_print
 # define println  coal_io_println
 #endif
 
