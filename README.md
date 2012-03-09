@@ -2,7 +2,7 @@ Have fun browsing the code, more to follow.
 
 Here is the current class hierarchy, generated using hierarchy.py and the graphviz tool `dot'.
 
-![Alt text](https://github.com/crypt3lx2k/coal/blob/master/classes.png)
+![Alt text](https://github.com/crypt3lx2k/coal/raw/master/classes.png)
 
 Here is a small test program, test.c,
 it is an implementation of the sleepsort algorithm.
