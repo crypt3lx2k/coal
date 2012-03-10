@@ -22,9 +22,9 @@ cfundecl__ (const var coal_lang_object (void))
  *
  * @param  (const var) first object to be compared
  * @param  (const var) second object to be compared
- * @return (int) integer that indicates difference between parameters
+ * @return (intptr_t) integer that indicates difference between parameters
  */
-cfundecl__ (int coal_lang_cmp (const var self, const var other));
+cfundecl__ (intptr_t coal_lang_cmp (const var self, const var other));
 
 /**
  * coal_lang_constructor
@@ -87,9 +87,9 @@ cfundecl__ (size_t coal_lang_getSize (const var self));
  * Returns the hash of an object.
  *
  * @param  (const var) object to be hashed
- * @return (int) hash of object
+ * @return (intptr_t) hash of object
  */
-cfundecl__ (int coal_lang_hashCode (const var self));
+cfundecl__ (intptr_t coal_lang_hashCode (const var self));
 
 /**
  * coal_lang_toString

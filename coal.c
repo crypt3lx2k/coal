@@ -99,6 +99,6 @@ void coal_throw (var throwable) {
   } else {
     longjmp(*(jmp_buf *)
 	    utility_stack_pop(&exceptions_s__),
-	    (int) throwable);
+	    (intptr_t) throwable);
   }
 }

@@ -15,7 +15,7 @@
 
 /* override lang.object methods */
 
-int string_cmp (const var _self, const var _other) {
+intptr_t string_cmp (const var _self, const var _other) {
   const class(string) * self  = _self;
   const class(string) * other = _other;
 
@@ -59,12 +59,12 @@ bool string_equals (const var _self, const var _other) {
 		   MIN(self->len, other->len)) == 0;
 }
 
-int string_hashCode(const var _self) {
+intptr_t string_hashCode(const var _self) {
   const class(string) * self = _self;
   const char * str = self->str;
   const size_t len = self->len;
 
-  register int i, x, m;
+  register intptr_t i, x, m;
 
   if (str[0] == '\0')
     return 0;
@@ -72,7 +72,7 @@ int string_hashCode(const var _self) {
   x = str[0] << 7;
   m = 1000003;
 
-  for (i = 0; i < (int) len; i++)
+  for (i = 0; i < (intptr_t) len; i++)
     x = (x*m)^str[i];
 
   return x;

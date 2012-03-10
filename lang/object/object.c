@@ -2,8 +2,8 @@
 #include <stddef.h> /* offsetof */
 #include <coal/core/implementation.h>
 
-int object_cmp (const var self, const var other) {
-  return (int) self - (int) other;
+intptr_t object_cmp (const var self, const var other) {
+  return (intptr_t) self - (intptr_t) other;
 }
 
 var object_constructor (var self, va_list * app __attribute__ ((unused))) {
@@ -18,16 +18,16 @@ bool object_equals (const var self, const var other) {
   return self == other;
 }
 
-int object_hashCode (const var self) {
-  return (int) self;
+intptr_t object_hashCode (const var self) {
+  return (intptr_t) self;
 }
 
 var object_toString (const var self) {
   const class(metaclass) * class = coal_lang_getClass(self);
 
-  return coal_new(coal_lang_string(), "%s@%x",
+  return coal_new(coal_lang_string(), "%s@%p",
 		  class->name,
-		  coal_lang_hashCode(self));
+		  self);
 }
 
 var metaclass_constructor (var _self, va_list * app) {

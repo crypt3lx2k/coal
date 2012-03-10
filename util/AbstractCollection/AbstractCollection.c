@@ -26,8 +26,8 @@ bool AbstractCollection_equals (const var self, const var other) {
   return true;
 }
 
-int AbstractCollection_hashCode (const var self) {
-  int hash = 0;
+intptr_t AbstractCollection_hashCode (const var self) {
+  intptr_t hash = 0;
 
   foreach (var elem, self) {
     hash += coal_lang_hashCode(elem);

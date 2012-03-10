@@ -27,9 +27,9 @@ cfundecl__ (void coal_core_abstract_method ())
     typeof(self->method) external =                             \
       va_arg(*app, typeof(self->method));                       \
                                                                 \
-    if ((int) external == INHERIT_METHOD)                       \
+    if ((intptr_t) external == INHERIT_METHOD)                  \
       self->method = self->method;                              \
-    else if ((int) external == ABSTRACT_METHOD)                 \
+    else if ((intptr_t) external == ABSTRACT_METHOD)            \
       self->method =                                            \
         (typeof(self->method)) coal_core_abstract_method;       \
     else                                                        \

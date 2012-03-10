@@ -1,7 +1,7 @@
 CC = gcc
 COAL = ../
 IFLAGS = -I$(COAL)
-CFLAGS = -O2 -DNDEBUG -fomit-frame-pointer
+CFLAGS = -O2 -DNDEBUG -fomit-frame-pointer -fPIC
 DBFLAGS = -g -O0
 LDFLAGS = -pthread
 WFLAGS = -Wall -Wextra -Werror
