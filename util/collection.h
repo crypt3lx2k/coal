@@ -12,11 +12,11 @@
  * @param (const char *) name of class
  * @param (const class(metaclass) *) super class
  * @param (size_t) size of instances in bytes
- * @param (intptr_t (*cmp)(const var, const var)) pointer to comparison function
+ * @param (int (*cmp)(const var, const var)) pointer to comparison function
  * @param (var (*constructor)(var, va_list *)) pointer to constructor
  * @param (var (*destructor)(var)) pointer to destructor
  * @param (bool (*equals)(const var, const var)) pointer to equality function
- * @param (intptr_t (*hashCode)(const var)) pointer to hash function
+ * @param (int (*hashCode)(const var)) pointer to hash function
  * @param (var (*toString)(const var)) pointer to string function
  * @param (var (*iterator)(const var)) pointer function that returns an iterator for the object
  * @param (bool (*add)(var, var) pointer to function that adds element to the collection

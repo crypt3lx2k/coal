@@ -11,11 +11,11 @@ class (metaclass) {
   const class(metaclass) * super;
   size_t size;
 
-  intptr_t (*cmp)(const var self, const var other);
+  int (*cmp)(const var self, const var other);
   var (*constructor)(var self, va_list * app);
   var (*destructor)(var self);
   bool (*equals)(const var self, const var other);
-  intptr_t (*hashCode)(const var self);
+  int (*hashCode)(const var self);
   var (*toString)(const var self);
 };
 

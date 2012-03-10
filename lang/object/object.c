@@ -1,8 +1,9 @@
-#include <string.h> /* memcpy */
 #include <stddef.h> /* offsetof */
+#include <stdint.h> /* intptr_t */
+#include <string.h> /* memcpy */
 #include <coal/core/implementation.h>
 
-intptr_t object_cmp (const var self, const var other) {
+int object_cmp (const var self, const var other) {
   return (intptr_t) self - (intptr_t) other;
 }
 
@@ -18,16 +19,16 @@ bool object_equals (const var self, const var other) {
   return self == other;
 }
 
-intptr_t object_hashCode (const var self) {
+int object_hashCode (const var self) {
   return (intptr_t) self;
 }
 
 var object_toString (const var self) {
   const class(metaclass) * class = coal_lang_getClass(self);
 
-  return coal_new(coal_lang_string(), "%s@%p",
+  return coal_new(coal_lang_string(), "%s@%x",
 		  class->name,
-		  self);
+		  coal_lang_hashCode(self));
 }
 
 var metaclass_constructor (var _self, va_list * app) {

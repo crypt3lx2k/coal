@@ -14,7 +14,7 @@
 
 /* override lang.object methods */
 
-intptr_t File_cmp (const var _self, const var _other) {
+int File_cmp (const var _self, const var _other) {
   const class(File) * self  = _self;
   const class(File) * other = _other;
 

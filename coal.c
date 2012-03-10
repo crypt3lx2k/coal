@@ -1,4 +1,5 @@
 #include <setjmp.h>
+#include <stdint.h> /* intptr_t */
 #include <stdlib.h>
 
 /* for throw */

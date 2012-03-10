@@ -1,6 +1,7 @@
 #ifndef COAL_CORE_VIRTUAL_METHODS_H__
 #define COAL_CORE_VIRTUAL_METHODS_H__
 
+#include <stdint.h> /* intptr_t */
 #include <coal/core/object_orientation.h>
 
 #ifndef COAL_CORE_IMPLEMENTATION_H__

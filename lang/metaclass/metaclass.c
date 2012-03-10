@@ -3,7 +3,7 @@
 #include <coal/core/implementation.h>
 #include <coal/lang/NullPointerException.h>
 
-intptr_t coal_lang_cmp (const var self, const var other) {
+int coal_lang_cmp (const var self, const var other) {
   const class(metaclass) * s_class;
   const class(metaclass) * o_class;
 
@@ -78,7 +78,7 @@ size_t coal_lang_getSize (const var self) {
   return class->size;
 }
 
-intptr_t coal_lang_hashCode (const var self) {
+int coal_lang_hashCode (const var self) {
   ClassCallTemplate(hashCode, metaclass, self);
 }
 
