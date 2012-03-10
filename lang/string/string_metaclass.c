@@ -51,6 +51,7 @@ var coal_lang_string_concat (var self, var other) {
     ret = s_class->concat(self, other);
   }
 
+  coal_del(self);
   coal_del(other);
   return ret;
 }

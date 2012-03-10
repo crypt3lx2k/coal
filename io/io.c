@@ -5,12 +5,9 @@
 
 int coal_io_fprint (const var object, FILE * stream) {
   var s = coal_lang_toString(object);
-  int r = 0;
+  int r;
 
-  /* the %s is to keep clang from
-     complaining about chars(s)
-     not being a format string */
-  r = fprintf(stream, "%s", coal_lang_string_chars(s));
+  r = fputs(coal_lang_string_chars(s), stream);
 
   coal_del(s);
 
@@ -18,12 +15,10 @@ int coal_io_fprint (const var object, FILE * stream) {
 }
 
 int coal_io_fprintln (const var object, FILE * stream) {
-  var s = coal_lang_toString(object);
-  int r = 0;
+  int r;
 
-  r = fprintf(stream, "%s\n", coal_lang_string_chars(s));
-
-  coal_del(s);
+  r = coal_io_fprint(object, stream);
+  putc('\n', stream);
 
   return r;
 }

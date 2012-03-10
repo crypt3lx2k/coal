@@ -10,7 +10,7 @@
  *
  * @param  (const var) object to be printed
  * @param  (FILE *) stream to print to
- * @return (int) the number of characters printed
+ * @return (int) non-negative number on success and EOF on error
  */
 cfundecl__ (int coal_io_fprint (const var object, FILE * stream));
 
@@ -21,7 +21,7 @@ cfundecl__ (int coal_io_fprint (const var object, FILE * stream));
  *
  * @param  (const var) object to be printed
  * @param  (FILE *) stream to print to
- * @return (int) the number of characters printed
+ * @return (int) non-negative number on success and EOF on error
  */
 cfundecl__ (int coal_io_fprintln (const var object, FILE * stream));
 
@@ -30,7 +30,7 @@ cfundecl__ (int coal_io_fprintln (const var object, FILE * stream));
  * Prints object to stdout.
  *
  * @param  (const var) object to be printed
- * @return (int) the number of characters printed
+ * @return (int) non-negative number on success and EOF on error
  */
 cfundecl__ (int coal_io_print (const var object));
 
@@ -40,7 +40,7 @@ cfundecl__ (int coal_io_print (const var object));
  * with a trailing newline.
  *
  * @param  (const var) object to be printed
- * @return (int) the number of characters printed
+ * @return (int) non-negative number on success and EOF on error
  */
 cfundecl__ (int coal_io_println (const var object));
 

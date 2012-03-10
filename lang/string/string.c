@@ -24,8 +24,8 @@ int string_cmp (const var _self, const var _other) {
 
 var string_constructor (var _self, va_list * app) {
   class(string) * self = _self;
-  const char    * fmt = va_arg(*app, const char *);
-  va_list         copy;
+  const char * fmt = va_arg(*app, const char *);
+  va_list copy;
 
   va_copy(copy, *app);
 
@@ -43,6 +43,7 @@ var string_destructor (var _self) {
   class(string) * self = _self;
 
   free(self->str);
+  self->str = NULL;
   self->len = 0;
 
   return _self;
@@ -90,18 +91,33 @@ var string_toString(const var self) {
 var string_concat (var _self, var _other) {
   class(string) * self  = _self;
   class(string) * other = _other;
+  class(string) * res;
   size_t len;
 
   len = self->len + other->len;
-  self->str =
-    coal_core_realloc(self->str, (len + 1) * sizeof(char));
 
-  memcpy(self->str + self->len, other->str, other->len);
-  self->str[len] = '\0';
+  if (GET_REFERENCE_COUNT(_self) == 1) {
+    /* we currently hold the last reference
+       to the object, this means that we may
+       reuse the space already allocated for it */
+    res = coal_acquire(_self);
+    res->str =
+      coal_core_realloc(res->str, (len+1) * sizeof(char));
+  } else {
+    /* we don't currently hold the last reference
+       of the object and have to allocate a copy */
+    res = coal_new(coal_lang_string(), "");
+    string_destructor(res);
 
-  self->len = len;
+    res->str = coal_core_malloc((len+1) * sizeof(char));
+    memcpy(res->str, self->str, self->len);
+  }
 
-  return _self;
+  memcpy(res->str + self->len, other->str, other->len);
+  res->str[len] = '\0';
+  res->len = len;
+
+  return res;
 }
 
 var string_join (var self, const var iterable) {

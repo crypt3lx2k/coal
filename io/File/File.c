@@ -87,8 +87,8 @@ SETUP_CLASS_DESCRIPTION(coal_io_File,
 			File_cmp,
 			File_constructor,
 			File_destructor,
-			INHERIT_METHOD,
-			INHERIT_METHOD,
+			INHERIT_METHOD, /* equals */
+			INHERIT_METHOD, /* hashCode */
 			File_toString,
 			/* iterable */
 			File_iterator);
