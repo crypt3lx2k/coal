@@ -1,11 +1,12 @@
 CC = gcc
 COAL = ../
 IFLAGS = -I$(COAL)
-CFLAGS = -O2 -DNDEBUG -fomit-frame-pointer -fPIC
+CFLAGS = -O2 -DNDEBUG -fomit-frame-pointer
 DBFLAGS = -g -O0
 LDFLAGS = -pthread
 WFLAGS = -Wall -Wextra -Werror
-LIBFLAGS = -shared -fPIC
+BINFLAGS = -fPIC
+LIBFLAGS = -shared
 
 DOLLAR = $
 RM = rm -f
@@ -26,10 +27,10 @@ install: libcoal.so
 	$(CP) libcoal.so /usr/lib/
 
 .c.o: $<
-	$(CC) $(CFLAGS) $(IFLAGS) $(WFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) $(WFLAGS) $(BINFLAGS) -c $< -o $@
 
 libcoal.so: $(OBJS)
-	$(CC) $(IFLAGS) $(OBJS) $(LDFLAGS) $(CFLAGS) $(LIBFLAGS) -o libcoal.so
+	$(CC) $(IFLAGS) $(OBJS) $(LDFLAGS) $(CFLAGS) $(LIBFLAGS) $(BINFLAGS) -o libcoal.so
 
 clean-obj:
 	$(RM) $(shell find -name "*.o")
