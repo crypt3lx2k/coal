@@ -40,6 +40,10 @@ void coal_lang_thread_join (var _self) {
 
   CheckAndThrowMissingMethodException("coal_lang_thread_join", _self, coal_lang_thread());
 
+  if (!self->active)
+    coal_throw(coal_new(coal_lang_IllegalStateException(),
+			"coal_lang_thread_join: attempted to join with a thread that hasn't been started"));
+
   pthread_join(self->thread, NULL);
 }
 
