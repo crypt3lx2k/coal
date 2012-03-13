@@ -141,7 +141,7 @@ var ArrayList_get (const var _self, int index) {
 
   if (index >= size || index < 0)
     coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
-			"ArrayList_get: index out of bounds."));
+			"ArrayList_get: index out of bounds"));
 
   return self->base[index];
 }
@@ -154,7 +154,7 @@ bool ArrayList_insert (var _self, int index, var elem) {
 
   if (index > size || index < 0)
     coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
-			"ArrayList_insert: index out of bounds."));
+			"ArrayList_insert: index out of bounds"));
 
   if (index == size)
     return ArrayList_add(_self, elem);
@@ -176,7 +176,7 @@ var ArrayList_set (var _self, int index, var elem) {
 
   if (index >= size || index < 0)
     coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
-			"ArrayList_set: index out of bounds."));
+			"ArrayList_set: index out of bounds"));
 
   o = self->base[index];
   self->base[index] = elem;

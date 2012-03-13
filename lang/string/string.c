@@ -31,7 +31,7 @@ var string_constructor (var _self, va_list * app) {
 
   if (vasprintf(&self->str, fmt, copy) == -1)
     coal_throw(coal_new(coal_lang_OutOfMemoryError(),
-			"string_constructor: string allocation failed."));
+			"string_constructor: string allocation failed"));
 
   va_end(copy);
 
@@ -136,7 +136,6 @@ var string_join (var self, const var iterable) {
   coal_del(i);
   return s;
 }
-
 
 SETUP_CLASS_DESCRIPTION(coal_lang_string,
 			coal_lang_string_metaclass(),

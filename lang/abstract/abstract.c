@@ -13,7 +13,7 @@ var abstract_constructor (var self, va_list * app) {
   va_end(*app);
 
   coal_throw(coal_new(coal_lang_AbstractInstantiationError(),
-		      "abstract_constructor: an attempt was made to instantiate abstract class %s.",
+		      "abstract_constructor: an attempt was made to instantiate abstract class %s",
 		      class->name));
 }
 

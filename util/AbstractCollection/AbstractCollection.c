@@ -51,7 +51,7 @@ void AbstractCollection_unsupported (const var self) {
   const class(metaclass) * class = coal_lang_getClass(self);
 
   coal_throw(coal_new(coal_lang_UnsupportedOperationException(),
-		      "%s does not support the attempted operation.",
+		      "%s does not support the attempted operation",
 		      class->name));
 }
 

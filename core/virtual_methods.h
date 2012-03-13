@@ -39,8 +39,8 @@ cfundecl__ (void coal_core_abstract_method ())
 
 /* boilerplate for throwing an exception
    when a method is missing in an object */
-#define CheckAndThrowMissingMethodException(method, self, class)        \
-  if (! coal_instanceof(self, class))                                   \
+#define CheckAndThrowMissingMethodException(method, self, klass)        \
+  if (! coal_instanceof(self, klass))                                   \
     coal_throw(coal_new(coal_lang_NoSuchMethodError(),                  \
                         method ": invoked on an unsuitable object"))
 

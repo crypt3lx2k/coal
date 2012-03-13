@@ -42,6 +42,17 @@ typedef pthread_mutex_t utility_mutex;
   pthread_mutex_lock(mutex)
 
 /**
+ * Attemps to acquire the mutex,
+ * will not block if the thread
+ * is unsuccessful in doing so.
+ *
+ * @param  (utility_mutex *) the mutex in question
+ * @return (int) zero on success and non-zero otherwise
+ */
+#define utility_mutex_trylock(mutex) \
+  pthread_mutex_trylock(mutex);
+
+/**
  * utility_mutex_unlock
  * Attempts to unlock the mutex.
  *

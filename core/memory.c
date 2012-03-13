@@ -10,7 +10,7 @@ void * coal_core_malloc (size_t size) {
 
   if (block == NULL) 
     coal_throw(coal_new(coal_lang_OutOfMemoryError(),
-			"coal_core_malloc: failed malloc."));
+			"coal_core_malloc: failed malloc"));
 
   return block;
 }
@@ -22,7 +22,7 @@ void * coal_core_realloc (void * ptr, size_t size) {
 
   if (block == NULL)
     coal_throw(coal_new(coal_lang_OutOfMemoryError(),
-			"coal_core_realloc: failed realloc."));
+			"coal_core_realloc: failed realloc"));
 
   return block;
 }

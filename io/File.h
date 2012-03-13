@@ -1,6 +1,8 @@
 #ifndef COAL_IO_FILE_H__
 #define COAL_IO_FILE_H__
 
+#include <coal/coal.h>
+
 /**
  * coal_io_File
  * Class representing a file object.

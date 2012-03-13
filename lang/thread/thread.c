@@ -23,7 +23,9 @@ var thread_constructor (var _self, va_list * app) {
 var thread_destructor (var _self) {
   class(thread) * self = _self;
 
-  pthread_join(self->thread, NULL);
+  if (self->active)
+    pthread_join(self->thread, NULL);
+
   pthread_attr_destroy(&self->attr);
 
   return _self;
@@ -36,11 +38,15 @@ void coal_lang_thread_exit (void) {
 void coal_lang_thread_join (var _self) {
   class(thread) * self = _self;
 
+  CheckAndThrowMissingMethodException("coal_lang_thread_join", _self, coal_lang_thread());
+
   pthread_join(self->thread, NULL);
 }
 
 void coal_lang_thread_start (var _self) {
   class(thread) * self = _self;
+
+  CheckAndThrowMissingMethodException("coal_lang_thread_start", _self, coal_lang_thread());
 
   /* safeguard */
   while (true) {

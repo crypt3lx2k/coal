@@ -19,7 +19,7 @@ var throwable_constructor(var _self, va_list * app) {
 
   if (vasprintf(&self->message, fmt, copy) == -1)
     coal_throw(coal_new(coal_lang_OutOfMemoryError(),
-			"throwable_constructor: string allocation failed."));
+			"throwable_constructor: string allocation failed"));
 
   va_end(copy);
 

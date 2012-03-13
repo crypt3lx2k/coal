@@ -1,7 +1,6 @@
 #include <coal/core/implementation.h>
 
 #include <coal/lang/IndexOutOfBoundsException.h>
-#include <coal/lang/UnsupportedOperationException.h>
 
 #include <coal/lang/iterable.h>
 #include <coal/util/iterator.h>
@@ -34,6 +33,14 @@ bool AbstractList_equals (const var self, const var other) {
   return true;
 }
 
+/* util.collection methods */
+
+bool AbstractList_add (var self, var elem) {
+  int size = coal_util_collection_size(self);
+
+  return coal_util_list_insert(self, size, elem);
+}
+
 /* util.list methods */
 
 var AbstractList_get (const var self, int index) {
@@ -46,7 +53,7 @@ var AbstractList_get (const var self, int index) {
 
   if (index)
     coal_throw(coal_new(coal_lang_IndexOutOfBoundsException(),
-			"AbstractList_get: index out of bounds."));
+			"AbstractList_get: index out of bounds"));
 
   return elem;
 }
@@ -66,7 +73,7 @@ SETUP_CLASS_DESCRIPTION(coal_util_AbstractList,
 			/* iterable */
 			INHERIT_METHOD, /* iterator */
 			/* collection */
-			INHERIT_METHOD, /* add */
+			AbstractList_add,
 			INHERIT_METHOD, /* clear */
 			INHERIT_METHOD, /* contains */
 			INHERIT_METHOD, /* remove */

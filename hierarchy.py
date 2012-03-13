@@ -23,7 +23,7 @@ class ClassTree (object):
         self.all = set()
 
         self.cmp = lambda coll : lambda a, b : (
-            (coll[a] - coll[b]) or cmp(a, b)
+            (coll[b] - coll[a]) or cmp(a, b)
         )
 
     def _addMajor (self, klass):
@@ -133,18 +133,24 @@ class ClassTree (object):
 
         self.copy = self.all.copy()
 
-        s = 'digraph {\n'
+        s = 'strict digraph {\n'
         s += '\tnode [shape=box,style=filled,color=white];\n'
 
         s += self._formatMajors(self.majors, ['antiquewhite'])
 
         for klass in sorted(self.hierarchy, self.cmp(self.counts)):
+            if klass == 'coal.lang.object':
+                s += '\tedge [color=transparent];\n'
+
             subklasses = sorted(self.hierarchy[klass], self.cmp(self.counts))
             if subklasses:
                 s += '\t"%s" -> { %s };\n' % (
                     klass,
                     ' '.join(['"%s"' % s for s in subklasses])
                 )
+
+            if klass == 'coal.lang.object':
+                s += '\tedge [color=black];\n'
 
         s += '}\n'
         return s
