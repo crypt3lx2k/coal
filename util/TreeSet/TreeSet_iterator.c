@@ -20,10 +20,10 @@
 #include <coal/core/implementation.h>
 
 #include <coal/util/iterator.h>
-#include <coal/util/BinaryTreeSet/BinaryTreeSet_iterator.rep>
+#include <coal/util/TreeSet/TreeSet_iterator.rep>
 
-static void BinaryTreeSet_iterator_slideLeft (var _self, struct binary_node * node) {
-  class(BinaryTreeSet_iterator) * self = _self;
+static void TreeSet_iterator_slideLeft (var _self, struct binary_node * node) {
+  class(TreeSet_iterator) * self = _self;
 
   while (node != NULL) {
     utility_stack_push(&self->nodes, node);
@@ -31,52 +31,52 @@ static void BinaryTreeSet_iterator_slideLeft (var _self, struct binary_node * no
   }
 }
 
-var BinaryTreeSet_iterator_constructor (var _self, va_list * app) {
-  class(BinaryTreeSet_iterator) * self = _self;
+var TreeSet_iterator_constructor (var _self, va_list * app) {
+  class(TreeSet_iterator) * self = _self;
   struct binary_node * node;
 
   node = va_arg(*app, struct binary_node *);
   utility_stack_init(&self->nodes, 1);
 
-  BinaryTreeSet_iterator_slideLeft(_self, node);
+  TreeSet_iterator_slideLeft(_self, node);
 
   return _self;
 }
 
-var BinaryTreeSet_iterator_destructor (var _self) {
-  class(BinaryTreeSet_iterator) * self = _self;
+var TreeSet_iterator_destructor (var _self) {
+  class(TreeSet_iterator) * self = _self;
 
   utility_stack_clear(&self->nodes);
 
   return _self;
 }
 
-bool BinaryTreeSet_iterator_hasNext (const var _self) {
-  const class(BinaryTreeSet_iterator) * self = _self;
+bool TreeSet_iterator_hasNext (const var _self) {
+  const class(TreeSet_iterator) * self = _self;
 
   return !utility_stack_is_empty(&self->nodes);
 }
 
-var BinaryTreeSet_iterator_next (var _self) {
-  class(BinaryTreeSet_iterator) * self = _self;
+var TreeSet_iterator_next (var _self) {
+  class(TreeSet_iterator) * self = _self;
   struct binary_node * node;
 
   node = utility_stack_pop(&self->nodes);
-  BinaryTreeSet_iterator_slideLeft(_self, node->r);
+  TreeSet_iterator_slideLeft(_self, node->r);
 
   return node->e;
 }
 
-SETUP_CLASS_DESCRIPTION(coal_util_BinaryTreeSet_iterator,
+SETUP_CLASS_DESCRIPTION(coal_util_TreeSet_iterator,
 			coal_util_iterator(),
-			LIBRARY_STR ".util.BinaryTreeSet.iterator",
+			LIBRARY_STR ".util.TreeSet.iterator",
 			coal_lang_object(),
-			sizeof(class(BinaryTreeSet_iterator)),
+			sizeof(class(TreeSet_iterator)),
 			INHERIT_METHOD,
-			BinaryTreeSet_iterator_constructor,
-			BinaryTreeSet_iterator_destructor,
+			TreeSet_iterator_constructor,
+			TreeSet_iterator_destructor,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
-			BinaryTreeSet_iterator_hasNext,
-			BinaryTreeSet_iterator_next);
+			TreeSet_iterator_hasNext,
+			TreeSet_iterator_next);

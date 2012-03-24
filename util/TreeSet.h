@@ -17,27 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_UTIL_BINARYTREESET_ITERATOR_REP__
-#define COAL_UTIL_BINARYTREESET_ITERATOR_REP__
+#ifndef COAL_UTIL_TREESET_H__
+#define COAL_UTIL_TREESET_H__
 
-#include <coal/core/implementation.h>
-#include <coal/util/BinaryTreeSet/BinaryTreeSet.rep>
+#include <coal/coal.h>
 
 /**
- * coal_util_BinaryTreeSet_iterator
- * Iterator for BinaryTreeSets.
+ * coal_util_TreeSet
+ * A set implemented as a binary tree.
  *
- * @extends coal_lang_object
- * @constructor takes 1 argument
- * @param (struct binary_node *) root node
+ * @extends coal_util_AbstractCollection
+ * @constructor takes 0 arguments
  */
-cfundecl__ (const var coal_util_BinaryTreeSet_iterator (void))
+cfundecl__ (const var coal_util_TreeSet (void))
   __attribute__ ((const));
 
-class (BinaryTreeSet_iterator) {
-  extends(object);
+#ifdef UTIL_NAMESPACE_POLLUTE
+# define TreeSet coal_util_TreeSet
+#endif
 
-  utility_stack(struct binary_node *) nodes;
-};
-
-#endif /* COAL_UTIL_BINARYTREESET_ITERATOR_REP__ */
+#endif /* COAL_UTIL_TREESET_H__ */

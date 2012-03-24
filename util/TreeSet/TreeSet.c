@@ -24,9 +24,9 @@
 #include <coal/util/collection.h>
 #include <coal/util/AbstractCollection.h>
 
-#include <coal/util/BinaryTreeSet.h>
-#include <coal/util/BinaryTreeSet/BinaryTreeSet.rep>
-#include <coal/util/BinaryTreeSet/BinaryTreeSet_iterator.rep>
+#include <coal/util/TreeSet.h>
+#include <coal/util/TreeSet/TreeSet.rep>
+#include <coal/util/TreeSet/TreeSet_iterator.rep>
 
 /* node routines */
 
@@ -96,16 +96,16 @@ static struct binary_node * remove_node (var object, struct binary_node * node) 
 
 /* override lang.object methods */
 
-var BinaryTreeSet_constructor (var _self, va_list * app __attribute__ ((unused))) {
-  class(BinaryTreeSet) * self = _self;
+var TreeSet_constructor (var _self, va_list * app __attribute__ ((unused))) {
+  class(TreeSet) * self = _self;
 
   self->root = NULL;
 
   return _self;
 }
 
-var BinaryTreeSet_destructor (var _self) {
-  class(BinaryTreeSet) * self = _self;
+var TreeSet_destructor (var _self) {
+  class(TreeSet) * self = _self;
 
   deallocate_node_r(self->root);
   self->root = NULL;
@@ -115,17 +115,17 @@ var BinaryTreeSet_destructor (var _self) {
 
 /* lang.iterable methods */
 
-var BinaryTreeSet_iterator (const var _self) {
-  const class(BinaryTreeSet) * self = _self;
+var TreeSet_iterator (const var _self) {
+  const class(TreeSet) * self = _self;
 
-  return coal_new(coal_util_BinaryTreeSet_iterator(),
+  return coal_new(coal_util_TreeSet_iterator(),
 		  self->root);
 }
 
 /* util.collection methods */
 
-bool BinaryTreeSet_add (var _self, var object) {
-  class(BinaryTreeSet) * self = _self;
+bool TreeSet_add (var _self, var object) {
+  class(TreeSet) * self = _self;
   struct binary_node * current = self->root;
 
   while (current != NULL) {
@@ -154,12 +154,12 @@ bool BinaryTreeSet_add (var _self, var object) {
   return true;
 }
 
-void BinaryTreeSet_clear (var _self) {
-  (void) BinaryTreeSet_destructor(_self);
+void TreeSet_clear (var _self) {
+  (void) TreeSet_destructor(_self);
 }
 
-bool BinaryTreeSet_contains (const var _self, const var object) {
-  const class(BinaryTreeSet) * self = _self;
+bool TreeSet_contains (const var _self, const var object) {
+  const class(TreeSet) * self = _self;
   struct binary_node * current = self->root;
 
   while (current != NULL) {
@@ -176,14 +176,14 @@ bool BinaryTreeSet_contains (const var _self, const var object) {
   return false;
 }
 
-bool BinaryTreeSet_isEmpty (const var _self) {
-  const class(BinaryTreeSet) * self = _self;
+bool TreeSet_isEmpty (const var _self) {
+  const class(TreeSet) * self = _self;
 
   return self->root == NULL;
 }
 
-bool BinaryTreeSet_remove (var _self, var object) {
-  class(BinaryTreeSet) * self = _self;
+bool TreeSet_remove (var _self, var object) {
+  class(TreeSet) * self = _self;
   struct binary_node * current = self->root;
 
   while (current != NULL) {
@@ -202,30 +202,30 @@ bool BinaryTreeSet_remove (var _self, var object) {
   return false;
 }
 
-int BinaryTreeSet_size (const var _self) {
-  const class(BinaryTreeSet) * self = _self;
+int TreeSet_size (const var _self) {
+  const class(TreeSet) * self = _self;
 
   return size_node_r(self->root);
 }
 
-SETUP_CLASS_DESCRIPTION(coal_util_BinaryTreeSet,
+SETUP_CLASS_DESCRIPTION(coal_util_TreeSet,
 			coal_util_collection(),
-			LIBRARY_STR ".util.BinaryTreeSet",
+			LIBRARY_STR ".util.TreeSet",
 			coal_util_AbstractCollection(),
-			sizeof(class(BinaryTreeSet)),
+			sizeof(class(TreeSet)),
 			/* object */
 			INHERIT_METHOD,
-			BinaryTreeSet_constructor,
-			BinaryTreeSet_destructor,
+			TreeSet_constructor,
+			TreeSet_destructor,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
 			INHERIT_METHOD,
 			/* iterable */
-			BinaryTreeSet_iterator,
+			TreeSet_iterator,
 			/* collection */
-			BinaryTreeSet_add,
-			BinaryTreeSet_clear,
-			BinaryTreeSet_contains,
-			BinaryTreeSet_isEmpty,
-			BinaryTreeSet_remove,
-			BinaryTreeSet_size);	
+			TreeSet_add,
+			TreeSet_clear,
+			TreeSet_contains,
+			TreeSet_isEmpty,
+			TreeSet_remove,
+			TreeSet_size);	

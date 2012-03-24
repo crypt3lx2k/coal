@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_UTIL_BINARYTREESET_REP__
-#define COAL_UTIL_BINARYTREESET_REP__
+#ifndef COAL_UTIL_TREESET_REP__
+#define COAL_UTIL_TREESET_REP__
 
 #include <coal/core/implementation.h>
 #include <coal/util/AbstractCollection/AbstractCollection.rep>
@@ -28,10 +28,10 @@ struct binary_node {
   var e;
 };
 
-class (BinaryTreeSet) {
+class (TreeSet) {
   extends(AbstractCollection);
 
   struct binary_node * root;
 };
 
-#endif /* COAL_UTIL_BINARYTREESET_REP__ */
+#endif /* COAL_UTIL_TREESET_REP__ */
