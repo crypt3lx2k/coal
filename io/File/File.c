@@ -33,13 +33,6 @@
 
 /* override lang.object methods */
 
-int File_cmp (const var _self, const var _other) {
-  const class(File) * self  = _self;
-  const class(File) * other = _other;
-
-  return strcmp(self->path, other->path);
-}
-
 var File_constructor (var _self, va_list * app) {
   class(File) * self = _self;
   const char * path;
@@ -103,7 +96,7 @@ SETUP_CLASS_DESCRIPTION(coal_io_File,
 			coal_lang_object(),
 			sizeof(class(File)),
 			/* object */
-			File_cmp,
+			INHERIT_METHOD,
 			File_constructor,
 			File_destructor,
 			INHERIT_METHOD, /* equals */

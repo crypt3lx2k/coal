@@ -88,7 +88,9 @@ static struct binary_node * remove_node (var object, struct binary_node * node) 
     node->e = coal_acquire(find_min(node)->e);
     remove_node(node->e, node->r);
   } else {
+    struct binary_node * temp = node;
     node = node->l != NULL ? node->l : node->r;
+    deallocate_node(temp);
   }
 
   return node;
@@ -146,6 +148,7 @@ bool TreeSet_add (var _self, var object) {
 	current = current->r;
       }
     } else {
+      coal_del(object);
       return false;
     }
   }
@@ -189,18 +192,31 @@ bool TreeSet_remove (var _self, var object) {
   while (current != NULL) {
     int c = coal_lang_cmp(object, current->e);
 
-    if (c < 0)
-      current = current->l;
-    else if (c > 0)
-      current = current->r;
-    else {
-      remove_node(object, current);
+    if (c < 0) {
+      if (current->l == NULL)
+	return false;
+      else if (coal_lang_equals(object, current->l->e)) {
+	current->l = remove_node(object, current->l);
+	return true;
+      } else
+	current = current->l;
+    } else if (c > 0) {
+      if (current->r == NULL)
+	return false;
+      else if (coal_lang_equals(object, current->r->e)) {
+	current->r = remove_node(object, current->r);
+	return true;
+      } else
+	current = current->r;
+    } else {
+      self->root = remove_node(object, current);
       return true;
     }
   }
 
   return false;
 }
+	
 
 int TreeSet_size (const var _self) {
   const class(TreeSet) * self = _self;
