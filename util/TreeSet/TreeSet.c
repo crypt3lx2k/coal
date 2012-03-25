@@ -85,7 +85,8 @@ static struct binary_node * remove_node (var object, struct binary_node * node) 
   } else if (c > 0) {
     node->r = remove_node(object, node->r);
   } else if (node->l != NULL && node->r != NULL) {
-    node->e = coal_acquire(find_min(node)->e);
+    coal_del(node->e);
+    node->e = coal_acquire(find_min(node->r)->e);
     remove_node(node->e, node->r);
   } else {
     struct binary_node * temp = node;
