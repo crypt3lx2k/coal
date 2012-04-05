@@ -3,6 +3,26 @@
 import os
 import re
 
+# This list defines which filetypes
+# are affected by the script.
+#
+# If a file ends with an extension
+# that isn't in this list this
+# script ignores it.
+extension_whitelist = [
+    '.c',
+    '.h',
+    '.rep'
+]
+
+def ignore_file (path):
+    """
+    Returns whether this script should
+    ignore the file given by path or not.
+    """
+    return not any(map(lambda ext : path.endswith(ext),
+                       extension_whitelist))
+
 def comment (s):
     """
     Puts a C-style comment
@@ -20,7 +40,7 @@ def comment (s):
 license_re = re.compile(
 r'''\/\*
  \* (?P<description>.+)
- \* Copyright \(C\) (?P<year>[0-9\-]+)\s+(?P<author>.+)
+ \* Copyright \(C\) (?P<year>[0-9\-\,]+)\s+(?P<authors>.+)
  \*
  \* This library is free software; you can redistribute it and\/or
  \* modify it under the terms of the GNU Lesser General Public
@@ -47,6 +67,7 @@ license_body = comment(open('LICENSE', 'r').read())
 license_data = license_re.match(license_body).groupdict()
 
 def walker (data, dirname, fnames):
+    # ignore .git directory if any
     if '.git' in dirname:
         return
 
@@ -56,12 +77,10 @@ def walker (data, dirname, fnames):
         if os.path.isdir(path):
             continue
 
-        if not (path.endswith('.c') or
-                path.endswith('.h') or
-                path.endswith('.rep')):
+        if ignore_file(path):
             continue
 
-        contents = open(path).read()
+        contents = open(path).read().lstrip('\n')
         header = comment_re.match(contents)
 
         if header:
@@ -71,8 +90,8 @@ def walker (data, dirname, fnames):
                 old_license_body = old_license.group(0)
                 old_data = old_license.groupdict()
 
-                if ((data['author'] !=
-                     old_data['author']) or
+                if ((data['authors'] !=
+                     old_data['authors']) or
                     (data['description'] !=
                      old_data['description'])):
                     continue
@@ -83,4 +102,5 @@ def walker (data, dirname, fnames):
         contents = license_body + '\n\n' + contents
         open(path, 'w').write(contents)
 
-os.path.walk('.', walker, license_data)
+if __name__ == '__main__':
+    os.path.walk('.', walker, license_data)
