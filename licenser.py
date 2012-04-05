@@ -94,10 +94,7 @@ def walker (data, dirname, fnames):
     for fname in fnames:
         path = os.path.sep.join((dirname, fname))
 
-        if os.path.isdir(path):
-            continue
-
-        if ignore_file(path):
+        if os.path.isdir(path) or ignore_file(path):
             continue
 
         contents = open(path).read().lstrip('\n')
@@ -110,11 +107,17 @@ def walker (data, dirname, fnames):
                 old_license_body = old_license.group(0)
                 old_data = old_license.groupdict()
 
-                if ((data['authors'] !=
-                     old_data['authors']) or
-                    (data['description'] !=
-                     old_data['description'])):
+                # if author list or description is different
+                # we ignore this file, since we assume it's
+                # from a different project.
+                if ((data['authors']     != old_data['authors']) or
+                    (data['description'] != old_data['description'])):
                     continue
+
+                # if every detail is the same we ignore the
+                # file as there is nothing new to do.
+                if data['year'] == old_data['year']:
+                    continue                    
 
                 contents = contents.lstrip(old_license_body)
                 contents = contents.lstrip('\n')
