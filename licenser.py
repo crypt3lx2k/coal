@@ -66,9 +66,9 @@ def walker (data, dirname, fnames):
 
         if header:
             old_license = license_re.match(contents)
-            old_license_body = old_license.group(0)
 
             if old_license:
+                old_license_body = old_license.group(0)
                 old_data = old_license.groupdict()
 
                 if ((data['author'] !=
