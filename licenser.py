@@ -2,6 +2,7 @@
 
 import os
 import re
+import sys
 
 # This list defines which filetypes
 # are affected by the script.
@@ -15,13 +16,14 @@ extension_whitelist = [
     '.rep'
 ]
 
-def ignore_file (path):
-    """
-    Returns whether this script should
-    ignore the file given by path or not.
-    """
-    return not any(map(lambda ext : path.endswith(ext),
-                       extension_whitelist))
+# This is the license this script
+# currently expects the LICENSE file
+# to contain.
+#
+# If you want to change this you
+# have to modify this string and
+# the license_re regex.
+LICENSE_VERSION = 'LGPL v2.1'
 
 def comment (s):
     """
@@ -36,6 +38,14 @@ def comment (s):
     result.append(' */')
 
     return '\n'.join(result)
+
+def ignore_file (path):
+    """
+    Returns whether this script should
+    ignore the file given by path or not.
+    """
+    return not any(map(lambda ext : path.endswith(ext),
+                       extension_whitelist))
 
 license_re = re.compile(
 r'''\/\*
@@ -63,8 +73,18 @@ comment_re = re.compile(r'''
 \ \*\/
 ''', re.VERBOSE | re.DOTALL)
 
+if not os.path.exists('LICENSE'):
+    print >> sys.stderr, 'no LICENSE file in root directory'
+    exit(1)
+
 license_body = comment(open('LICENSE', 'r').read())
-license_data = license_re.match(license_body).groupdict()
+license_m = license_re.match(license_body)
+
+if license_m is None:
+    print >> sys.stderr, 'LICENSE file malformed, must be %s, see the LICENSE_VERSION variable in this file (%s) for more details' % (LICENSE_VERSION, __file__)
+    exit(1)
+
+license_data = license_m.groupdict()
 
 def walker (data, dirname, fnames):
     # ignore .git directory if any
