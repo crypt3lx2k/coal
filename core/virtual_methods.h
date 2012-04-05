@@ -20,13 +20,11 @@
 #ifndef COAL_CORE_VIRTUAL_METHODS_H__
 #define COAL_CORE_VIRTUAL_METHODS_H__
 
-#include <stdint.h> /* intptr_t */
-#include <coal/core/object_orientation.h>
-
 #ifndef COAL_CORE_IMPLEMENTATION_H__
 # error "Never include <coal/core/virtual_methods.h> directly; use <coal/core/implementation.h> instead."
 #endif
 
+#include <coal/core/object_orientation.h>
 #include <coal/lang/NoSuchMethodError.h>
 
 /**
@@ -47,9 +45,9 @@ cfundecl__ (void coal_core_abstract_method ())
     typeof(self->method) external =                             \
       va_arg(*app, typeof(self->method));                       \
                                                                 \
-    if ((intptr_t) external == INHERIT_METHOD)                  \
-      self->method = self->method;                              \
-    else if ((intptr_t) external == ABSTRACT_METHOD)            \
+    if (external == INHERIT_METHOD)                             \
+      ((void) 0);                                               \
+    else if (external == ABSTRACT_METHOD)                       \
       self->method =                                            \
         (typeof(self->method)) coal_core_abstract_method;       \
     else                                                        \

@@ -34,12 +34,12 @@
  * INHERIT_METHOD
  * Tags a method for inheritance.
  */
-#define INHERIT_METHOD 0
+#define INHERIT_METHOD ((void *) 0)
 
 /**
  * ABSTRACT_METHOD
  * Tags a method for being abstract.
  */
-#define ABSTRACT_METHOD 1
+#define ABSTRACT_METHOD ((void *) 1) /* this might be a legal address, uh-oh */
 
 #endif /* COAL_OBJECT_ORIENTATION_H__ */
