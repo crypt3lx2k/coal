@@ -122,6 +122,8 @@ def walker (data, dirname, fnames):
                 contents = contents.lstrip(old_license_body)
                 contents = contents.lstrip('\n')
 
+        print >> sys.stderr, 'editing file: %s' % path
+
         contents = license_body + '\n\n' + contents
         open(path, 'w').write(contents)
 

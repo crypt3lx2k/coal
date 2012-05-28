@@ -12,8 +12,7 @@ class ClassTree (object):
         'lightblue', 'palegreen', 'thistle',
         'cadetblue', 'lightpink', 'lightsalmon',
         'lavenderblush', 'lemonchiffon',
-        'turquoise', 'goldenrod', 'honeydew',
-        'khaki'
+        'turquoise', 'honeydew'
     ]
 
     def __init__ (self):

@@ -30,7 +30,7 @@ install: libcoal.so
 	$(CC) $(CFLAGS) $(IFLAGS) $(WFLAGS) $(BINFLAGS) -c $< -o $@
 
 libcoal.so: $(OBJS)
-	$(CC) $(IFLAGS) $(OBJS) $(LDFLAGS) $(CFLAGS) $(LIBFLAGS) $(BINFLAGS) -o libcoal.so
+	$(CC) $(OBJS) $(LDFLAGS) $(LIBFLAGS) $(BINFLAGS) -o libcoal.so
 
 clean-obj:
 	$(RM) $(shell find -name "*.o")

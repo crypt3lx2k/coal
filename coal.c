@@ -86,6 +86,8 @@ var coal_new (const var _class, ...) {
     coal_throw(coal_new(coal_lang_NullPointerException(),
 			"coal_new: null class description"));
 
+  CheckAndThrowMissingMethodException("coal_new", _class, coal_lang_metaclass());
+
   object = coal_core_malloc(class->size);
   object->class = class;
   object->reference_count = 1;
