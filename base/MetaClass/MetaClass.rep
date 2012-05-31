@@ -1,0 +1,21 @@
+#ifndef COAL_BASE_METACLASS_REP
+#define COAL_BASE_METACLASS_REP
+
+#include <coal/base/Object/Object.rep>
+
+class (MetaClass) {
+  extends(Object);
+
+  const char * name;
+  const class(MetaClass) * super;
+  size_t size;
+
+  int (*cmp)(val self, val other);
+  var (*constructor)(var self, va_list * app);
+  var (*destructor)(var self);
+  bool (*equals)(val self, val other);
+  int (*hashCode)(val self);
+  var (*toString)(val self);
+};
+
+#endif /* COAL_BASE_METACLASS_REP */

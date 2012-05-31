@@ -1,0 +1,12 @@
+#ifndef COAL_BASE_OBJECT_REP
+#define COAL_BASE_OBJECT_REP
+
+#include <coal/private/object_orientation.h>
+#include <coal/private/reference_counting.h>
+
+class (Object) {
+  class(MetaClass) * class; /* forward declaration */
+  refcnt_type reference_count;
+};
+
+#endif /* COAL_BASE_OBJECT_REP */
