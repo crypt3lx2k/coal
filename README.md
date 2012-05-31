@@ -1,65 +1,39 @@
-Have fun browsing the code, more to follow.
+This is the README of the "rewrite"-branch of coal.
 
-Here is the current class hierarchy, generated using hierarchy.py and the graphviz tool `dot'.
+This branch is an effort to clean up coal, I will attempt to create a
+cleaner and more consistent interface. This means that it will in
+practice become a ground up rewrite of coal.
 
-![Alt text](https://github.com/crypt3lx2k/coal/raw/master/classes.png)
+Major points are,
+- Namespace pollutions cause function-like and not object-like macros to be
+defined for functions.
+So it's safe to name variables things like 'object' and 'thread'.
 
-Here is a small test program, test.c,
-it is an implementation of the sleepsort algorithm.
+- All classes start with an uppercase letter, just like in Java.
+As to avoid collision between names of methods and names of classes, even
+after namespace pollution what is a method and what is a class becomes
+unambiguous.
 
-```C
-#include <stdio.h>
-#include <stdlib.h>
+- Before namespace pollution every identifier should start with either
+- coal, Coal or COAL followed by an underscore character.
+This is to give the user greater freedom in defining things himself, easier
+to expect non-collision.
 
-#include <unistd.h>
+- A saner naming scheme, possibly rename lang as this isn't a language,
+- possibly rename core to something that reflects its nature as
+- private implementation details.
+This is to make the library more intuitive to use.
 
-#include <coal/lang/thread.h>
+- Stop using abbreviations in names.
+It's better to offer namespace pollution than it is to use bad names, this
+will improve clarity and make the library more intuitive to use.
 
-#include <coal/util/ArrayList.h>
-#include <coal/util/collection.h>
+- Rewrite utility_stack to make it safer.
+As it stands allocation errors in the exception handling system might cause
+a segmentation fault. It's better to throw an unhandled exception than it
+is to segfault.
 
-void * target (void * args) {
-  int number = atoi(args);
-
-  sleep(number);
-  printf("%d\n", number);
-  fflush(stdout);
-
-  return NULL;
-}
-
-int main (int argc, char * argv[]) {
-  int i;
-  var threads = new(ArrayList(), 0, 0.0);
-
-  if (argc < 2) {
-    fprintf(stderr,
-	    "usage: %s number [number...]\n",
-	    argv[0]);
-    exit(EXIT_FAILURE);
-  }
-
-  for (i = 2; i < argc; i++)
-    collection_add(threads, new(thread(), target, argv[i]));
-
-  foreach (var t, threads) {
-    thread_start(t);
-  } foreach_end;
-
-  target(argv[1]);
-
-  /* del on collection implicitly
-     deletes elements in collection */
-  /* del on a thread implicitly
-     joins with the thread */
-  del(threads);
-
-  return 0;
-}
-```
-
-If you have installed the libcoal.so to your /usr/lib you may compile it with
-    $ gcc -I ../ -DCOAL_NAMESPACE_POLLUTE -DLANG_NAMESPACE_POLLUTE -DUTIL_NAMESPACE_POLLUTE -DIO_NAMESPACE_POLLUTE -DCOAL_USER_EXCEPTIONS -DCOAL_USER_FOREACH -O0 -g -lcoal test.c
-
-And run it with
-    $ ./a.out
+- Move away from using a #define for the var definition.
+Using a #define with var causes multiple declarations on one line to fail,
+it's better to use two typedefs than it is to use a #define even though it
+makes const behave nicely.
