@@ -20,11 +20,13 @@
 #include <string.h> /* strcmp */
 
 #include <coal/base/Object.h>
-#include <coal/base/MetaClass/MetaClass.rep>
+#include <coal/base/Metaclass/Metaclass.rep>
+
+#include <coal/error/NullPointerException.h>
 
 int coal_base_Object_cmp (val self, val other) {
-  const class(MetaClass) * s_class;
-  const class(MetaClass) * o_class;
+  const class(Metaclass) * s_class;
+  const class(Metaclass) * o_class;
 
   /* identically the same */
   if (self == other)
@@ -47,7 +49,7 @@ int coal_base_Object_cmp (val self, val other) {
 }
 
 var coal_base_Object_constructor (var self, va_list * args) {
-  const class(MetaClass) * class;
+  const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);
 
@@ -55,7 +57,7 @@ var coal_base_Object_constructor (var self, va_list * args) {
 }
 
 var coal_base_Object_destructor (var self) {
-  const class(MetaClass) * class;
+  const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);
 
@@ -63,8 +65,8 @@ var coal_base_Object_destructor (var self) {
 }
 
 bool coal_base_Object_equals (val self, val other) {
-  const class(MetaClass) * s_class;
-  const class(MetaClass) * o_class;
+  const class(Metaclass) * s_class;
+  const class(Metaclass) * o_class;
 
   /* identically the same */
   if (self == other)
@@ -89,12 +91,12 @@ val coal_base_Object_getClass (val _self) {
   const class(Object) * self = _self;
 
   if (self == NULL)
-    coal_throw(coal_new(coal_errors_NullPointerException(),
+    coal_throw(coal_new(coal_error_NullPointerException(),
 			"%s: null object",
 			__func__));
 
   if (self->class == NULL)
-    coal_throw(coal_new(coal_errors_NullPointerException(),
+    coal_throw(coal_new(coal_error_NullPointerException(),
 			"%s: null class description",
 			__func__));
 
@@ -102,7 +104,7 @@ val coal_base_Object_getClass (val _self) {
 }
 
 size_t coal_base_Object_getSize (val self) {
-  const class(MetaClass) * class;
+  const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);
 
@@ -110,7 +112,7 @@ size_t coal_base_Object_getSize (val self) {
 }
 
 int coal_base_Object_hashCode (val self) {
-  const class(MetaClass) * class;
+  const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);
 
@@ -118,7 +120,7 @@ int coal_base_Object_hashCode (val self) {
 }
 
 var coal_base_Object_toString (val self) {
-  const class(MetaClass) * class;
+  const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);
 

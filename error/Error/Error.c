@@ -17,24 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_METACLASS_REP
-#define COAL_BASE_METACLASS_REP
+#include <coal/private/classes/Subclass.h>
+#include <coal/private/virtual_methods.h>
 
-#include <coal/base/Object/Object.rep>
+#include <coal/base/Throwable.h>
 
-class (MetaClass) {
-  extends(Object);
-
-  const char * name;
-  const class(MetaClass) * super;
-  size_t size;
-
-  int (*cmp)(val self, val other);
-  var (*constructor)(var self, va_list * app);
-  var (*destructor)(var self);
-  bool (*equals)(val self, val other);
-  int (*hashCode)(val self);
-  var (*toString)(val self);
-};
-
-#endif /* COAL_BASE_METACLASS_REP */
+ExceptionDefinitionTemplate(coal_error_Error(),
+			    LIBRARY_STR ".error.Error",
+			    coal_base_Throwable())

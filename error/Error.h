@@ -17,31 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <stdlib.h>
-#include <coal/error/OutOfMemoryError.h>
+#ifndef COAL_ERROR_ERROR_H
+#define COAL_ERROR_ERROR_H
 
-void * coal_private_malloc (size_t size) {
-  void * block;
+/**
+ * coal_error_Error
+ *
+ * Base class for throwables that a reasonable
+ * application might not want to catch.
+ *
+ * @extends coal_base_Throwable
+ * @constructor takes a variable amount of arguments
+ * @param (const char *) printf-like format string
+ * @param (...) printf-like arguments
+ */
+coal_cfunspec val coal_error_Error (void) coal_funattr_const;
 
-  block = malloc(size);
+#ifdef COAL_ERROR_NAMESPACE_POLLUTE
+# define Error() coal_error_Error()
+#endif
 
-  if (block == NULL)
-    coal_throw(coal_new(coal_error_OutOfMemoryError(),
-			"%s: malloc of %zu bytes failed",
-			__func__, size));
-
-  return block;
-}
-
-void * coal_private_realloc (void * ptr, size_t size) {
-  void * block;
-
-  block = realloc(ptr, size);
-
-  if (block == NULL)
-    coal_throw(coal_new(coal_error_OutOfMemoryError(),
-			"%s: realloc on %p of %zu bytes failed",
-			__func__, ptr, size));
-
-  return block;
-}
+#endif /* COAL_ERROR_ERROR_H */

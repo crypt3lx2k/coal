@@ -19,12 +19,12 @@
 
 #include <coal/coal.h>
 
-#include <coal/errors/IllegalStateException.h>
-#include <coal/errors/NullPointerException.h>
+#include <coal/error/IllegalStateException.h>
+#include <coal/error/NullPointerException.h>
 
 var coal_acquire (var object) {
   if (IS_GARBAGE(object))
-    coal_throw(coal_new(coal_errors_IllegalStateException(),
+    coal_throw(coal_new(coal_error_IllegalStateException(),
 			"%s: tried to acquire an object with a zero reference count",
 			__func__));
 
@@ -42,10 +42,10 @@ void coal_del (var object) {
 }
 
 bool coal_instanceof (val object, val class) {
-  const class(MetaClass) * current;
+  const class(Metaclass) * current;
 
   if (class == NULL)
-    coal_throw(coal_new(coal_errors_NullPointerException(),
+    coal_throw(coal_new(coal_error_NullPointerException(),
 			"%s: null class description",
 			__func__));
 
@@ -65,16 +65,16 @@ bool coal_instanceof (val object, val class) {
 }
 
 var coal_new (val _class, ...) {
-  const class(MetaClass) * class = _class;
+  const class(Metaclass) * class = _class;
   class(Object) * object;
   va_list ap;
 
   if (class == NULL)
-    coal_throw(coal_new(coal_errors_NullPointerException(),
+    coal_throw(coal_new(coal_error_NullPointerException(),
 			"%s: null class description",
 			__func__));
 
-  CheckAndThrowMissingException("coal_new", _class, coal_base_MetaClass());
+  CheckAndThrowMissingException("coal_new", _class, coal_base_Metaclass());
 
   object->class = class;
   object->reference_count = 1;

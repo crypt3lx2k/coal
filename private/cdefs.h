@@ -64,7 +64,7 @@ typedef void * var;
    www.open-std.org/jtc1/sc22/wg14/www/docs/dr_411.htm
    for details. */
 #if __STDC_VERSION__ >= 201000L
-# define noreturn _Noreturn
+# include <stdnoreturn.h>
 #elif __GNUC__
 # define noreturn \
   __attribute__ ((__noreturn__))

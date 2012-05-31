@@ -24,7 +24,7 @@
 #include <coal/private/reference_counting.h>
 
 class (Object) {
-  class(MetaClass) * class; /* forward declaration */
+  class(Metaclass) * class; /* forward declaration */
   refcnt_type reference_count;
 };
 

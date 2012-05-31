@@ -17,31 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <stdlib.h>
-#include <coal/error/OutOfMemoryError.h>
+#include <coal/private/classes/Subclass.h>
+#include <coal/private/virtual_methods.h>
 
-void * coal_private_malloc (size_t size) {
-  void * block;
+#include <coal/base/Throwable.h>
 
-  block = malloc(size);
-
-  if (block == NULL)
-    coal_throw(coal_new(coal_error_OutOfMemoryError(),
-			"%s: malloc of %zu bytes failed",
-			__func__, size));
-
-  return block;
-}
-
-void * coal_private_realloc (void * ptr, size_t size) {
-  void * block;
-
-  block = realloc(ptr, size);
-
-  if (block == NULL)
-    coal_throw(coal_new(coal_error_OutOfMemoryError(),
-			"%s: realloc on %p of %zu bytes failed",
-			__func__, ptr, size));
-
-  return block;
-}
+ExceptionDefinitionTemplate(coal_error_Exception(),
+			    LIBRARY_STR ".error.Exception",
+			    coal_base_Throwable())

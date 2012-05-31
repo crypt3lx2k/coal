@@ -20,6 +20,8 @@
 #ifndef COAL_PRIVATE_OBJECT_ORIENTATION_H
 #define COAL_PRIVATE_OBJECT_ORIENTATION_H
 
+#include <coal/private/atomic.h>
+
 /* designates the start of a class declaration. A class
    declaration is currently at the same form as a struct 
    declaration. */
@@ -30,5 +32,34 @@
    at the top of the class declaration to function. */
 #define extends(name) \
   struct name name##__
+
+/**
+ * Sets up a class description.
+ */
+#define SETUP_CLASS_DESCRIPTION(name, ...)       \
+  static const var name##__ = NULL;              \
+                                                 \
+  const var name (void) {                        \
+    var _desc = NULL;                            \
+                                                 \
+    if (name##__ == NULL) {                      \
+      _desc = coal_new(__VA_ARGS__);             \
+      if (!atomic_cas(&name##__, NULL, _desc)) { \
+        /* someone else succeeded in swapping    \
+           the value of the class description,   \
+           we must attempt to deallocate */      \
+        /* in case this is a metaclass with      \
+           an actual destructor */               \
+        coal_base_Object_destructor(_desc);      \
+        /* in case it isn't (this is likely)     \
+           we free the pointer returned from     \
+           new directly, since we can't trust    \
+           the return value of the destructor */ \
+        free(_desc);                             \
+      }                                          \
+    }                                            \
+                                                 \
+    return name##__;                             \
+  }
 
 #endif /* COAL_PRIVATE_OBJECT_ORIENTATION_H */

@@ -27,8 +27,8 @@
 #include <coal/base/Object.h>
 #include <coal/base/Object/Object.rep>
 
-#include <coal/base/MetaClass.h>
-#include <coal/base/MetaClass/MetaClass.rep>
+#include <coal/base/Metaclass.h>
+#include <coal/base/Metaclass/Metaclass.rep>
 
 /* Object implements base.Object methods */
 
@@ -56,14 +56,14 @@ var Object_toString (val self coal_attr_unused) {
   return NULL;
 }
 
-/* MetaClass implements base.Object methods */
+/* Metaclass implements base.Object methods */
 
-var MetaClass_constructor (var _self, va_list * args) {
-  class(MetaClass) * self = _self;
-  size_t offset = offsetof(class(MetaClass), cmp);
+var Metaclass_constructor (var _self, va_list * args) {
+  class(Metaclass) * self = _self;
+  size_t offset = offsetof(class(Metaclass), cmp);
 
   self->name  = va_arg(*args, char *);
-  self->super = va_arg(*args, class(MetaClass) *);
+  self->super = va_arg(*args, class(Metaclass) *);
   self->size  = va_arg(*args, size_t);
 
   memcpy((char *) self + offset,
@@ -80,21 +80,21 @@ var MetaClass_constructor (var _self, va_list * args) {
   return _self;
 }
 
-var MetaClass_destructor (var self coal_attr_unused) {
+var Metaclass_destructor (var self coal_attr_unused) {
   /* Make sure we don't attempt to deallocate this */
   return NULL;
 }
 
-var MetaClass_toString (val _self coal_attr_unused) {
+var Metaclass_toString (val _self coal_attr_unused) {
   return NULL;
 }
 
-/* set up class descriptions for Object and MetaClass */
+/* set up class descriptions for Object and Metaclass */
 
 #define _metaclass (_classdescripts + 1)
 #define _object    (_classdescripts)
 
-static class(MetaClass) _classdescripts [] = {
+static class(Metaclass) _classdescripts [] = {
   {
     {
       _metaclass,
@@ -115,19 +115,19 @@ static class(MetaClass) _classdescripts [] = {
       _metaclass,
       1,
     },
-    LIBRARY_STR ".base.MetaClass",
+    LIBRARY_STR ".base.Metaclass",
     _object,
-    sizeof(class(MetaClass)),
+    sizeof(class(Metaclass)),
     Object_cmp,
-    MetaClass_constructor,
-    MetaClass_destructor,
+    Metaclass_constructor,
+    Metaclass_destructor,
     Object_equals,
     Object_hashCode,
     Object_toString
   }
 };
 
-val coal_base_MetaClass (void) {
+val coal_base_Metaclass (void) {
   return _metaclass;
 }
 
