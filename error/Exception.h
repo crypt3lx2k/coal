@@ -25,8 +25,8 @@
 /**
  * coal_error_Exception
  *
- * Base class for throwables that a reasonable
- * application might want to catch.
+ * Base class for throwables that a reasonable application
+ * might want to catch.
  *
  * @extends coal_base_Throwable
  * @constructor takes a variable amount of arguments

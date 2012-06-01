@@ -25,8 +25,8 @@
 /**
  * coal_error_NoSuchMethodError
  *
- * Error that indicates that the implementation
- * was unable to acquire enough resources.
+ * Error that indicates an attempt was mode to invoke a method
+ * on an object of a type that is incompatible.
  *
  * @extends coal_error_Error
  * @constructor takes a variable amount of arguments

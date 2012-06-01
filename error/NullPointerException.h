@@ -25,8 +25,8 @@
 /**
  * coal_error_NullPointerException
  *
- * Exception that indicates that an unexpected
- * null pointer was encountered.
+ * Exception that indicates that an unexpected null pointer
+ * was encountered.
  *
  * @extends coal_error_Exception
  * @constructor takes a variable amount of arguments

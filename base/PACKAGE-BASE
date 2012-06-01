@@ -1,0 +1,3 @@
+The coal.base package contains classes that are critical to
+the implementation or other classes that serve as the roots
+of other extensive class hierarchies.

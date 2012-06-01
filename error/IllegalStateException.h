@@ -25,9 +25,9 @@
 /**
  * coal_error_IllegalStateException
  *
- * Exception that indicates an attempt was made
- * to mutate an object in such a manner that the
- * new state would become invalid or illegal.
+ * Exception that indicates an attempt was made to mutate an
+ * object in such a manner that the new state would cause the
+ * object to be invalid or enter an illegal state.
  *
  * @extends coal_error_Exception
  * @constructor takes a variable amount of arguments

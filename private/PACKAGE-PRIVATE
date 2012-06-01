@@ -1,0 +1,8 @@
+The coal.private package contains classes or other facilities
+that are an integral part of the implementation but also
+should be hidden from the user as to grant flexibility for the
+implementor.
+
+The interface the user sees is purposefully abstracted so that
+it may be possible in the future to provide an implementation
+that for instance features GC or other things like that.

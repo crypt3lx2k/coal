@@ -25,8 +25,8 @@
 /**
  * coal_error_OutOfMemoryError
  *
- * Error that indicates that the implementation
- * was unable to acquire enough resources.
+ * Error that indicates that the implementation made a request
+ * for resources that was either erroneous or unfulfilled.
  *
  * @extends coal_error_Error
  * @constructor takes a variable amount of arguments
