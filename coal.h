@@ -42,23 +42,6 @@
 coal_cfunspec var coal_acquire (var object);
 
 /**
- * coal_construct
- *
- * This is the equivalent of new for objects that have been
- * pre-allocated, typically on the stack. Using this function
- * to allocate a singleton type object might result in
- * unexpected or undefined behavior.
- *
- * See new().
- *
- * @param  (val) class to be instantiated
- * @param  (var) object with allocated space
- * @param  (...) arguments for the class constructor
- * @return (var) new instance of class
- */
-coal_cfunspec var coal_construct (var object, val class, ...);
-
-/**
  * coal_del
  *
  * Indicates to the implementation that an object is no

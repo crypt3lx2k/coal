@@ -44,33 +44,6 @@ var coal_acquire (var object) {
   return INCREMENT_REFERENCE_COUNT(object);
 }
 
-var coal_construct (var _object, val _class, ...) {
-  class(Object) * object = _object;
-  const class(Metaclass) * class = _class;
-  va_list ap;
-
-  if (object == NULL)
-    coal_throw(coal_new(coal_error_NullPointerException(),
-			"%s: null object",
-			__func__));
-
-  if (class == NULL)
-    coal_throw(coal_new(coal_error_NullPointerException(),
-			"%s: null class description",
-			__func__));
-
-  CheckAndThrowMissingMethod(_class, coal_base_Metaclass());
-
-  object->class = class;
-  object->reference_count = 1;
-
-  va_start(ap, _class);
-  object = class->constructor(object, &ap);
-  va_end(ap);
-
-  return object;
-}
-
 void coal_del (var object) {
   if (object == NULL)
     return;
