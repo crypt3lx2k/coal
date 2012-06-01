@@ -18,10 +18,11 @@
  */
 
 #include <coal/private/classes/Subclass.h>
+#include <coal/private/library.h>
 #include <coal/private/virtual_methods.h>
 
 #include <coal/base/Throwable.h>
 
-ExceptionDefinitionTemplate(coal_error_Exception(),
+ExceptionDefinitionTemplate(coal_error_Exception,
 			    LIBRARY_STR ".error.Exception",
 			    coal_base_Throwable())

@@ -21,8 +21,8 @@
 #include <coal/private/library.h>
 #include <coal/private/virtual_methods.h>
 
-#include <coal/base/Throwable.h>
+#include <coal/error/Exception.h>
 
-ExceptionDefinitionTemplate(coal_error_Error,
-			    LIBRARY_STR ".error.Error",
-			    coal_base_Throwable())
+ExceptionDefinitionTemplate(coal_error_IllegalStateException,
+			    LIBRARY_STR ".error.IllegalStateException",
+			    coal_error_Exception())

@@ -20,6 +20,7 @@
 #ifndef COAL_PRIVATE_CLASSES_SUBCLASS_H
 #define COAL_PRIVATE_CLASSES_SUBCLASS_H
 
+#include <coal/private/object_orientation.h>
 #include <coal/base/Metaclass.h>
 
 /**
@@ -41,7 +42,7 @@ coal_cfunspec val coal_private_Subclass (void) coal_funattr_const;
    exception hierarchy */
 #define ExceptionDefinitionTemplate(name, string, superclass)   \
   SETUP_CLASS_DESCRIPTION(name,                                 \
-                          coal_core_subclass(),                 \
+                          coal_private_Subclass(),              \
                           string,                               \
                           superclass)
 

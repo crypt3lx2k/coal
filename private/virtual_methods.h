@@ -21,6 +21,7 @@
 #define COAL_PRIVATE_VIRTUAL_METHODS_H
 
 #include <stdarg.h>
+#include <coal/error/NoSuchMethodError.h>
 
 typedef void (*vfunptr)();
 
@@ -42,5 +43,11 @@ typedef void (*vfunptr)();
     else                                        \
       self->method = external;                  \
   })
+
+#define CheckAndThrowMissingMethod(obj, klass)                  \
+  if (! coal_instanceof(obj, klass))                            \
+    coal_throw(coal_new(coal_error_NoSuchMethodError(),         \
+                        "%s: invoked on an unsuitable object",  \
+                        __func__))
 
 #endif /* COAL_PRIVATE_VIRTUAL_METHODS_H */

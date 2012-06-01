@@ -8,11 +8,11 @@ from collections import defaultdict
 
 class ClassTree (object):
     colors = [
-        'aquamarine', 'antiquewhite',
-        'lightblue', 'palegreen', 'thistle',
-        'cadetblue', 'lightpink', 'lightsalmon',
-        'lavenderblush', 'lemonchiffon',
-        'turquoise', 'honeydew'
+        'aquamarine', 'cadetblue', 'darkseagreen',
+        'deepskyblue', 'lightblue', 'lightskyblue',
+        'lightsteelblue', 'lightcyan', 'palegreen',
+        'paleturquoise', 'skyblue', 'slategray',
+        'steelblue'
     ]
 
     def __init__ (self):

@@ -17,7 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#include <stdio.h>  /* fprintf */
+#include <stdlib.h> /* exit, EXIT_FAILURE */
+
 #include <coal/coal.h>
+
+#include <coal/private/memory.h>
+#include <coal/private/reference_counting.h>
+#include <coal/private/virtual_methods.h>
+
+#include <coal/base/Object.h>
+#include <coal/base/Object/Object.rep>
+
+#include <coal/base/Metaclass.h>
+#include <coal/base/Metaclass/Metaclass.rep>
 
 #include <coal/error/IllegalStateException.h>
 #include <coal/error/NullPointerException.h>
@@ -29,6 +42,33 @@ var coal_acquire (var object) {
 			__func__));
 
   return INCREMENT_REFERENCE_COUNT(object);
+}
+
+var coal_construct (var _object, val _class, ...) {
+  class(Object) * object = _object;
+  const class(Metaclass) * class = _class;
+  va_list ap;
+
+  if (object == NULL)
+    coal_throw(coal_new(coal_error_NullPointerException(),
+			"%s: null object",
+			__func__));
+
+  if (class == NULL)
+    coal_throw(coal_new(coal_error_NullPointerException(),
+			"%s: null class description",
+			__func__));
+
+  CheckAndThrowMissingMethod(_class, coal_base_Metaclass());
+
+  object->class = class;
+  object->reference_count = 1;
+
+  va_start(ap, _class);
+  object = class->constructor(object, &ap);
+  va_end(ap);
+
+  return object;
 }
 
 void coal_del (var object) {
@@ -74,13 +114,15 @@ var coal_new (val _class, ...) {
 			"%s: null class description",
 			__func__));
 
-  CheckAndThrowMissingException("coal_new", _class, coal_base_Metaclass());
+  CheckAndThrowMissingMethod(_class, coal_base_Metaclass());
+
+  object = coal_private_malloc(class->size);
 
   object->class = class;
   object->reference_count = 1;
 
   va_start(ap, _class);
-  object = coal_base_Object_constructor(object, &ap);
+  object = class->constructor(object, &ap);
   va_end(ap);
 
   return object;

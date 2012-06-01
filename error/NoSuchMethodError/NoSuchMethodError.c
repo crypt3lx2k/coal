@@ -21,8 +21,8 @@
 #include <coal/private/library.h>
 #include <coal/private/virtual_methods.h>
 
-#include <coal/base/Throwable.h>
+#include <coal/error/Error.h>
 
-ExceptionDefinitionTemplate(coal_error_Error,
-			    LIBRARY_STR ".error.Error",
-			    coal_base_Throwable())
+ExceptionDefinitionTemplate(coal_error_NoSuchMethodError,
+			    LIBRARY_STR ".error.NoSuchMethodError",
+			    coal_error_Error())

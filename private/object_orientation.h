@@ -20,6 +20,7 @@
 #ifndef COAL_PRIVATE_OBJECT_ORIENTATION_H
 #define COAL_PRIVATE_OBJECT_ORIENTATION_H
 
+#include <stdlib.h> /* free */
 #include <coal/private/atomic.h>
 
 /* designates the start of a class declaration. A class
@@ -37,9 +38,9 @@
  * Sets up a class description.
  */
 #define SETUP_CLASS_DESCRIPTION(name, ...)       \
-  static const var name##__ = NULL;              \
+  static val name##__ = NULL;                    \
                                                  \
-  const var name (void) {                        \
+  val name (void) {                              \
     var _desc = NULL;                            \
                                                  \
     if (name##__ == NULL) {                      \

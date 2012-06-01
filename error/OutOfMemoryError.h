@@ -17,12 +17,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <coal/private/classes/Subclass.h>
-#include <coal/private/library.h>
-#include <coal/private/virtual_methods.h>
+#ifndef COAL_ERROR_OUTOFMEMORYERROR_H
+#define COAL_ERROR_OUTOFMEMORYERROR_H
 
-#include <coal/base/Throwable.h>
+#include <coal/error/Error.h>
 
-ExceptionDefinitionTemplate(coal_error_Error,
-			    LIBRARY_STR ".error.Error",
-			    coal_base_Throwable())
+/**
+ * coal_error_OutOfMemoryError
+ *
+ * Error that indicates that the implementation
+ * was unable to acquire enough resources.
+ *
+ * @extends coal_error_Error
+ * @constructor takes a variable amount of arguments
+ * @param (const char *) printf-like format string
+ * @param (...) printf-like arguments
+ */
+coal_cfunspec val coal_error_OutOfMemoryError (void) coal_funattr_const;
+
+#ifdef COAL_ERROR_NAMESPACE_POLLUTE
+# define OutOfMemoryError() coal_error_OutOfMemoryError()
+#endif
+
+#endif /* COAL_ERROR_OUTOFMEMORYERROR_H */

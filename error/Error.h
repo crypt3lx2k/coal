@@ -20,6 +20,8 @@
 #ifndef COAL_ERROR_ERROR_H
 #define COAL_ERROR_ERROR_H
 
+#include <coal/base/Throwable.h>
+
 /**
  * coal_error_Error
  *

@@ -38,7 +38,7 @@ var Throwable_constructor (var _self, va_list * args) {
   class(Throwable) * self = _self;
   const char * fmt;
 
-  fmt = va_arg(*app, const char *);
+  fmt = va_arg(*args, const char *);
 
   if (vasprintf(&self->message, fmt, *args) == -1)
     coal_throw(coal_new(coal_error_OutOfMemoryError(),

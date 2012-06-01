@@ -56,7 +56,7 @@ coal_cfunspec var coal_acquire (var object);
  * @param  (...) arguments for the class constructor
  * @return (var) new instance of class
  */
-coal_cfunspec var coal_construct (val class, var object, ...);
+coal_cfunspec var coal_construct (var object, val class, ...);
 
 /**
  * coal_del
@@ -111,10 +111,10 @@ noreturn coal_cfunspec void coal_throw (var object);
 
 #ifdef COAL_NAMESPACE_POLLUTE
 # define acquire(o)           coal_acquire(o)
-# define construct(c, o, ...) coal_construct(c, o, __VA_ARGS__)
+# define construct(c, o, ...) coal_construct(c, o, ## __VA_ARGS__)
 # define del(o)               coal_del(o)
 # define instanceof(o, c)     coal_instanceof(o, c)
-# define new(c, ...)          coal_new(c, __VA_ARGS__)
+# define new(c, ...)          coal_new(c, ## __VA_ARGS__)
 # define throw(o)             coal_throw(o)
 #endif
 
