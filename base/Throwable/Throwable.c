@@ -27,6 +27,8 @@
 
 #include <coal/base/Object.h>
 #include <coal/base/Metaclass.h>
+#include <coal/base/Metaclass/Metaclass.rep>
+#include <coal/base/String.h>
 #include <coal/base/Throwable.h>
 #include <coal/base/Throwable/Throwable.rep>
 
@@ -55,6 +57,17 @@ var Throwable_destructor (var _self) {
   self->message = NULL;
 
   return _self;
+}
+
+var Throwable_toString (val _self) {
+  const class(Throwable) * self  = _self;
+  const class(Metaclass) * class;
+
+  class = coal_base_Object_getClass(self);
+
+  return coal_base_String_format("%s: %s",
+				 class->name,
+				 self->message);
 }
 
 SETUP_CLASS_DESCRIPTION(coal_base_Throwable,

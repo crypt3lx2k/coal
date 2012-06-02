@@ -24,6 +24,7 @@
 #include <coal/private/library.h> /* LIBRARY_STR */
 #include <coal/private/virtual_methods.h> /* OverrideMethod */
 
+#include <coal/base/String.h>
 #include <coal/base/Object.h>
 #include <coal/base/Object/Object.rep>
 
@@ -52,8 +53,16 @@ int Object_hashCode (val self) {
   return (intptr_t) self;
 }
 
-var Object_toString (val self coal_attr_unused) {
-  return NULL;
+var Object_toString (val self) {
+  int hash;
+  const class(Metaclass) * class;
+
+  class = coal_base_Object_getClass(self);
+  hash  = coal_base_Object_hashCode(self);
+
+  return coal_base_String_format("%s@%x",
+				 class->name,
+				 hash);
 }
 
 /* Metaclass implements base.Object methods */
@@ -89,8 +98,11 @@ var Metaclass_destructor (var self coal_attr_unused) {
   return NULL;
 }
 
-var Metaclass_toString (val _self coal_attr_unused) {
-  return NULL;
+var Metaclass_toString (val _self) {
+  const class(Metaclass) * self = _self;
+
+  return coal_base_String_format("class %s",
+				 self->name);
 }
 
 /* set up class descriptions for Object and Metaclass */

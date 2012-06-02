@@ -4,7 +4,8 @@ This branch is an effort to clean up coal, I will attempt to create a
 cleaner and more consistent interface. This means that it will in
 practice become a ground up rewrite of coal.
 
-Here is the current class tree.
+Here is the current class tree, it was generated with the command
+`py-utils/hierarchy.py | dot -Tpng -Nfontname="Droid Sans" -Gfontname="Droid Sans Mono" -Gsplines=ortho -Estyle=dashed -Grankdir=TB > classes.png`
 
 ![Alt text](https://github.com/crypt3lx2k/coal/raw/rewrite/classes.png)
 
