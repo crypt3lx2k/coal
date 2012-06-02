@@ -139,7 +139,7 @@ static class(Metaclass) _classdescripts [] = {
     Metaclass_destructor,
     Object_equals,
     Object_hashCode,
-    Object_toString
+    Metaclass_toString
   }
 };
 

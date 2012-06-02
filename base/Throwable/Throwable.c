@@ -81,4 +81,4 @@ SETUP_CLASS_DESCRIPTION(coal_base_Throwable,
 			Throwable_destructor,
 			INHERIT_METHOD,        /* equals */
 			INHERIT_METHOD,        /* hashCode */
-			INHERIT_METHOD);       /* toString */
+			Throwable_toString);

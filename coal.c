@@ -26,6 +26,8 @@
 #include <coal/private/reference_counting.h>
 #include <coal/private/virtual_methods.h>
 
+#include <coal/io/io.h>
+
 #include <coal/base/Object.h>
 #include <coal/base/Object/Object.rep>
 
@@ -103,5 +105,6 @@ var coal_new (val _class, ...) {
 
 void coal_throw (var throwable) {
   fprintf(stderr, "exception at %p\n", throwable);
+  coal_io_fprintln(throwable, stderr);
   exit(EXIT_FAILURE);
 }
