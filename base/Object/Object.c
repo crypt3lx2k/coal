@@ -66,10 +66,14 @@ var Metaclass_constructor (var _self, va_list * args) {
   self->super = va_arg(*args, class(Metaclass) *);
   self->size  = va_arg(*args, size_t);
 
+  /* copy every method pointer
+     from the old class*/
   memcpy((char *) self + offset,
 	 (char *) self->super + offset,
 	 coal_base_Object_getSize(self->super) - offset);
 
+  /* override the methods unless
+     INHERIT_METHOD was passed */
   OverrideMethod(self, args, cmp);
   OverrideMethod(self, args, constructor);
   OverrideMethod(self, args, destructor);

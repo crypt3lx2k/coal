@@ -105,10 +105,15 @@ class ClassTree (object):
 
                     subklasses = sorted(subklasses, self.cmp(self.counts))
 
-                    s += '\t\t"%s" -> { %s };\n' % (
-                        klass,
-                        ' '.join(['"%s"' % s for s in subklasses])
+                    s += '\t\t{ %s } -> "%s";\n' % (
+                        ' '.join(['"%s"' % s for s in subklasses]),
+                        klass
                     )
+
+                    # s += '\t\t"%s" -> { %s };\n' % (
+                    #     klass,
+                    #     ' '.join(['"%s"' % s for s in subklasses])
+                    # )
 
                     for subklass in subklasses:
                         self.hierarchy[klass].remove(subklass)
@@ -143,9 +148,14 @@ class ClassTree (object):
 
             subklasses = sorted(self.hierarchy[klass], self.cmp(self.counts))
             if subklasses:
-                s += '\t"%s" -> { %s };\n' % (
-                    klass,
-                    ' '.join(['"%s"' % s for s in subklasses])
+                # s += '\t"%s" -> { %s };\n' % (
+                #     klass,
+                #     ' '.join(['"%s"' % s for s in subklasses])
+                # )
+
+                s += '\t{ %s } -> "%s";\n' % (
+                    ' '.join(['"%s"' % s for s in subklasses]),
+                    klass
                 )
 
             if klass == 'coal.lang.object':
