@@ -17,15 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_OBJECT_REP
-#define COAL_BASE_OBJECT_REP
+#ifndef COAL_PRIVATE_REFERENCE_TYPE_H
+#define COAL_PRIVATE_REFERENCE_TYPE_H
 
-#include <coal/private/object_orientation.h>
-#include <coal/private/reference_type.h>
+#include <coal/private/atomic.h>
 
-class (Object) {
-  const class(Metaclass) * class; /* forward declaration */
-  refcnt_type reference_count;
-};
+/* we have to put this in a file of its own to avoid cyclic
+   inclusion between base/Object/Object.rep and
+   private/reference_counting.h, this normally wouldn't be
+   a problem due to include guards but it really messes with
+   the makefile code generator which assumes that the include
+   tree is a directed acyclic graph, emphasis on the acyclic */
+typedef atomic(unsigned int) refcnt_type;
 
-#endif /* COAL_BASE_OBJECT_REP */
+#endif /* COAL_PRIVATE_REFERENCE_TYPE_H */

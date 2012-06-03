@@ -1,28 +1,29 @@
 #! /usr/bin/env python
+"""
+Goes over .c, .h and .rep files and adds a license if it's not
+already present.
+"""
 
 import os
 import re
 import sys
 
-# This list defines which filetypes
-# are affected by the script.
+# This list defines which filetypes are affected by the
+# script.
 #
-# If a file ends with an extension
-# that isn't in this list this
-# script ignores it.
+# If a file ends with an extension that isn't in this list
+# this script will ignore it.
 extension_whitelist = [
     '.c',
     '.h',
     '.rep'
 ]
 
-# This is the license this script
-# currently expects the LICENSE file
-# to contain.
+# This is the license this script currently expects the
+# LICENSE file to contain.
 #
-# If you want to change this you
-# have to modify this string and
-# the license_re regex.
+# If you want to change this you have to modify this string
+# and the license_re regex.
 LICENSE_VERSION = 'LGPL v2.1'
 
 def comment (s):

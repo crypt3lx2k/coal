@@ -20,10 +20,7 @@
 #ifndef COAL_PRIVATE_REFERENCE_COUNTING_H
 #define COAL_PRIVATE_REFERENCE_COUNTING_H
 
-#include <coal/private/atomic.h>
-
-typedef atomic(unsigned int) refcnt_type;
-
+#include <coal/private/reference_type.h>
 #include <coal/base/Object/Object.rep>
 
 /* Don't use these macros, use
