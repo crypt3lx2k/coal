@@ -33,14 +33,76 @@ class DirectedAcyclicGraph (object):
     def __init__ (self):
         self.deps = defaultdict(set)
 
-    def __iter__ (self):
-        return iter(self.deps)
+    def __contains__ (self, f):
+        return f in self.deps
 
     def __getitem__ (self, f):
         return self.deps[f]
 
-    def add_edge(self, f, t):
+    def __iter__ (self):
+        return iter(self.deps)
+
+    def __setitem__ (self, f, s):
+        self.deps[f] = s
+
+    def add_edge (self, f, t):
         self.deps[f].add(t)
+
+    def remove_edge (self, f, t):
+        self.deps[f].remove(t)
+
+    def expand (self):
+        def rec (f):
+            if f not in self:
+                return set()
+
+            old = self[f].copy()
+
+            for h in old:
+                self[f].update(rec(h))
+
+            return self[f]
+
+        for f in self:
+            rec(f)
+
+    def reduce (self):
+        def rec (f):
+            if f not in self:
+                return set()
+
+            children_dep = set()
+
+            for h in self[f]:
+                children_dep.update(rec(h))
+
+            self[f] = self[f] - children_dep
+
+            return children_dep | self[f]
+
+        for f in self:
+            rec(f)
+
+    def str_tsort (self):
+        s = ''
+
+        for f in self:
+            for h in self[f]:
+                s += '%s %s\n' % (f, h)
+
+        return s.rstrip('\n')
+
+    def str_graphviz (self):
+        s = 'strict digraph {\n'
+
+        for f in self:
+            s += '\t"%s" -> { %s }\n' % (
+                f,
+                ' '.join(['"%s"' % s for s in self[f]])
+            )
+
+        s += '}'
+        return s
 
 deps = DirectedAcyclicGraph()
 
@@ -68,11 +130,9 @@ def walker (dep, dirname, fnames):
         path = path.replace('.', 'coal', 1)
 
         for hit in include_re.findall(contents):
-            dep[path]
-            dep.add_edge(hit, path)
+            dep.add_edge(path, hit)
 
 os.path.walk('.', walker, deps)
 
-for f in deps:
-    for h in deps[f]:
-        print '%s %s' % (f, h)
+deps.reduce()
+print deps.str_graphviz()

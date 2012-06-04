@@ -110,11 +110,6 @@ class ClassTree (object):
                         klass
                     )
 
-                    # s += '\t\t"%s" -> { %s };\n' % (
-                    #     klass,
-                    #     ' '.join(['"%s"' % s for s in subklasses])
-                    # )
-
                     for subklass in subklasses:
                         self.hierarchy[klass].remove(subklass)
                     self.copy.remove(klass)
@@ -148,11 +143,6 @@ class ClassTree (object):
 
             subklasses = sorted(self.hierarchy[klass], self.cmp(self.counts))
             if subklasses:
-                # s += '\t"%s" -> { %s };\n' % (
-                #     klass,
-                #     ' '.join(['"%s"' % s for s in subklasses])
-                # )
-
                 s += '\t{ %s } -> "%s";\n' % (
                     ' '.join(['"%s"' % s for s in subklasses]),
                     klass

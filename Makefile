@@ -12,8 +12,8 @@ DOLLAR = $
 RM = rm -f
 CP = cp -f
 
-FILES = $(shell find -name "*.c")
-OBJS  = $(shell find -name "*.c" | sed "s/\.c/\.o/")
+FILES := $(shell find -name "*.c")
+OBJS  := $(shell find -name "*.c" | sed "s/\.c/\.o/")
 PROJ = libcoal.so
 
 build:
