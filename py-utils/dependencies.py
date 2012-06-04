@@ -135,7 +135,7 @@ class DirectedAcyclicGraph (object):
         s.append('PROJ = %s\n' % PROJ)
 
         s.append('build :\n\t$(MAKE) $(PROJ)\n')
-        s.append('install : $(PROJ)\n\t$(CP) $(PROJ) /usr/bin/\n')
+        s.append('install : $(PROJ)\n\t$(CP) $(PROJ) /usr/lib/\n')
 
         s.append('%s : %s' % (PROJ, '$(OBJS)'))
         s.append('\t$(CC) $(LDFLAGS) $(OBJS) -o $@\n')

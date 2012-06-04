@@ -35,7 +35,7 @@ build :
 	$(MAKE) $(PROJ)
 
 install : $(PROJ)
-	$(CP) $(PROJ) /usr/bin/
+	$(CP) $(PROJ) /usr/lib/
 
 libcoal.so : $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) -o $@
