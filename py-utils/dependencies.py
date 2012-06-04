@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 """
 Goes over .c, .h and .rep files and figures out their include
-dependencies.
+dependencies in order to generate a Makefile.
 """
 
 import os
@@ -28,6 +28,31 @@ extension_whitelist = [
 include_re = re.compile (
     r'\#include\s+(?:\<|\")\s*(.*?)\s*(?:\>|\")'
 )
+
+PROJ = 'libcoal.so'
+
+makefile_template = \
+'''CC = gcc
+
+RM = rm -f
+CP = cp -f
+
+COAL_DIR = ../
+
+WFLAGS = -Wall -Wextra -Werror
+BINFLAGS = -fPIC
+LIBFLAGS = -shared $(BINFLAGS)
+IFLAGS = -I$(COAL_DIR)
+OPTFLAGS = -O2 -fomit-frame-pointer -funroll-loops
+
+DBFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
+CFLAGS = $(OPTFLAGS) $(WFLAGS) $(BINFLAGS) $(IFLAGS)
+LDFLAGS = $(LIBFLAGS)
+
+%s
+.PHONY : clean
+clean :
+\t$(RM) $(OBJS) $(PROJ) $(shell find -name "*~")'''
 
 class DirectedAcyclicGraph (object):
     def __init__ (self):
@@ -76,13 +101,6 @@ class DirectedAcyclicGraph (object):
             for h in self[f]:
                 children_dep.update(rec(h))
 
-            diff = self[f] & children_dep
-
-            if diff:
-                print >> sys.stderr, 'removing edges from %s' % f
-                for k in diff:
-                    print >> sys.stderr, '\t%s' % k
-
             self[f] = self[f] - children_dep
 
             return children_dep | self[f]
@@ -90,28 +108,68 @@ class DirectedAcyclicGraph (object):
         for f in self:
             rec(f)
 
+    def str_graphviz (self):
+        s = ['strict digraph {']
+
+        for f in self:
+            s.append('\t"%s" -> { %s }' % (
+                f,
+                ' '.join(['"%s"' % s for s in self[f]])
+            ))
+
+        s.append('}')
+        return '\n'.join(s)
+
+    def str_makefile (self, objs):
+        def cmp_headers_first (a, b):
+            for extension in ('.h', '.rep', '.c', '.o'):
+                if a.endswith(extension) and b.endswith(extension):
+                    return cmp(a, b)
+                elif a.endswith(extension):
+                    return -1
+                elif b.endswith(extension):
+                    return 1
+
+            return cmp(a, b)
+
+        s = ['OBJS = %s\n' % ' \\\n\t'.join(sorted(objs))]
+        s.append('PROJ = %s\n' % PROJ)
+
+        s.append('build :\n\t$(MAKE) $(PROJ)\n')
+        s.append('debug :\n\t$(MAKE) $(PROJ) \\\n\tCFLAGS=\"$(DBFLAGS)\"\n')
+        s.append('install : $(PROJ)\n\t$(CP) $(PROJ) /usr/bin/\n')
+
+        s.append('%s : %s' % (PROJ, '$(OBJS)'))
+        s.append('\t$(CC) $(LDFLAGS) $(OBJS) -o $@\n')
+
+        for f in sorted(self, cmp_headers_first):
+            s.append('%s : %s' % (
+                      f,
+                      ' \\\n\t'.join(sorted(self[f]))
+                    )
+            )
+
+            s.append('\t%s\n' % (
+                      'touch $@'
+                      if not f.endswith('.o') else
+                      '$(CC) $(CFLAGS) -c $< -o $@'
+                    )
+            ) 
+
+        return makefile_template % '\n'.join(s)
+
     def str_tsort (self):
-        s = ''
+        s = []
 
         for f in self:
             for h in self[f]:
-                s += '%s %s\n' % (f, h)
+                s.append('%s %s\n' % (f, h))
 
-        return s.rstrip('\n')
+        return '\n'.join(s)
 
-    def str_graphviz (self):
-        s = 'strict digraph {\n'
-
-        for f in self:
-            s += '\t"%s" -> { %s }\n' % (
-                f,
-                ' '.join(['"%s"' % s for s in self[f]])
-            )
-
-        s += '}'
-        return s
 
 deps = DirectedAcyclicGraph()
+objs = set()
 
 def ignore_file (path):
     """
@@ -134,12 +192,22 @@ def walker (dep, dirname, fnames):
 
         contents = open(path).read()
 
-        path = path.replace('.', 'coal', 1)
-
         for hit in include_re.findall(contents):
+            # ignore external/system headers
+            if 'coal' not in hit:
+                continue
+
+            if 'coal' in hit:
+                hit = hit.replace('coal', '.', 1)
+
             dep.add_edge(path, hit)
+
+            if path.endswith('.c'):
+                obj = path.replace('.c', '.o')
+                dep.add_edge(obj, path)
+                objs.add(obj)
 
 os.path.walk('.', walker, deps)
 
 deps.reduce()
-print deps.str_graphviz()
+print deps.str_makefile(objs)
