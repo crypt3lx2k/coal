@@ -54,6 +54,17 @@ LDFLAGS = $(LIBFLAGS)
 clean :
 \t$(RM) $(OBJS) $(PROJ) $(shell find -name "*~")'''
 
+def cmp_headers_first (a, b):
+    for extension in ('.h', '.rep', '.c', '.o'):
+        if a.endswith(extension) and b.endswith(extension):
+            return cmp(a, b)
+        elif a.endswith(extension):
+            return -1
+        elif b.endswith(extension):
+            return 1
+
+    return cmp(a, b)
+
 class DirectedAcyclicGraph (object):
     def __init__ (self):
         self.deps = defaultdict(set)
@@ -111,27 +122,16 @@ class DirectedAcyclicGraph (object):
     def str_graphviz (self):
         s = ['strict digraph {']
 
-        for f in self:
+        for f in sorted(self, cmp_headers_first):
             s.append('\t"%s" -> { %s }' % (
                 f,
-                ' '.join(['"%s"' % s for s in self[f]])
+                ' '.join(['"%s"' % d for d in sorted(self[f])])
             ))
 
         s.append('}')
         return '\n'.join(s)
 
     def str_makefile (self, objs):
-        def cmp_headers_first (a, b):
-            for extension in ('.h', '.rep', '.c', '.o'):
-                if a.endswith(extension) and b.endswith(extension):
-                    return cmp(a, b)
-                elif a.endswith(extension):
-                    return -1
-                elif b.endswith(extension):
-                    return 1
-
-            return cmp(a, b)
-
         s = ['OBJS = %s\n' % ' \\\n\t'.join(sorted(objs))]
         s.append('PROJ = %s\n' % PROJ)
 
