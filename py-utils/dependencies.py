@@ -197,8 +197,7 @@ def walker (dep, dirname, fnames):
             if 'coal' not in hit:
                 continue
 
-            if 'coal' in hit:
-                hit = hit.replace('coal', '.', 1)
+            hit = hit.replace('coal', '.', 1)
 
             dep.add_edge(path, hit)
 
