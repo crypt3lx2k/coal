@@ -76,6 +76,13 @@ class DirectedAcyclicGraph (object):
             for h in self[f]:
                 children_dep.update(rec(h))
 
+            diff = self[f] & children_dep
+
+            if diff:
+                print >> sys.stderr, 'removing edges from %s' % f
+                for k in diff:
+                    print >> sys.stderr, '\t%s' % k
+
             self[f] = self[f] - children_dep
 
             return children_dep | self[f]
