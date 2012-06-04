@@ -11,8 +11,7 @@ LIBFLAGS = -shared $(BINFLAGS)
 IFLAGS = -I$(COAL_DIR)
 OPTFLAGS = -O2 -fomit-frame-pointer -funroll-loops
 
-DBFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
-CFLAGS = $(OPTFLAGS) $(WFLAGS) $(BINFLAGS) $(IFLAGS)
+CFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
 LDFLAGS = $(LIBFLAGS)
 
 OBJS = ./base/Metaclass/Metaclass.o \
@@ -34,10 +33,6 @@ PROJ = libcoal.so
 
 build :
 	$(MAKE) $(PROJ)
-
-debug :
-	$(MAKE) $(PROJ) \
-	CFLAGS="$(DBFLAGS)"
 
 install : $(PROJ)
 	$(CP) $(PROJ) /usr/bin/

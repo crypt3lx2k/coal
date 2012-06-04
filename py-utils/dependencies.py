@@ -45,8 +45,7 @@ LIBFLAGS = -shared $(BINFLAGS)
 IFLAGS = -I$(COAL_DIR)
 OPTFLAGS = -O2 -fomit-frame-pointer -funroll-loops
 
-DBFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
-CFLAGS = $(OPTFLAGS) $(WFLAGS) $(BINFLAGS) $(IFLAGS)
+CFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
 LDFLAGS = $(LIBFLAGS)
 
 %s
@@ -136,7 +135,6 @@ class DirectedAcyclicGraph (object):
         s.append('PROJ = %s\n' % PROJ)
 
         s.append('build :\n\t$(MAKE) $(PROJ)\n')
-        s.append('debug :\n\t$(MAKE) $(PROJ) \\\n\tCFLAGS=\"$(DBFLAGS)\"\n')
         s.append('install : $(PROJ)\n\t$(CP) $(PROJ) /usr/bin/\n')
 
         s.append('%s : %s' % (PROJ, '$(OBJS)'))
