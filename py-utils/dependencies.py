@@ -21,6 +21,11 @@ extension_whitelist = [
     '.rep'
 ]
 
+# This script ignores directories listed in here.
+directory_blacklist = [
+    '.git',
+]
+
 # This regex matches any C preprocessor include directive and
 # extracts the file included. It assumes that the directive
 # is correct and not on a form like #include "file.h> or
@@ -177,9 +182,18 @@ def ignore_file (path):
     return not any(map(lambda ext : path.endswith(ext),
                        extension_whitelist))
 
+def ignore_dir (path):
+    """
+    Returns whether this script should
+    ignore the directory given by path
+    or not.
+    """
+    return not all(map(lambda dirname : dirname not in path,
+                       directory_blacklist))
+
 def walker (dep, dirname, fnames):
-    # ignore .git directory if any
-    if '.git' in dirname:
+    # ignore blacklisted directories
+    if ignore_dir(dirname):
         return
 
     for fname in fnames:
@@ -206,5 +220,6 @@ def walker (dep, dirname, fnames):
 
 os.path.walk('.', walker, deps)
 
-deps.reduce()
-print deps.str_makefile(objs)
+if __name__ == '__main__':
+    deps.reduce()
+    print deps.str_makefile(objs)
