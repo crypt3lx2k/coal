@@ -8,7 +8,7 @@ import os
 import re
 import sys
 
-from collections import defaultdict
+from DAG import DirectedAcyclicGraph
 
 # This list defines which filetypes are affected by the
 # script.
@@ -69,73 +69,17 @@ def cmp_headers_first (a, b):
 
     return cmp(a, b)
 
-class DirectedAcyclicGraph (object):
+class DependencyGraph (DirectedAcyclicGraph):
     def __init__ (self):
-        self.deps = defaultdict(set)
-
-    def __contains__ (self, f):
-        return f in self.deps
-
-    def __getitem__ (self, f):
-        return self.deps[f]
+        DirectedAcyclicGraph.__init__(self)
+        self.cmp = cmp_headers_first
 
     def __iter__ (self):
-        return iter(self.deps)
+        return iter(self.edges)
 
-    def __setitem__ (self, f, s):
-        self.deps[f] = s
+    def str_makefile (self):
+        objs = filter(lambda n : n.endswith('.o'), self.nodes)
 
-    def add_edge (self, f, t):
-        self.deps[f].add(t)
-
-    def remove_edge (self, f, t):
-        self.deps[f].remove(t)
-
-    def expand (self):
-        def rec (f):
-            if f not in self:
-                return set()
-
-            old = self[f].copy()
-
-            for h in old:
-                self[f].update(rec(h))
-
-            return self[f]
-
-        for f in self:
-            rec(f)
-
-    def reduce (self):
-        def rec (f):
-            if f not in self:
-                return set()
-
-            children_dep = set()
-
-            for h in self[f]:
-                children_dep.update(rec(h))
-
-            self[f] = self[f] - children_dep
-
-            return children_dep | self[f]
-
-        for f in self:
-            rec(f)
-
-    def str_graphviz (self):
-        s = ['strict digraph {']
-
-        for f in sorted(self, cmp_headers_first):
-            s.append('\t"%s" -> { %s }' % (
-                f,
-                ' '.join(['"%s"' % d for d in sorted(self[f])])
-            ))
-
-        s.append('}')
-        return '\n'.join(s)
-
-    def str_makefile (self, objs):
         s = ['OBJS = %s\n' % ' \\\n\t'.join(sorted(objs))]
         s.append('PROJ = %s\n' % PROJ)
 
@@ -145,34 +89,23 @@ class DirectedAcyclicGraph (object):
         s.append('%s : %s' % (PROJ, '$(OBJS)'))
         s.append('\t$(CC) $(LDFLAGS) $(OBJS) -o $@\n')
 
-        for f in sorted(self, cmp_headers_first):
+        for node in sorted(self, self.cmp):
             s.append('%s : %s' % (
-                      f,
-                      ' \\\n\t'.join(sorted(self[f]))
+                      node,
+                      ' \\\n\t'.join(sorted(self[node]))
                     )
             )
 
             s.append('\t%s\n' % (
                       'touch $@'
-                      if not f.endswith('.o') else
+                      if not node.endswith('.o') else
                       '$(CC) $(CFLAGS) -c $< -o $@'
                     )
             ) 
 
         return makefile_template % '\n'.join(s)
 
-    def str_tsort (self):
-        s = []
-
-        for f in self:
-            for h in self[f]:
-                s.append('%s %s\n' % (f, h))
-
-        return '\n'.join(s)
-
-
-deps = DirectedAcyclicGraph()
-objs = set()
+deps = DependencyGraph()
 
 def ignore_file (path):
     """
@@ -191,7 +124,7 @@ def ignore_dir (path):
     return not all(map(lambda dirname : dirname not in path,
                        directory_blacklist))
 
-def walker (dep, dirname, fnames):
+def walker (deps, dirname, fnames):
     # ignore blacklisted directories
     if ignore_dir(dirname):
         return
@@ -211,15 +144,13 @@ def walker (dep, dirname, fnames):
 
             hit = hit.replace('coal', '.', 1)
 
-            dep.add_edge(path, hit)
+            deps.add_edge(path, hit)
 
             if path.endswith('.c'):
-                obj = path.replace('.c', '.o')
-                dep.add_edge(obj, path)
-                objs.add(obj)
+                deps.add_edge(path.replace('.c', '.o'), path)
 
 os.path.walk('.', walker, deps)
 
 if __name__ == '__main__':
     deps.reduce()
-    print deps.str_makefile(objs)
+    print deps.str_makefile()
