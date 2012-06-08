@@ -26,6 +26,7 @@ OBJS = ./base/Metaclass/Metaclass.o \
 	./error/NullPointerException/NullPointerException.o \
 	./error/OutOfMemoryError/OutOfMemoryError.o \
 	./io/io.o \
+	./io/printf.o \
 	./private/classes/Subclass/Subclass.o \
 	./private/memory.o
 
@@ -183,6 +184,10 @@ libcoal.so : $(OBJS)
 	./io/io.h
 	touch $@
 
+./io/printf.c : ./base/Object.h \
+	./io/io.h
+	touch $@
+
 ./private/classes/Subclass/Subclass.c : ./base/Metaclass/Metaclass.rep \
 	./private/classes/Subclass.h \
 	./private/library.h \
@@ -227,6 +232,9 @@ libcoal.so : $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 ./io/io.o : ./io/io.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+./io/printf.o : ./io/printf.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 ./private/classes/Subclass/Subclass.o : ./private/classes/Subclass/Subclass.c
