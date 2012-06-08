@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#include <limits.h> /* INT_MAX, INT_MIN */
 #include <stddef.h> /* NULL, offsetof */
 #include <stdint.h> /* intptr_t */
 #include <string.h> /* memcpy */
@@ -34,7 +35,14 @@
 /* Object implements base.Object methods */
 
 int Object_cmp (val self, val other) {
-  return (intptr_t) self - (intptr_t) other;
+  ptrdiff_t diff = self - other;
+
+  if (diff < INT_MIN)
+    return INT_MIN;
+  if (diff > INT_MAX)
+    return INT_MAX;
+
+  return diff;
 }
 
 var Object_constructor (var self, va_list * args coal_attr_unused) {
@@ -49,18 +57,18 @@ bool Object_equals (val self, val other) {
   return self == other;
 }
 
-int Object_hashCode (val self) {
-  return (intptr_t) self;
+size_t Object_hashCode (val self) {
+  return (uintptr_t) self;
 }
 
 var Object_toString (val self) {
-  int hash;
+  size_t hash;
   const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);
   hash  = coal_base_Object_hashCode(self);
 
-  return coal_base_String_format("%s@%x",
+  return coal_base_String_format("%s@%zx",
 				 class->name,
 				 hash);
 }

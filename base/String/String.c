@@ -91,19 +91,18 @@ bool String_equals (val _self, val _other) {
 		  self->len * sizeof(char)) == 0;
 }
 
-int String_hashCode (val _self) {
+size_t String_hashCode (val _self) {
   const class(String) * self = _self;
   register size_t i;
-  register int x, m;
+  register size_t x;
 
   if (self->str[0] == '\0')
     return 0;
 
   x = self->str[0] << 7;
-  m = 1000003;
 
   for (i = 0; i < self->len; i++)
-    x = (x*m)^self->str[i];
+    x = (x*1000003)^self->str[i];
 
   return x;
 }

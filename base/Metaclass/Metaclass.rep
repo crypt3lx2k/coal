@@ -33,7 +33,7 @@ class (Metaclass) {
   var (*constructor)(var self, va_list * app);
   var (*destructor)(var self);
   bool (*equals)(val self, val other);
-  int (*hashCode)(val self);
+  size_t (*hashCode)(val self);
   var (*toString)(val self);
 };
 

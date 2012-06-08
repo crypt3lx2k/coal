@@ -189,7 +189,8 @@ libcoal.so : $(OBJS)
 	./private/virtual_methods.h
 	touch $@
 
-./private/memory.c : ./error/OutOfMemoryError.h
+./private/memory.c : ./error/OutOfMemoryError.h \
+	./private/memory.h
 	touch $@
 
 ./base/Metaclass/Metaclass.o : ./base/Metaclass/Metaclass.c

@@ -105,9 +105,9 @@ coal_cfunspec size_t coal_base_Object_getSize (val self);
  * Returns the hash of this object.
  *
  * @param  (val) object to be hashed
- * @return (int) hash of object
+ * @return (size_t) hash of object
  */
-coal_cfunspec int coal_base_Object_hashCode (val self);
+coal_cfunspec size_t coal_base_Object_hashCode (val self);
 
 /**
  * coal_base_Object_toString

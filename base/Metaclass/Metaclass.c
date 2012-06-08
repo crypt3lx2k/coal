@@ -111,7 +111,7 @@ size_t coal_base_Object_getSize (val self) {
   return class->size;
 }
 
-int coal_base_Object_hashCode (val self) {
+size_t coal_base_Object_hashCode (val self) {
   const class(Metaclass) * class;
 
   class = coal_base_Object_getClass(self);

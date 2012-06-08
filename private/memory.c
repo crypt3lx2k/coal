@@ -18,7 +18,9 @@
  */
 
 #include <stdlib.h>
+
 #include <coal/error/OutOfMemoryError.h>
+#include <coal/private/memory.h>
 
 void * coal_private_malloc (size_t size) {
   void * block;
