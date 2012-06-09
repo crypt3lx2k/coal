@@ -28,7 +28,8 @@ OBJS = ./base/Metaclass/Metaclass.o \
 	./io/io.o \
 	./io/printf.o \
 	./private/classes/Subclass/Subclass.o \
-	./private/memory.o
+	./private/memory.o \
+	./testing/AssertionError/AssertionError.o
 
 PROJ = libcoal.so
 
@@ -94,6 +95,9 @@ libcoal.so : $(OBJS)
 	touch $@
 
 ./private/virtual_methods.h : ./error/NoSuchMethodError.h
+	touch $@
+
+./testing/AssertionError.h : ./error/Error.h
 	touch $@
 
 ./base/Metaclass/Metaclass.rep : ./base/Object/Object.rep
@@ -198,6 +202,11 @@ libcoal.so : $(OBJS)
 	./private/memory.h
 	touch $@
 
+./testing/AssertionError/AssertionError.c : ./private/classes/Subclass.h \
+	./private/library.h \
+	./private/virtual_methods.h
+	touch $@
+
 ./base/Metaclass/Metaclass.o : ./base/Metaclass/Metaclass.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -241,6 +250,9 @@ libcoal.so : $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 ./private/memory.o : ./private/memory.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+./testing/AssertionError/AssertionError.o : ./testing/AssertionError/AssertionError.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : clean

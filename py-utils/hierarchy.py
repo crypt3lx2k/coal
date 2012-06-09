@@ -1,158 +1,174 @@
 #! /usr/bin/env python
 
+import sys
 import random
 import re
 import os
 
-from collections import defaultdict
+from DAG import DirectedAcyclicGraph
 
-class ClassTree (object):
-    colors = [
-        'aquamarine', 'cadetblue', 'darkseagreen',
-        'deepskyblue', 'lightblue', 'lightskyblue',
-        'lightsteelblue', 'lightcyan', 'palegreen',
-        'paleturquoise', 'skyblue', 'slategray',
-        'steelblue'
-    ]
+colors = [
+    'snow', 'seashell', 'AntiqueWhite', 'bisque', 'PeachPuff',
+    'Navajowhite', 'LemonChiffon', 'cornsilk', 'ivory',
+    'honeydew', 'LavenderBlush', 'MistyRose', 'azure',
+    'SlateBlue', 'RoyalBlue', 'blue', 'DodgerBlue',
+    'SteelBlue', 'DeepSkyBlue', 'SkyBlue', 'LightSkyBlue',
+    'SlateGray', 'LightSteelBlue', 'LightBlue', 'LightCyan',
+    'PaleTurquoise', 'CadetBlue', 'turquoise', 'cyan',
+    'DarkSlateGray', 'aquamarine', 'DarkSeaGreen', 'SeaGreen',
+    'PaleGreen', 'SpringGreen', 'green', 'chartreuse',
+    'OliveDrab', 'DarkOliveGreen', 'khaki', 'LightGoldenrod',
+    'LightYellow', 'yellow', 'gold', 'goldenrod',
+    'DarkGoldenrod', 'RosyBrown', 'IndianRed', 'sienna',
+    'burlywood', 'wheat', 'tan', 'chocolate', 'firebrick',
+    'brown', 'salmon', 'LightSalmon', 'orange', 'DarkOrange',
+    'coral', 'tomato', 'OrangeRed', 'red', 'DeepPink',
+    'HotPink', 'pink', 'LightPink', 'PaleVioletRed', 'maroon',
+    'VioletRed', 'magenta', 'orchid', 'plum', 'MediumOrchid',
+    'DarkOrchid', 'purple', 'MediumPurple', 'thistle'
+]
 
+relaxed_colors = [
+    'antiquewhite', 'beige', 'bisque'
+]
+
+def indent (lines):
+    indented_lines = []
+
+    for line in lines:
+        if line:
+            indented_lines.append('\t' + line)
+        else:
+            indented_lines.append(line)
+
+    return indented_lines
+
+class ClassTree (DirectedAcyclicGraph):
     def __init__ (self):
-        self.hierarchy = defaultdict(list)
-        self.reverse = {}
-        self.majors = {}
-        self.all = set()
+        DirectedAcyclicGraph.__init__(self)
 
-        self.cmp = lambda coll : lambda a, b : (
-            (coll[b] - coll[a]) or cmp(a, b)
-        )
+        self.palette = []
+        self.colors  = []
 
-    def _addMajor (self, klass):
-        modes = klass.split('.')[:-1]
-        node = self.majors
+    def getBaseColor (self):
+        if not self.palette:
+            choice = random.randrange(len(colors))
 
-        absmode = ''
-        for mode in modes:
-            absmode += mode
-            node = node.setdefault(absmode, {})
-            absmode += '.'
+            for i in range(len(colors)):
+                i = (i + choice) % len(colors)
+                self.palette.append(colors[i])
 
-    def push (self, klass, subklass):
-        if klass != subklass:
-            self.hierarchy[klass].append(subklass)
-            self.reverse[subklass] = klass
+        return self.palette.pop()
 
-        self.all.add(klass)
-        self.all.add(subklass)
+    def getColor (self):
+        if not self.colors:
+            base_color = self.getBaseColor()
 
-        self._addMajor(klass)
-        self._addMajor(subklass)
+            self.colors.extend ([
+                '%s%d' % (base_color, i)
+                for i in range(1, 4)
+            ])
 
-    def _totalSubclasses (self, klass):
-        classes = 0
-        
-        for subklass in self.hierarchy[klass]:
-            if subklass != klass:
-                classes += self._totalSubclasses(subklass)
-                classes += 1
+        return self.colors.pop()
 
-        return classes
+    def getHierarchy (self):
+        hierarchy = {}
 
-    def _indent (self, string):
-        lines = string.split('\n')
-        indented_lines = []
+        for klass in self:
+            namespaces = klass.split('.')
+            category = hierarchy
 
-        for line in lines:
-            if line:
-                indented_lines.append('\t' + line)
-            else:
-                indented_lines.append(line)
+            for namespace in namespaces:
+                category = category.setdefault(namespace, {})
 
-        return '\n'.join(indented_lines)
+        return hierarchy
 
-    def _belongsToMajor (self, klass, major):
-        if not klass.startswith(major):
-            return False
+    def subgraph (self, this, categories):
+        s = []
 
-        if klass == major:
-            return True
+        if categories:
+            s.append (
+                'subgraph cluster_%s {' %
+                  this.replace('.', '_')
+            )
 
-        if klass.startswith(major + '.'):
-            return True
+            color = self.getColor()
+            print >> sys.stderr, 'Setting %s to color %s' % (this, color)
 
-        return False
+            s.append('\tlabel="%s";' % this)
+            s.append('\tcolor="%s";' % color)
 
-    def _formatMajors (self, majors, colors=None):
-        s = ''
-        re_empty = False
+            # we are a namespace but also a class, e.g.
+            # coal.base.String and coal.base.String.Metaclass
+            if this in self:
+                s.append('\t"%s";' % this)
 
-        for major in sorted(majors):
-            if not colors:
-                re_empty = True
-                colors = [self.palette.pop()]
-                colors.extend(['%s%d' % (colors[0], i) for i in range(1,4)])
+            for category in sorted(categories):
+                child = '.'.join((this, category))
 
-            s += '\tsubgraph "cluster_%s" {\n' % major
-            s += '\t\tlabel="%s";\n' % major
-            s += '\t\tlabelloc=b;\n'
-            s += '\t\tcolor=%s;\n' % colors.pop()
-            s += '\t\tstyle=filled;\n'
+                # we want every child to have the same color
+                # with relation to us, therefore we save the
+                # current palette
+                old_colors = self.colors[:]
 
-            s += self._indent(self._formatMajors(majors[major], colors))
+                subgraph = \
+                    self.subgraph(child, categories[category])
 
-            for klass in sorted(self.copy, self.cmp(self.counts)):
-                if self._belongsToMajor(klass, major):
-                    subklasses = filter(lambda s : s.startswith(major),
-                                        self.hierarchy[klass])
+                # here we restore the old palette
+                self.colors = old_colors
 
-                    subklasses = sorted(subklasses, self.cmp(self.counts))
+                s.extend(indent(subgraph))
 
-                    s += '\t\t{ %s } -> "%s";\n' % (
-                        ' '.join(['"%s"' % s for s in subklasses]),
-                        klass
-                    )
-
-                    for subklass in subklasses:
-                        self.hierarchy[klass].remove(subklass)
-                    self.copy.remove(klass)
-            s += '\t}\n'
-
-            if re_empty:
-                colors = []
+            s.append('}')
+        else:
+            s.append('"%s";' % this)
 
         return s
 
-    def __str__ (self):
-        self.palette = random.sample (
-            ClassTree.colors,
-            len(ClassTree.colors)
-        )
+    def graph_edges (self):
+        s = []
 
-        self.counts = {}
-        for klass in self.all:
-            self.counts[klass] = self._totalSubclasses(klass)
+        for node in self:
+            # we only care about classes that actually have
+            # other classes inheriting from it
+            if not self[node]:
+                continue
 
-        self.copy = self.all.copy()
-
-        s = 'strict digraph {\n'
-        s += '\tnode [shape=box,style=filled,color=white];\n'
-
-        s += self._formatMajors(self.majors, ['antiquewhite'])
-
-        for klass in sorted(self.hierarchy, self.cmp(self.counts)):
-            if klass == 'coal.lang.object':
-                s += '\tedge [color=transparent];\n'
-
-            subklasses = sorted(self.hierarchy[klass], self.cmp(self.counts))
-            if subklasses:
-                s += '\t{ %s } -> "%s";\n' % (
-                    ' '.join(['"%s"' % s for s in subklasses]),
-                    klass
+            s.append(
+                '{ %s } -> "%s";' % (
+                    ' '.join (
+                        ['"%s"' % c for c in self[node]]
+                    ),
+                    node
                 )
+            )
 
-            if klass == 'coal.lang.object':
-                s += '\tedge [color=black];\n'
-
-        s += '}\n'
         return s
+
+    def str_graphviz (self):
+        hierarchy = self.getHierarchy()
+
+        s = ['strict digraph {']
+
+        # put everyone in the correct subgraph
+        for category in hierarchy:
+            # give major namespaces like these relaxed colors
+            self.colors = random.sample(relaxed_colors, 1)
+
+            subgraph = self.subgraph (
+                category,
+                hierarchy[category]
+            )
+
+            s.extend (
+                indent(subgraph)
+            )
+
+        # resolve edges
+        s.extend(indent(self.graph_edges()))
+
+        s.append('}')
+        return '\n'.join(s)
 
 description_r = re.compile(r'''
 \/\*\*\n
@@ -179,11 +195,19 @@ def walker (classes, dirname, fnames):
         for description in description_r.finditer(contents):
             c, s = description.groups()
 
+            # avoid objects that point to themselves
+            if c == s:
+                continue
+
             c = c.replace("_", ".")
             s = s.replace("_", ".")
 
-            classes.push(s, c)
+            # the end result will have classes pointing to
+            # the class they extend, but for brevity we need
+            # every superclass to have an edge to every class
+            # that extends it
+            classes.add_edge(s, c)
 
 classes = ClassTree()
 os.path.walk(".", walker, classes)
-print classes
+print classes.str_graphviz()

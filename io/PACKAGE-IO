@@ -1,0 +1,4 @@
+The coal.io package currently contains functions that are
+relevant for input and output of text. Currently there are
+no classes and only ad-hoc functions that allows for some
+superficial output.
