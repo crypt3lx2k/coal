@@ -5,7 +5,7 @@ cleaner and more consistent interface. This means that it will in
 practice become a ground up rewrite of coal.
 
 Here is the current class tree, it was generated with the command
-`py-utils/hierarchy.py | dot -Tpng -Nfontname="Droid Sans" -Gfontname="Droid Sans Mono" -Gsplines=ortho -Estyle=dashed -Grankdir=TB > classes.png`
+`py-utils/hierarchy.py | dot -Tpng -Gstyle=filled -Ncolor=white -Nstyle=filled -Nshape=box -Gsplines=ortho -Estyle=dashed -Gfontname="Droid Sans Mono" -Nfontname="Droid Sans" > classes.png`
 
 ![Alt text](https://github.com/crypt3lx2k/coal/raw/rewrite/classes.png)
 
