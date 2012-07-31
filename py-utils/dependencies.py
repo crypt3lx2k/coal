@@ -137,6 +137,8 @@ def walker (deps, dirname, fnames):
 
         contents = open(path).read()
 
+        path = path.lstrip('./')
+
         for hit in include_re.findall(contents):
             # ignore external/system headers
             if 'coal' not in hit:
