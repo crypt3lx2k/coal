@@ -3,7 +3,7 @@ CC = gcc
 RM = rm -f
 CP = cp -f
 
-COAL_DIR = ../
+COAL_DIR = .
 
 WFLAGS = -Wall -Wextra -Werror
 BINFLAGS = -fPIC
@@ -14,22 +14,22 @@ OPTFLAGS = -O2 -fomit-frame-pointer -funroll-loops
 CFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
 LDFLAGS = $(LIBFLAGS)
 
-OBJS = ./base/Metaclass/Metaclass.o \
-	./base/Object/Object.o \
-	./base/String/String.o \
-	./base/Throwable/Throwable.o \
-	./coal.o \
-	./error/Error/Error.o \
-	./error/Exception/Exception.o \
-	./error/IllegalStateException/IllegalStateException.o \
-	./error/NoSuchMethodError/NoSuchMethodError.o \
-	./error/NullPointerException/NullPointerException.o \
-	./error/OutOfMemoryError/OutOfMemoryError.o \
-	./io/io.o \
-	./io/printf.o \
-	./private/classes/Subclass/Subclass.o \
-	./private/memory.o \
-	./testing/AssertionError/AssertionError.o
+OBJS = ./coal/base/Metaclass/Metaclass.o \
+	./coal/base/Object/Object.o \
+	./coal/base/String/String.o \
+	./coal/base/Throwable/Throwable.o \
+	./coal/coal.o \
+	./coal/error/Error/Error.o \
+	./coal/error/Exception/Exception.o \
+	./coal/error/IllegalStateException/IllegalStateException.o \
+	./coal/error/NoSuchMethodError/NoSuchMethodError.o \
+	./coal/error/NullPointerException/NullPointerException.o \
+	./coal/error/OutOfMemoryError/OutOfMemoryError.o \
+	./coal/io/io.o \
+	./coal/io/printf.o \
+	./coal/private/classes/Subclass/Subclass.o \
+	./coal/private/memory.o \
+	./coal/testing/AssertionError/AssertionError.o
 
 PROJ = libcoal.so
 
@@ -42,217 +42,235 @@ install : $(PROJ)
 libcoal.so : $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) -o $@
 
-./base/Metaclass.h : ./base/Object.h
+./coal/base/Metaclass.h : coal/base/Object.h
 	touch $@
 
-./base/Object.h : ./coal.h
+./coal/base/Object.h : coal/coal.h
 	touch $@
 
-./base/String.h : ./base/Object.h
+./coal/base/String.h : coal/base/Object.h
 	touch $@
 
-./base/Throwable.h : ./base/Object.h
+./coal/base/Throwable.h : coal/base/Object.h
 	touch $@
 
-./coal.h : ./private/cdefs.h
+./coal/coal.h : coal/private/cdefs.h
 	touch $@
 
-./error/Error.h : ./base/Throwable.h
+./coal/error/Error.h : coal/base/Throwable.h
 	touch $@
 
-./error/Exception.h : ./base/Throwable.h
+./coal/error/Exception.h : coal/base/Throwable.h
 	touch $@
 
-./error/IllegalStateException.h : ./error/Exception.h
+./coal/error/IllegalStateException.h : coal/error/Exception.h
 	touch $@
 
-./error/NoSuchMethodError.h : ./error/Error.h
+./coal/error/NoSuchMethodError.h : coal/error/Error.h
 	touch $@
 
-./error/NullPointerException.h : ./error/Exception.h
+./coal/error/NullPointerException.h : coal/error/Exception.h
 	touch $@
 
-./error/OutOfMemoryError.h : ./error/Error.h
+./coal/error/OutOfMemoryError.h : coal/error/Error.h
 	touch $@
 
-./io/io.h : ./coal.h
+./coal/io/io.h : coal/coal.h
 	touch $@
 
-./private/classes/Subclass.h : ./base/Metaclass.h \
-	./private/object_orientation.h
+./coal/private/classes/Subclass.h : coal/base/Metaclass.h \
+	coal/private/object_orientation.h
 	touch $@
 
-./private/memory.h : ./private/cdefs.h
+./coal/private/memory.h : coal/private/cdefs.h
 	touch $@
 
-./private/object_orientation.h : ./private/atomic.h
+./coal/private/object_orientation.h : coal/private/atomic.h
 	touch $@
 
-./private/reference_counting.h : ./base/Object/Object.rep
+./coal/private/reference_counting.h : coal/base/Object/Object.rep \
+	coal/private/atomic.h
 	touch $@
 
-./private/reference_type.h : ./private/atomic.h
+./coal/private/reference_type.h : coal/private/atomic.h
 	touch $@
 
-./private/virtual_methods.h : ./error/NoSuchMethodError.h
+./coal/private/virtual_methods.h : coal/error/NoSuchMethodError.h
 	touch $@
 
-./testing/AssertionError.h : ./error/Error.h
+./coal/testing/AssertionError.h : coal/error/Error.h
 	touch $@
 
-./base/Metaclass/Metaclass.rep : ./base/Object/Object.rep
+./coal/base/Metaclass/Metaclass.rep : coal/base/Object/Object.rep
 	touch $@
 
-./base/Object/Object.rep : ./private/object_orientation.h \
-	./private/reference_type.h
+./coal/base/Object/Object.rep : coal/private/object_orientation.h \
+	coal/private/reference_type.h
 	touch $@
 
-./base/String/String.rep : ./base/Object/Object.rep
+./coal/base/String/String.rep : coal/base/Object/Object.rep
 	touch $@
 
-./base/Throwable/Throwable.rep : ./base/Object/Object.rep
+./coal/base/Throwable/Throwable.rep : coal/base/Object/Object.rep
 	touch $@
 
-./base/Metaclass/Metaclass.c : ./base/Metaclass/Metaclass.rep \
-	./error/NullPointerException.h
+./coal/base/Metaclass/Metaclass.c : coal/base/Metaclass/Metaclass.rep \
+	coal/base/Object.h \
+	coal/error/NullPointerException.h
 	touch $@
 
-./base/Object/Object.c : ./base/Metaclass.h \
-	./base/Metaclass/Metaclass.rep \
-	./base/String.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/base/Object/Object.c : coal/base/Metaclass.h \
+	coal/base/Metaclass/Metaclass.rep \
+	coal/base/Object.h \
+	coal/base/Object/Object.rep \
+	coal/base/String.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./base/String/String.c : ./base/Metaclass.h \
-	./base/String.h \
-	./base/String/String.rep \
-	./error/OutOfMemoryError.h \
-	./private/library.h \
-	./private/memory.h
+./coal/base/String/String.c : coal/base/Metaclass.h \
+	coal/base/Object.h \
+	coal/base/String.h \
+	coal/base/String/String.rep \
+	coal/error/OutOfMemoryError.h \
+	coal/private/library.h \
+	coal/private/memory.h \
+	coal/private/object_orientation.h
 	touch $@
 
-./base/Throwable/Throwable.c : ./base/Metaclass.h \
-	./base/Metaclass/Metaclass.rep \
-	./base/String.h \
-	./base/Throwable/Throwable.rep \
-	./error/OutOfMemoryError.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/base/Throwable/Throwable.c : coal/base/Metaclass.h \
+	coal/base/Metaclass/Metaclass.rep \
+	coal/base/Object.h \
+	coal/base/String.h \
+	coal/base/Throwable.h \
+	coal/base/Throwable/Throwable.rep \
+	coal/error/OutOfMemoryError.h \
+	coal/private/library.h \
+	coal/private/object_orientation.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./coal.c : ./base/Metaclass.h \
-	./base/Metaclass/Metaclass.rep \
-	./error/IllegalStateException.h \
-	./error/NullPointerException.h \
-	./io/io.h \
-	./private/memory.h \
-	./private/reference_counting.h \
-	./private/virtual_methods.h
+./coal/coal.c : coal/base/Metaclass.h \
+	coal/base/Metaclass/Metaclass.rep \
+	coal/base/Object.h \
+	coal/base/Object/Object.rep \
+	coal/coal.h \
+	coal/error/IllegalStateException.h \
+	coal/error/NullPointerException.h \
+	coal/io/io.h \
+	coal/private/memory.h \
+	coal/private/reference_counting.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./error/Error/Error.c : ./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/error/Error/Error.c : coal/base/Throwable.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./error/Exception/Exception.c : ./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/error/Exception/Exception.c : coal/base/Throwable.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./error/IllegalStateException/IllegalStateException.c : ./error/Exception.h \
-	./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/error/IllegalStateException/IllegalStateException.c : coal/error/Exception.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./error/NoSuchMethodError/NoSuchMethodError.c : ./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/error/NoSuchMethodError/NoSuchMethodError.c : coal/error/Error.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./error/NullPointerException/NullPointerException.c : ./error/Exception.h \
-	./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/error/NullPointerException/NullPointerException.c : coal/error/Exception.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./error/OutOfMemoryError/OutOfMemoryError.c : ./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/error/OutOfMemoryError/OutOfMemoryError.c : coal/error/Error.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./io/io.c : ./base/Object.h \
-	./base/String/String.rep \
-	./io/io.h
+./coal/io/io.c : coal/base/Object.h \
+	coal/base/String/String.rep \
+	coal/io/io.h
 	touch $@
 
-./io/printf.c : ./base/Object.h \
-	./io/io.h
+./coal/io/printf.c : coal/base/Object.h \
+	coal/io/io.h
 	touch $@
 
-./private/classes/Subclass/Subclass.c : ./base/Metaclass/Metaclass.rep \
-	./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/private/classes/Subclass/Subclass.c : coal/base/Metaclass/Metaclass.rep \
+	coal/base/Object.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./private/memory.c : ./error/OutOfMemoryError.h \
-	./private/memory.h
+./coal/private/memory.c : coal/error/OutOfMemoryError.h \
+	coal/private/memory.h
 	touch $@
 
-./testing/AssertionError/AssertionError.c : ./private/classes/Subclass.h \
-	./private/library.h \
-	./private/virtual_methods.h
+./coal/testing/AssertionError/AssertionError.c : coal/error/Error.h \
+	coal/private/classes/Subclass.h \
+	coal/private/library.h \
+	coal/private/virtual_methods.h
 	touch $@
 
-./base/Metaclass/Metaclass.o : ./base/Metaclass/Metaclass.c
+./coal/base/Metaclass/Metaclass.o : ./coal/base/Metaclass/Metaclass.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./base/Object/Object.o : ./base/Object/Object.c
+./coal/base/Object/Object.o : ./coal/base/Object/Object.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./base/String/String.o : ./base/String/String.c
+./coal/base/String/String.o : ./coal/base/String/String.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./base/Throwable/Throwable.o : ./base/Throwable/Throwable.c
+./coal/base/Throwable/Throwable.o : ./coal/base/Throwable/Throwable.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./coal.o : ./coal.c
+./coal/coal.o : ./coal/coal.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./error/Error/Error.o : ./error/Error/Error.c
+./coal/error/Error/Error.o : ./coal/error/Error/Error.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./error/Exception/Exception.o : ./error/Exception/Exception.c
+./coal/error/Exception/Exception.o : ./coal/error/Exception/Exception.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./error/IllegalStateException/IllegalStateException.o : ./error/IllegalStateException/IllegalStateException.c
+./coal/error/IllegalStateException/IllegalStateException.o : ./coal/error/IllegalStateException/IllegalStateException.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./error/NoSuchMethodError/NoSuchMethodError.o : ./error/NoSuchMethodError/NoSuchMethodError.c
+./coal/error/NoSuchMethodError/NoSuchMethodError.o : ./coal/error/NoSuchMethodError/NoSuchMethodError.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./error/NullPointerException/NullPointerException.o : ./error/NullPointerException/NullPointerException.c
+./coal/error/NullPointerException/NullPointerException.o : ./coal/error/NullPointerException/NullPointerException.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./error/OutOfMemoryError/OutOfMemoryError.o : ./error/OutOfMemoryError/OutOfMemoryError.c
+./coal/error/OutOfMemoryError/OutOfMemoryError.o : ./coal/error/OutOfMemoryError/OutOfMemoryError.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./io/io.o : ./io/io.c
+./coal/io/io.o : ./coal/io/io.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./io/printf.o : ./io/printf.c
+./coal/io/printf.o : ./coal/io/printf.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./private/classes/Subclass/Subclass.o : ./private/classes/Subclass/Subclass.c
+./coal/private/classes/Subclass/Subclass.o : ./coal/private/classes/Subclass/Subclass.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./private/memory.o : ./private/memory.c
+./coal/private/memory.o : ./coal/private/memory.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./testing/AssertionError/AssertionError.o : ./testing/AssertionError/AssertionError.c
+./coal/testing/AssertionError/AssertionError.o : ./coal/testing/AssertionError/AssertionError.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : clean

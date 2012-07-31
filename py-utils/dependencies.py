@@ -42,7 +42,7 @@ makefile_template = \
 RM = rm -f
 CP = cp -f
 
-COAL_DIR = ../
+COAL_DIR = .
 
 WFLAGS = -Wall -Wextra -Werror
 BINFLAGS = -fPIC
@@ -142,8 +142,6 @@ def walker (deps, dirname, fnames):
             if 'coal' not in hit:
                 continue
 
-            hit = hit.replace('coal', '.', 1)
-
             deps.add_edge(path, hit)
 
             if path.endswith('.c'):
@@ -153,4 +151,4 @@ os.path.walk('.', walker, deps)
 
 if __name__ == '__main__':
     deps.reduce()
-    print deps.str_graphviz()
+    print deps.str_makefile()
