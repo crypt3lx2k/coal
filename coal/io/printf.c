@@ -17,19 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <features.h>
-#if __GLIBC_PREREQ (2, 10)
+#if HAVE_FEATURES_H
+# include <features.h>
+# if __GLIBC_PREREQ (2, 10) && HAVE_PRINTF_H
 /* We either succeed or attempt to silently fail, this
    code is glibc specific and the rest of this library does
    not rely on it, it is safe to remove this file in case it
    fails to compile */
 
-#include <printf.h>
-#include <stdarg.h>
-#include <string.h>
+#  include <printf.h>
+#  include <stdarg.h>
+#  include <string.h>
 
-#include <coal/base/Object.h>
-#include <coal/io/io.h>
+#  include <coal/base/Object.h>
+#  include <coal/io/io.h>
 
 static int pt_obj;
 
@@ -66,4 +67,5 @@ static void coal_obj_printf_startup (void) {
 			    coal_obj_ais);
 }
 
-#endif /* GLIBC version 2.10 or newer */
+# endif /* GLIBC version 2.10 or newer && HAVE_PRINTF_H */
+#endif /* HAVE_FEATURES_H */
