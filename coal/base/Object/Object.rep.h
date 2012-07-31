@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_OBJECT_REP
-#define COAL_BASE_OBJECT_REP
+#ifndef COAL_BASE_OBJECT_REP_H
+#define COAL_BASE_OBJECT_REP_H
 
 #include <coal/private/object_orientation.h>
 #include <coal/private/reference_type.h>
@@ -28,4 +28,4 @@ class (Object) {
   refcnt_type reference_count;
 };
 
-#endif /* COAL_BASE_OBJECT_REP */
+#endif /* COAL_BASE_OBJECT_REP_H */

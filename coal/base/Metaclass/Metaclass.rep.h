@@ -17,15 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_THROWABLE_REP
-#define COAL_BASE_THROWABLE_REP
+#ifndef COAL_BASE_METACLASS_REP_H
+#define COAL_BASE_METACLASS_REP_H
 
-#include <coal/base/Object/Object.rep>
+#include <coal/base/Object/Object.rep.h>
 
-class (Throwable) {
+class (Metaclass) {
   extends(Object);
 
-  char * message;
+  const char * name;
+  const class(Metaclass) * super;
+  size_t size;
+
+  int (*cmp)(val self, val other);
+  var (*constructor)(var self, va_list * app);
+  var (*destructor)(var self);
+  bool (*equals)(val self, val other);
+  size_t (*hashCode)(val self);
+  var (*toString)(val self);
 };
 
-#endif /* COAL_BASE_THROWABLE_REP */
+#endif /* COAL_BASE_METACLASS_REP_H */

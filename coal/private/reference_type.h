@@ -23,7 +23,7 @@
 #include <coal/private/atomic.h>
 
 /* we have to put this in a file of its own to avoid cyclic
-   inclusion between base/Object/Object.rep and
+   inclusion between base/Object/Object.rep.h and
    private/reference_counting.h, this normally wouldn't be
    a problem due to include guards but it really messes with
    the makefile code generator which assumes that the include

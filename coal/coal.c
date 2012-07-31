@@ -29,10 +29,10 @@
 #include <coal/io/io.h>
 
 #include <coal/base/Object.h>
-#include <coal/base/Object/Object.rep>
+#include <coal/base/Object/Object.rep.h>
 
 #include <coal/base/Metaclass.h>
-#include <coal/base/Metaclass/Metaclass.rep>
+#include <coal/base/Metaclass/Metaclass.rep.h>
 
 #include <coal/error/IllegalStateException.h>
 #include <coal/error/NullPointerException.h>

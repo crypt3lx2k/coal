@@ -20,7 +20,7 @@
 #include <stdio.h>
 
 #include <coal/base/Object.h>
-#include <coal/base/String/String.rep>
+#include <coal/base/String/String.rep.h>
 #include <coal/io/io.h>
 
 int coal_io_fprint (val object, FILE * stream) {

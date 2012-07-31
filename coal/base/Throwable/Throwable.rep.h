@@ -17,16 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_STRING_REP
-#define COAL_BASE_STRING_REP
+#ifndef COAL_BASE_THROWABLE_REP_H
+#define COAL_BASE_THROWABLE_REP_H
 
-#include <coal/base/Object/Object.rep>
+#include <coal/base/Object/Object.rep.h>
 
-class (String) {
+class (Throwable) {
   extends(Object);
 
-  char * str;
-  size_t len;
+  char * message;
 };
 
-#endif /* COAL_BASE_STRING_REP */
+#endif /* COAL_BASE_THROWABLE_REP_H */

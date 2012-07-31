@@ -25,7 +25,7 @@
 #include <coal/base/Object.h> /* coal_base_Object_getSize */
 
 #include <coal/private/classes/Subclass.h>
-#include <coal/base/Metaclass/Metaclass.rep>
+#include <coal/base/Metaclass/Metaclass.rep.h>
 
 /* Subclass implements base.Object methods */
 

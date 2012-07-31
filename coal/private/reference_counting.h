@@ -21,7 +21,7 @@
 #define COAL_PRIVATE_REFERENCE_COUNTING_H
 
 #include <coal/private/atomic.h>
-#include <coal/base/Object/Object.rep>
+#include <coal/base/Object/Object.rep.h>
 
 /* Don't use these macros, use
    coal_acquire and coal_del instead */

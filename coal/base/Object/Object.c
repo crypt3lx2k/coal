@@ -27,10 +27,10 @@
 
 #include <coal/base/String.h>
 #include <coal/base/Object.h>
-#include <coal/base/Object/Object.rep>
+#include <coal/base/Object/Object.rep.h>
 
 #include <coal/base/Metaclass.h>
-#include <coal/base/Metaclass/Metaclass.rep>
+#include <coal/base/Metaclass/Metaclass.rep.h>
 
 /* Object implements base.Object methods */
 

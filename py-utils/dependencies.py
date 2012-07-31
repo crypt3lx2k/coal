@@ -17,8 +17,7 @@ from DAG import DirectedAcyclicGraph
 # this script will ignore it.
 extension_whitelist = [
     '.c',
-    '.h',
-    '.rep'
+    '.h'
 ]
 
 # This script ignores directories listed in here.

@@ -27,10 +27,10 @@
 
 #include <coal/base/Object.h>
 #include <coal/base/Metaclass.h>
-#include <coal/base/Metaclass/Metaclass.rep>
+#include <coal/base/Metaclass/Metaclass.rep.h>
 #include <coal/base/String.h>
 #include <coal/base/Throwable.h>
-#include <coal/base/Throwable/Throwable.rep>
+#include <coal/base/Throwable/Throwable.rep.h>
 
 #include <coal/error/OutOfMemoryError.h>
 

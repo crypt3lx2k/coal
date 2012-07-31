@@ -40,7 +40,7 @@
  * with messy consequences.
  *
  * To address this we now have two typedef'd types, val and
- * var each representing an immutable and a mutable object
+ * var each.rep.hresenting an immutable and a mutable object
  * respectively.
  *
  * Whether this is a good move or not only time will tell.
@@ -58,7 +58,7 @@ typedef void * var;
 
 /* check for C11 noreturn */
 /* the actual value of this constant should probably be
-   201112L but apparently the committee didn't replace
+   201112L but apparently the committee didn't.rep.hlace
    201ymmL in the finished version of the standard.
    this is of course subject to change, see
    www.open-std.org/jtc1/sc22/wg14/www/docs/dr_411.htm

@@ -25,7 +25,7 @@
 /**
  * coal_base_String
  *
- * Class that represents an immutable sequence of characters.
+ * Class that.rep.hresents an immutable sequence of characters.
  *
  * @extends coal_base_Object
  * @constructor takes 2 arguments

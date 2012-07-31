@@ -186,8 +186,7 @@ def walker (classes, dirname, fnames):
     for fname in fnames:
         path = os.path.sep.join((dirname, fname))
 
-        if not (path.endswith('.h') or
-                path.endswith('.rep')):
+        if not path.endswith('.h'):
             continue
 
         contents = open(path).read()

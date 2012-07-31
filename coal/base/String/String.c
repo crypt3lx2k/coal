@@ -29,7 +29,7 @@
 #include <coal/base/Object.h>
 #include <coal/base/Metaclass.h>
 #include <coal/base/String.h>
-#include <coal/base/String/String.rep>
+#include <coal/base/String/String.rep.h>
 
 #include <coal/error/OutOfMemoryError.h>
 

@@ -15,8 +15,7 @@ import sys
 # this script will ignore it.
 extension_whitelist = [
     '.c',
-    '.h',
-    '.rep'
+    '.h'
 ]
 
 # This is the license this script currently expects the

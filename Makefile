@@ -45,13 +45,26 @@ libcoal.so : $(OBJS)
 coal/base/Metaclass.h : coal/base/Object.h
 	touch $@
 
+coal/base/Metaclass/Metaclass.rep.h : coal/base/Object/Object.rep.h
+	touch $@
+
 coal/base/Object.h : coal/coal.h
+	touch $@
+
+coal/base/Object/Object.rep.h : coal/private/object_orientation.h \
+	coal/private/reference_type.h
 	touch $@
 
 coal/base/String.h : coal/base/Object.h
 	touch $@
 
+coal/base/String/String.rep.h : coal/base/Object/Object.rep.h
+	touch $@
+
 coal/base/Throwable.h : coal/base/Object.h
+	touch $@
+
+coal/base/Throwable/Throwable.rep.h : coal/base/Object/Object.rep.h
 	touch $@
 
 coal/coal.h : coal/private/cdefs.h
@@ -88,7 +101,7 @@ coal/private/memory.h : coal/private/cdefs.h
 coal/private/object_orientation.h : coal/private/atomic.h
 	touch $@
 
-coal/private/reference_counting.h : coal/base/Object/Object.rep
+coal/private/reference_counting.h : coal/base/Object/Object.rep.h
 	touch $@
 
 coal/private/reference_type.h : coal/private/atomic.h
@@ -100,25 +113,12 @@ coal/private/virtual_methods.h : coal/error/NoSuchMethodError.h
 coal/testing/AssertionError.h : coal/error/Error.h
 	touch $@
 
-coal/base/Metaclass/Metaclass.rep : coal/base/Object/Object.rep
-	touch $@
-
-coal/base/Object/Object.rep : coal/private/object_orientation.h \
-	coal/private/reference_type.h
-	touch $@
-
-coal/base/String/String.rep : coal/base/Object/Object.rep
-	touch $@
-
-coal/base/Throwable/Throwable.rep : coal/base/Object/Object.rep
-	touch $@
-
-coal/base/Metaclass/Metaclass.c : coal/base/Metaclass/Metaclass.rep \
+coal/base/Metaclass/Metaclass.c : coal/base/Metaclass/Metaclass.rep.h \
 	coal/error/NullPointerException.h
 	touch $@
 
 coal/base/Object/Object.c : coal/base/Metaclass.h \
-	coal/base/Metaclass/Metaclass.rep \
+	coal/base/Metaclass/Metaclass.rep.h \
 	coal/base/String.h \
 	coal/private/library.h \
 	coal/private/virtual_methods.h
@@ -126,23 +126,23 @@ coal/base/Object/Object.c : coal/base/Metaclass.h \
 
 coal/base/String/String.c : coal/base/Metaclass.h \
 	coal/base/String.h \
-	coal/base/String/String.rep \
+	coal/base/String/String.rep.h \
 	coal/error/OutOfMemoryError.h \
 	coal/private/library.h \
 	coal/private/memory.h
 	touch $@
 
 coal/base/Throwable/Throwable.c : coal/base/Metaclass.h \
-	coal/base/Metaclass/Metaclass.rep \
+	coal/base/Metaclass/Metaclass.rep.h \
 	coal/base/String.h \
-	coal/base/Throwable/Throwable.rep \
+	coal/base/Throwable/Throwable.rep.h \
 	coal/error/OutOfMemoryError.h \
 	coal/private/library.h \
 	coal/private/virtual_methods.h
 	touch $@
 
 coal/coal.c : coal/base/Metaclass.h \
-	coal/base/Metaclass/Metaclass.rep \
+	coal/base/Metaclass/Metaclass.rep.h \
 	coal/error/IllegalStateException.h \
 	coal/error/NullPointerException.h \
 	coal/io/io.h \
@@ -184,7 +184,7 @@ coal/error/OutOfMemoryError/OutOfMemoryError.c : coal/private/classes/Subclass.h
 	touch $@
 
 coal/io/io.c : coal/base/Object.h \
-	coal/base/String/String.rep \
+	coal/base/String/String.rep.h \
 	coal/io/io.h
 	touch $@
 
@@ -192,7 +192,7 @@ coal/io/printf.c : coal/base/Object.h \
 	coal/io/io.h
 	touch $@
 
-coal/private/classes/Subclass/Subclass.c : coal/base/Metaclass/Metaclass.rep \
+coal/private/classes/Subclass/Subclass.c : coal/base/Metaclass/Metaclass.rep.h \
 	coal/private/classes/Subclass.h \
 	coal/private/library.h \
 	coal/private/virtual_methods.h

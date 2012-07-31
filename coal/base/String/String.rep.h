@@ -17,24 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_METACLASS_REP
-#define COAL_BASE_METACLASS_REP
+#ifndef COAL_BASE_STRING_REP_H
+#define COAL_BASE_STRING_REP_H
 
-#include <coal/base/Object/Object.rep>
+#include <stddef.h> /* size_t */
+#include <coal/base/Object/Object.rep.h>
 
-class (Metaclass) {
+class (String) {
   extends(Object);
 
-  const char * name;
-  const class(Metaclass) * super;
-  size_t size;
-
-  int (*cmp)(val self, val other);
-  var (*constructor)(var self, va_list * app);
-  var (*destructor)(var self);
-  bool (*equals)(val self, val other);
-  size_t (*hashCode)(val self);
-  var (*toString)(val self);
+  char * str;
+  size_t len;
 };
 
-#endif /* COAL_BASE_METACLASS_REP */
+#endif /* COAL_BASE_STRING_REP_H */
