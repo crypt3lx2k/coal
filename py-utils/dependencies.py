@@ -153,4 +153,4 @@ os.path.walk('.', walker, deps)
 
 if __name__ == '__main__':
     deps.reduce()
-    print deps.str_makefile()
+    print deps.str_graphviz()
