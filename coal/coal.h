@@ -93,12 +93,12 @@ noreturn coal_cfunspec void coal_throw (var object);
 /* Functions - end */
 
 #ifdef COAL_NAMESPACE_POLLUTE
-# define acquire(o)           coal_acquire(o)
-# define construct(c, o, ...) coal_construct(c, o, ## __VA_ARGS__)
-# define del(o)               coal_del(o)
-# define instanceof(o, c)     coal_instanceof(o, c)
-# define new(c, ...)          coal_new(c, ## __VA_ARGS__)
-# define throw(o)             coal_throw(o)
+# define acquire(o)       coal_acquire(o)
+# define construct(...)   coal_construct(__VA_ARGS__)
+# define del(o)           coal_del(o)
+# define instanceof(o, c) coal_instanceof(o, c)
+# define new(...)         coal_new(__VA_ARGS__)
+# define throw(o)         coal_throw(o)
 #endif
 
 #endif /* COAL_COAL_H */

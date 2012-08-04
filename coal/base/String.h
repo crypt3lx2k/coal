@@ -47,12 +47,12 @@ coal_cfunspec val coal_base_String (void) coal_funattr_const;
 coal_cfunspec var coal_base_String_format (const char * fmt, ...);
 
 #ifdef COAL_BASE_NAMESPACE_POLLUTE
-# define String()                coal_base_String()
-# define String_format(fmt, ...) coal_base_String_format(fmt, __VA_ARGS__)
+# define String()           coal_base_String()
+# define String_format(...) coal_base_String_format(__VA_ARGS__)
 #endif
 
 #ifdef COAL_BASE_STRING_NAMESPACE_POLLUTE
-# define format(fmt, ...) coal_base_String_format(fmt, __VA_ARGS__)
+# define format(...) coal_base_String_format(__VA_ARGS__)
 #endif
 
 #endif /* COAL_BASE_STRING_H */
