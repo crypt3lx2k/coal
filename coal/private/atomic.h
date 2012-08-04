@@ -24,6 +24,9 @@
    compatible with the up and coming stdatomic.h and it has
    very little functionality. More will be added on a need to
    implement basis. */
+/* It is a good idea to keep this header minimal in case
+   some poor soul wants to compile coal without the __sync_*
+   builtins. */
 
 /**
  * atomic(type)

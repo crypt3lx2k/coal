@@ -49,27 +49,9 @@ lib{libname}_ladir = $(includedir)
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = {libname}.pc'''
 
-def cmp_headers_first (a, b):
-    for extension in ('.h', '.c', '.o'):
-        if a.endswith(extension) and b.endswith(extension):
-            return cmp(a, b)
-        elif a.endswith(extension):
-            return -1
-        elif b.endswith(extension):
-            return 1
-
-    return cmp(a, b)
-
 class DependencyGraph (DirectedAcyclicGraph):
-    def __init__ (self):
-        DirectedAcyclicGraph.__init__(self)
-        self.cmp = cmp_headers_first
-
-    def __iter__ (self):
-        return iter(self.edges)
-
     def str_makefile (self):
-        install_headers = set (
+        headers = set (
             filter (
                 lambda s : (
                     s.endswith('.h')    and
@@ -80,15 +62,15 @@ class DependencyGraph (DirectedAcyclicGraph):
             )
         )
 
-        for header in install_headers.copy():
-            install_headers.update(self[header])
+        for header in headers.copy():
+            headers.update(self[header])
 
-        sources = self.nodes - install_headers
+        sources = self.nodes - headers
 
         return Makefile_am_template.format (
             libname=library_name,
             sourcefiles=' '.join(sources),
-            headerfiles=' '.join(install_headers)
+            headerfiles=' '.join(headers)
         )
 
 deps = DependencyGraph()

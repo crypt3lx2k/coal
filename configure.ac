@@ -25,6 +25,8 @@ AC_C_INLINE
 AC_TYPE_SIZE_T
 AC_CHECK_TYPES([ptrdiff_t])
 
+CX_HAVE_SYNC_ATOMICS([], [AC_MSG_ERROR([can't compile coal without atomic builtins, see coal/private/atomic.h for details])])
+
 # Checks for library functions.
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
