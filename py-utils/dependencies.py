@@ -22,7 +22,7 @@ extension_whitelist = [
 
 # This script ignores directories listed in here.
 directory_blacklist = [
-    '.git',
+    '.git'
 ]
 
 # This regex matches any C preprocessor include directive and
@@ -30,35 +30,27 @@ directory_blacklist = [
 # is correct and not on a form like #include "file.h> or
 # some other evil form like that.
 include_re = re.compile (
-    r'\#\s*include\s+(?:\<|\")\s*(.*?)\s*(?:\>|\")'
+    r'\#\s*include\s*(?:\<|\")\s*(.*?)\s*(?:\>|\")'
 )
 
-PROJ = 'libcoal.so'
+# name of library
+library_name = 'coal'
 
-makefile_template = \
-'''CC = gcc
+Makefile_am_template = \
+'''AUTOMAKE_OPTIONS = foreign
+ACLOCAL_AMFLAGS = -I m4
 
-RM = rm -f
-CP = cp -f
+lib_LTLIBRARIES = lib{libname}.la
 
-COAL_DIR = .
+lib{libname}_la_SOURCES = {sourcefiles}
+nobase_lib{libname}_la_HEADERS = {headerfiles}
+lib{libname}_ladir = $(includedir)
 
-WFLAGS = -Wall -Wextra -Werror
-BINFLAGS = -fPIC
-LIBFLAGS = -shared $(BINFLAGS)
-IFLAGS = -I$(COAL_DIR)
-OPTFLAGS = -O2 -fomit-frame-pointer -funroll-loops
-
-CFLAGS = -g -O0 $(WFLAGS) $(BINFLAGS) $(IFLAGS)
-LDFLAGS = $(LIBFLAGS)
-
-%s
-.PHONY : clean
-clean :
-\t$(RM) $(OBJS) $(PROJ) $(shell find -name "*~")'''
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = {libname}.pc'''
 
 def cmp_headers_first (a, b):
-    for extension in ('.h', '.rep', '.c', '.o'):
+    for extension in ('.h', '.c', '.o'):
         if a.endswith(extension) and b.endswith(extension):
             return cmp(a, b)
         elif a.endswith(extension):
@@ -77,32 +69,27 @@ class DependencyGraph (DirectedAcyclicGraph):
         return iter(self.edges)
 
     def str_makefile (self):
-        objs = filter(lambda n : n.endswith('.o'), self.nodes)
-
-        s = ['OBJS = %s\n' % ' \\\n\t'.join(sorted(objs))]
-        s.append('PROJ = %s\n' % PROJ)
-
-        s.append('build :\n\t$(MAKE) $(PROJ)\n')
-        s.append('install : $(PROJ)\n\t$(CP) $(PROJ) /usr/lib/\n')
-
-        s.append('%s : %s' % (PROJ, '$(OBJS)'))
-        s.append('\t$(CC) $(LDFLAGS) $(OBJS) -o $@\n')
-
-        for node in sorted(self, self.cmp):
-            s.append('%s : %s' % (
-                      node,
-                      ' \\\n\t'.join(sorted(self[node]))
-                    )
+        install_headers = set (
+            filter (
+                lambda s : (
+                    s.endswith('.h')    and
+                    '.rep'     not in s and
+                    'private/' not in s
+                ),
+                self.nodes
             )
+        )
 
-            s.append('\t%s\n' % (
-                      'touch $@'
-                      if not node.endswith('.o') else
-                      '$(CC) $(CFLAGS) -c $< -o $@'
-                    )
-            ) 
+        for header in install_headers.copy():
+            install_headers.update(self[header])
 
-        return makefile_template % '\n'.join(s)
+        sources = self.nodes - install_headers
+
+        return Makefile_am_template.format (
+            libname=library_name,
+            sourcefiles=' '.join(sources),
+            headerfiles=' '.join(install_headers)
+        )
 
 deps = DependencyGraph()
 
@@ -145,11 +132,8 @@ def walker (deps, dirname, fnames):
 
             deps.add_edge(path, hit)
 
-            if path.endswith('.c'):
-                deps.add_edge(path.replace('.c', '.o'), path)
-
 os.path.walk('.', walker, deps)
 
 if __name__ == '__main__':
-    deps.reduce()
+    deps.expand()
     print deps.str_makefile()

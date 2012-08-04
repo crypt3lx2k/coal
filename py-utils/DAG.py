@@ -33,9 +33,9 @@ class DirectedAcyclicGraph (object):
             children = self[node].copy()
 
             for child in children:
-                # update our children with every children's
+                # update our children with every childrens
                 # children.
-                self[node].update(recurse(children))
+                self[node].update(recurse(child))
 
             return self[node]
 
