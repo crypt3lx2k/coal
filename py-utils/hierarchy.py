@@ -198,8 +198,8 @@ def walker (classes, dirname, fnames):
             if c == s:
                 continue
 
-            c = c.replace("_", ".")
-            s = s.replace("_", ".")
+            c = c.replace('_', '.')
+            s = s.replace('_', '.')
 
             # the end result will have classes pointing to
             # the class they extend, but for brevity we need
@@ -208,5 +208,5 @@ def walker (classes, dirname, fnames):
             classes.add_edge(s, c)
 
 classes = ClassTree()
-os.path.walk(".", walker, classes)
+os.path.walk('.', walker, classes)
 print classes.str_graphviz()
