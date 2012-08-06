@@ -20,21 +20,24 @@
 #ifndef COAL_PRIVATE_BRANCHING
 #define COAL_PRIVATE_BRANCHING
 
+/* keep this header clean for users, might be installed */
+
 /*
  * Provide some simple defintions for mitigating potentially
  * expensive overhead, currently used in error checking.
  */
 #ifdef __GNUC__
 
-# define unlikely(exp) \
+# define coal_unlikely(exp) \
   (__builtin_expect(!!(exp), 0))
-# define likely(exp) \
+
+# define coal_likely(exp) \
   (__builtin_expect(!!(exp), 1))
 
 #else /* not __GNUC__ */
 
-# define unlikely(exp) (!!(exp))
-# define likely(exp)   (!!(exp))
+# define coal_unlikely(exp) (!!(exp))
+# define coal_likely(exp)   (!!(exp))
 
 #endif /* __GNUC__ */
 

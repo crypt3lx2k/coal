@@ -20,6 +20,8 @@
 #ifndef COAL_PRIVATE_CDEFS_H
 #define COAL_PRIVATE_CDEFS_H
 
+/* keep this header clean for users, might be installed */
+
 /*
  * We have moved from defines to two separate typedefs.
  *

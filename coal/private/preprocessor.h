@@ -20,7 +20,9 @@
 #ifndef COAL_PRIVATE_PREPROCESSOR_H
 #define COAL_PRIVATE_PREPROCESSOR_H
 
-#define STRINGIFY(m) #m
-#define STRINGIFY_EXPANSION(m) STRINGIFY(m)
+/* keep this header clean for users, might be installed */
+
+#define COAL_STRINGIFY(m) #m
+#define COAL_STRINGIFY_EXPANSION(m) COAL_STRINGIFY(m)
 
 #endif /* COAL_PRIVATE_PREPROCESSOR_H */

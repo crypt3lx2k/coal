@@ -23,6 +23,6 @@
 #include <coal/private/preprocessor.h>
 
 #define LIBRARY_NAME coal
-#define LIBRARY_STR STRINGIFY_EXPANSION(LIBRARY_NAME)
+#define LIBRARY_STR COAL_STRINGIFY_EXPANSION(LIBRARY_NAME)
 
 #endif /* COAL_PRIVATE_LIBRARY_H */
