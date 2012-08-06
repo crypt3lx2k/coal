@@ -17,12 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <coal/private/classes/Subclass.h>
-#include <coal/private/library.h>
-#include <coal/private/virtual_methods.h>
+#ifndef COAL_PRIVATE_PREPROCESSOR_H
+#define COAL_PRIVATE_PREPROCESSOR_H
 
-#include <coal/error/Error.h>
+#define STRINGIFY(m) #m
+#define STRINGIFY_EXPANSION(m) STRINGIFY(m)
 
-ExceptionDefinitionTemplate(coal_testing_AssertionError,
-			    LIBRARY_STR ".testing.AssertionError",
-			    coal_error_Error())
+#endif /* COAL_PRIVATE_PREPROCESSOR_H */

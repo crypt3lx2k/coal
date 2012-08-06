@@ -89,7 +89,7 @@ typedef void * var;
 
 # define coal_attr_unused \
   __attribute__ ((__unused__))
-#else
+#else /* not __GNUC__ */
 /* provide empty definitions for compilers that don't support
    GNU-C, the likelihood of this library actually compiling
    without GNU-C support I'm fairly certain is 0, but in case

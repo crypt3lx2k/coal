@@ -17,12 +17,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <coal/private/classes/Subclass.h>
-#include <coal/private/library.h>
-#include <coal/private/virtual_methods.h>
+#ifndef COAL_PRIVATE_BRANCHING
+#define COAL_PRIVATE_BRANCHING
 
-#include <coal/error/Error.h>
+/*
+ * Provide some simple defintions for mitigating potentially
+ * expensive overhead, currently used in error checking.
+ */
+#ifdef __GNUC__
 
-ExceptionDefinitionTemplate(coal_testing_AssertionError,
-			    LIBRARY_STR ".testing.AssertionError",
-			    coal_error_Error())
+# define unlikely(exp) \
+  (__builtin_expect(!!(exp), 0))
+# define likely(exp) \
+  (__builtin_expect(!!(exp), 1))
+
+#else /* not __GNUC__ */
+
+# define unlikely(exp) (!!(exp))
+# define likely(exp)   (!!(exp))
+
+#endif /* __GNUC__ */
+
+#endif /* COAL_PRIVATE_BRANCHING */

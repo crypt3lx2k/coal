@@ -20,8 +20,7 @@
 #ifndef COAL_PRIVATE_LIBRARY_H
 #define COAL_PRIVATE_LIBRARY_H
 
-#define STRINGIFY(s) #s
-#define STRINGIFY_EXPANSION(m) STRINGIFY(m)
+#include <coal/private/preprocessor.h>
 
 #define LIBRARY_NAME coal
 #define LIBRARY_STR STRINGIFY_EXPANSION(LIBRARY_NAME)
