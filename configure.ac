@@ -4,10 +4,12 @@
 AC_PREREQ([2.68])
 AC_INIT([coal], [0.0.1], [trulses@gmail.com], [coal], [https://github.com/crypt3lx2k/coal])
 AC_CONFIG_SRCDIR([coal/coal.c])
+
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([build-aux/m4])
+
 LT_INIT
 AM_INIT_AUTOMAKE
-
-AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CC
