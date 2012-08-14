@@ -17,33 +17,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_MEMORY_H
-#define COAL_PRIVATE_MEMORY_H
+#ifndef COAL_PRIVATE_THREAD_LOCAL_H
+#define COAL_PRIVATE_THREAD_LOCAL_H
 
-#include <stddef.h> /* size_t */
+/* keep this header clean for users, might be installed */
 
-#include <coal/private/cdefs.h>
+#if __STDC_VERSION__ >= 201000L
+# include <threads.h>
+#elif __GNUC__
+# define thread_local __thread
+#else
+# warning "included file coal/private/thread_local.h without compiler support for thread local storage, coal will not work properly in a threaded manner"
+# define thread_local
+#endif /* __STDC_VERSION__ >= 201000L # C11 or newer */
 
-/**
- * coal_private_malloc
- * See malloc().
- * The purpose of this function is to throw an
- * exception in the event that malloc(3) fails.
- *
- * @param  (size_t) number of bytes to allocate
- * @return (void *) pointer to allocated memory
- */
-coal_cfunspec void * coal_private_malloc (size_t size) coal_funattr_malloc;
-
-/**
- * coal_private_realloc
- * See realloc().
- * See coal_private_malloc().
- *
- * @param  (void *) pointer to memory block
- * @param  (size_t) size in bytes of new block
- * @return (void *) reallocated block
- */
-coal_cfunspec void * coal_private_realloc (void * ptr, size_t size);
-
-#endif /* COAL_PRIVATE_MEMORY_H */
+#endif /* COAL_PRIVATE_THREAD_LOCAL_H */

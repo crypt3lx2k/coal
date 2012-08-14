@@ -2,7 +2,7 @@
 
 autoreconf -fi &&
 ./configure &&
-make distcheck &&
+make dist &&
 make distclean &&
 env rm -rf `xargs < .gitignore` &&
 cd m4/ &&

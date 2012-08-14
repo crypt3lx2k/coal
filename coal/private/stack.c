@@ -73,8 +73,7 @@ void * coal_private_stack_pop (struct coal_private_stack * s) {
   return (s->base == s->head) ? NULL : *(--s->head);
 }
 
-void coal_private_stack_push (struct coal_private_stack * s, const void * e) {
-  void * p = (void *) e;
+void coal_private_stack_push (struct coal_private_stack * s, void * e) {
   size_t vacancies = coal_private_stack_vacancies(s);
 
   if (vacancies == 0) {
@@ -84,5 +83,5 @@ void coal_private_stack_push (struct coal_private_stack * s, const void * e) {
     coal_private_stack_initialize(s, new_size);
   }
 
-  *s->head++ = p;
+  *s->head++ = e;
 }

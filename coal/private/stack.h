@@ -153,8 +153,8 @@ coal_cfunspec void * coal_private_stack_pop (struct coal_private_stack * s);
  * Puts an element at the top of the stack.
  *
  * @param  (struct coal_private_stack *) stack to push element on
- * @param  (const void *) element to put on the stack
+ * @param  (void *) element to put on the stack
  */
-coal_cfunspec void coal_private_stack_push (struct coal_private_stack * s, const void * e);
+coal_cfunspec void coal_private_stack_push (struct coal_private_stack * s, void * e);
 
 #endif /* COAL_PRIVATE_STACK_H */

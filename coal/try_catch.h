@@ -17,33 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_MEMORY_H
-#define COAL_PRIVATE_MEMORY_H
+#ifndef COAL_TRY_CATCH_H
+#define COAL_TRY_CATCH_H
 
-#include <stddef.h> /* size_t */
+#include <coal/private/try_catch.h>
 
-#include <coal/private/cdefs.h>
+#ifdef COAL_NAMESPACE_POLLUTE
+# define catch(e, i) coal_catch(e, i)
+# define try         coal_try
+# define try_end     coal_try_end
+#endif /* COAL_NAMESPACE_POLLUTE */
 
-/**
- * coal_private_malloc
- * See malloc().
- * The purpose of this function is to throw an
- * exception in the event that malloc(3) fails.
- *
- * @param  (size_t) number of bytes to allocate
- * @return (void *) pointer to allocated memory
- */
-coal_cfunspec void * coal_private_malloc (size_t size) coal_funattr_malloc;
-
-/**
- * coal_private_realloc
- * See realloc().
- * See coal_private_malloc().
- *
- * @param  (void *) pointer to memory block
- * @param  (size_t) size in bytes of new block
- * @return (void *) reallocated block
- */
-coal_cfunspec void * coal_private_realloc (void * ptr, size_t size);
-
-#endif /* COAL_PRIVATE_MEMORY_H */
+#endif /* COAL_TRY_CATCH_H */

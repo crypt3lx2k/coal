@@ -17,10 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <stdio.h>  /* fprintf */
-#include <stdlib.h> /* exit, EXIT_FAILURE */
-
-#include <coal/coal.h>
+#include <stdlib.h> /* free */
 
 #include <coal/private/memory.h>
 #include <coal/private/reference_counting.h>
@@ -36,6 +33,8 @@
 
 #include <coal/error/IllegalStateException.h>
 #include <coal/error/NullPointerException.h>
+
+#include <coal/coal.h>
 
 var coal_acquire (var object) {
   if (IS_GARBAGE(object))
@@ -101,10 +100,4 @@ var coal_new (val _class, ...) {
   va_end(ap);
 
   return object;
-}
-
-void coal_throw (var throwable) {
-  fprintf(stderr, "exception at %p\n", throwable);
-  coal_io_fprintln(throwable, stderr);
-  exit(EXIT_FAILURE);
 }
