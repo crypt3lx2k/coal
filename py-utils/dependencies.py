@@ -69,8 +69,8 @@ class DependencyGraph (DirectedAcyclicGraph):
 
         return Makefile_am_template.format (
             libname=library_name,
-            sourcefiles=' '.join(sources),
-            headerfiles=' '.join(headers)
+            sourcefiles=' '.join(sorted(sources)),
+            headerfiles=' '.join(sorted(headers))
         )
 
 deps = DependencyGraph()
@@ -106,6 +106,7 @@ def walker (deps, dirname, fnames):
         contents = open(path).read()
 
         path = path.lstrip('./')
+        deps.add_node(path)
 
         for hit in include_re.findall(contents):
             # ignore external/system headers

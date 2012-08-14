@@ -21,6 +21,9 @@ class DirectedAcyclicGraph (object):
         [self.nodes.add(n) for n in (node, child)]
         self.edges[node].add(child)
 
+    def add_node (self, node):
+        self.nodes.add(node)
+
     def remove_edge (self, node, child):
         self.edges[node].remove(child)
 
