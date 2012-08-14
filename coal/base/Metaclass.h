@@ -37,7 +37,7 @@
  * @param (var (*destructor)(var)) pointer to destructor
  * @param (bool (*equals)(val, val)) pointer to equality function
  * @param (int (*hashCode)(val)) pointer to hash function
- * @param (var (*toString)(val)) pointer to string.rep.hresentation function
+ * @param (var (*toString)(val)) pointer to string representation function
  */
 coal_cfunspec val coal_base_Metaclass (void) coal_funattr_const;
 

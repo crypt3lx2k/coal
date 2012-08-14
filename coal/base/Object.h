@@ -112,10 +112,10 @@ coal_cfunspec size_t coal_base_Object_hashCode (val self);
 /**
  * coal_base_Object_toString
  *
- * Returns a string.rep.hresentation of this object.
+ * Returns a string representation of this object.
  *
- * @param  (val) object that is to be.rep.hresentated as a string
- * @return (var) string.rep.hresentation of object
+ * @param  (val) object that is to be representated as a string
+ * @return (var) string representation of object
  */
 coal_cfunspec var coal_base_Object_toString (val self);
 
