@@ -3,15 +3,9 @@ autom4te.cache/
 .libs/
 aclocal.m4
 coal.pc
-config.guess
 config.log
 config.status
-config.sub
 configure
-depcomp
-install-sh
 libtool
-ltmain.sh
 Makefile
 Makefile.in
-missing

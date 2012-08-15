@@ -55,7 +55,7 @@ noreturn void coal_throw (var throwable) {
 
     /* this will never happen, look up */
     if (handler == NULL) {
-      fputs("fatal exception stack error: No such element",
+      fputs("fatal exception stack error: No such element\n",
 	    stderr);
       abort();
     }
