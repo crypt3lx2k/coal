@@ -17,29 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PARALLEL_THREAD_REP_H
-#define COAL_PARALLEL_THREAD_REP_H
+#include <coal/private/classes/Subclass.h>
+#include <coal/private/library.h>
+#include <coal/private/virtual_methods.h>
 
-#include <stdbool.h>
+#include <coal/error/Exception.h>
 
-#include <pthread.h>
-
-#include <coal/private/atomic.h>
-#include <coal/base/Object/Object.rep.h>
-
-class (Thread) {
-  extends(Object);
-
-  /* see pthread_create, will add more attributes as we go
-     along */
-  pthread_t thread;
-  /* pthread_attr_t attr; */
-
-  void *(*start_routine) (void *);
-  void * args;
-
-  /* flag to indicate whether thread has been started yet */
-  atomic(bool) active;
-};
-
-#endif /* COAL_PARALLEL_THREAD_REP_H */
+ExceptionDefinitionTemplate(coal_parallel_DeadlockException,
+			    LIBRARY_STR ".parallel.DeadlockException",
+			    coal_error_Exception())

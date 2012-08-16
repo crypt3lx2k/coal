@@ -71,4 +71,17 @@ coal_cfunspec void * coal_parallel_Thread_join (val thread);
  */
 coal_cfunspec void coal_parallel_Thread_start (var self);
 
+#ifdef COAL_PARALLEL_NAMESPACE_POLLUTE
+# define Thread()        coal_parallel_Thread()
+# define Thread_exit(r)  coal_parallel_Thread_exit(r)
+# define Thread_join(t)  coal_parallel_Thread_join(t)
+# define Thread_start(s) coal_parallel_Thread_start(s)
+#endif
+
+#ifdef COAL_PARALLEL_THREAD_NAMESPACE_POLLUTE
+# define exit(r)  coal_parallel_Thread_exit(r)
+# define join(t)  coal_parallel_Thread_join(t)
+# define start(s) coal_parallel_Thread_start(s)
+#endif
+
 #endif /* COAL_PARALLEL_THREAD_H */

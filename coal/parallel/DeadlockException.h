@@ -17,29 +17,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PARALLEL_THREAD_REP_H
-#define COAL_PARALLEL_THREAD_REP_H
+#ifndef COAL_PARALLEL_DEADLOCKEXCEPTION_H
+#define COAL_PARALLEL_DEADLOCKEXCEPTION_H
 
-#include <stdbool.h>
+#include <coal/error/Exception.h>
 
-#include <pthread.h>
+/**
+ * coal_parallel_DeadlockException
+ *
+ * Exception that indicates that a call that would cause
+ * deadlock was made.
+ *
+ * @extends coal_error_Exception
+ * @constructor takes a variable amount of arguments
+ * @param (const char *) printf-like format string
+ * @param (...) printf-like arguments
+ */
+coal_cfunspec val coal_parallel_DeadlockException (void) coal_funattr_const;
 
-#include <coal/private/atomic.h>
-#include <coal/base/Object/Object.rep.h>
+#ifdef COAL_PARALLEL_NAMESPACE_POLLUTE
+# define DeadlockException() coal_parallel_DeadlockException()
+#endif
 
-class (Thread) {
-  extends(Object);
-
-  /* see pthread_create, will add more attributes as we go
-     along */
-  pthread_t thread;
-  /* pthread_attr_t attr; */
-
-  void *(*start_routine) (void *);
-  void * args;
-
-  /* flag to indicate whether thread has been started yet */
-  atomic(bool) active;
-};
-
-#endif /* COAL_PARALLEL_THREAD_REP_H */
+#endif /* COAL_PARALLEL_DEADLOCKEXCEPTION_H */
