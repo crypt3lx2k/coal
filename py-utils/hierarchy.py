@@ -103,7 +103,7 @@ class ClassTree (DirectedAcyclicGraph):
             if this in self:
                 s.append('\t"%s";' % this)
 
-            for category in sorted(categories):
+            for category in categories:
                 child = '.'.join((this, category))
 
                 # we want every child to have the same color
