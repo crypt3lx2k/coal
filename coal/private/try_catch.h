@@ -50,12 +50,18 @@ struct _coal_private_try_context {
     if (! (_coal_private_try_setjmp_result =              \
            setjmp(_coal_private_try_c.execbuf))) {
 
-#define coal_catch(exception, identifier)                \
-    }                                                    \
-    else if (coal_instanceof(_coal_private_try_c.object, \
-                             exception)) {               \
-      var identifier = _coal_private_try_c.object;       \
+#define coal_catch(exception, identifier)                 \
+    }                                                     \
+    else if (coal_instanceof(_coal_private_try_c.object,  \
+                             exception)) {                \
+      var identifier = _coal_private_try_c.object;        \
       _coal_private_try_caught = true;
+
+#define coal_rethrow()                                    \
+      _coal_private_try_caught = false
+
+#define coal_finally                                      \
+    } {
 
 #define coal_try_end                                      \
     }                                                     \
