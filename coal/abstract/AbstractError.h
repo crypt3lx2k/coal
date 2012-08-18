@@ -35,7 +35,7 @@
 coal_cfunspec val coal_abstract_AbstractError (void) coal_funattr_const;
 
 #ifdef COAL_ABSTRACT_NAMESPACE_POLLUTE
-# define AbstractError() coal_error_AbstractError()
+# define AbstractError() coal_abstract_AbstractError()
 #endif
 
 #endif /* COAL_ABSTRACT_ABSTRACTERROR_H */
