@@ -20,7 +20,7 @@
 #ifndef COAL_ERROR_EXCEPTION_H
 #define COAL_ERROR_EXCEPTION_H
 
-#include <coal/base/Throwable.h>
+#include <coal/error/Throwable.h>
 
 /**
  * coal_error_Exception
@@ -28,7 +28,7 @@
  * Base class for throwables that a reasonable application
  * might want to catch.
  *
- * @extends coal_base_Throwable
+ * @extends coal_error_Throwable
  * @constructor takes a variable amount of arguments
  * @param (const char *) printf-like format string
  * @param (...) printf-like arguments

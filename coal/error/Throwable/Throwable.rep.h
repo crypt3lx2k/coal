@@ -17,25 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_BASE_THROWABLE_H
-#define COAL_BASE_THROWABLE_H
+#ifndef COAL_ERROR_THROWABLE_REP_H
+#define COAL_ERROR_THROWABLE_REP_H
 
-#include <coal/base/Object.h>
+#include <coal/base/Object/Object.rep.h>
 
-/**
- * coal_base_Throwable
- *
- * Root of the entire coal exception hierarchy.
- *
- * @extends coal_base_Object
- * @constructor takes a variable amount of arguments
- * @param (const char *) printf-like format string
- * @param (...) printf-like arguments
- */
-coal_cfunspec val coal_base_Throwable (void) coal_funattr_const;
+class (Throwable) {
+  extends(Object);
 
-#ifdef COAL_BASE_NAMESPACE_POLLUTE
-# define Throwable() coal_base_Throwable()
-#endif
+  char * message;
+};
 
-#endif /* COAL_BASE_THROWABLE_H */
+#endif /* COAL_ERROR_THROWABLE_REP_H */
