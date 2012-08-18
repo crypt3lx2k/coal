@@ -20,7 +20,7 @@
 #ifndef COAL_PRIVATE_OBJECT_ORIENTATION_H
 #define COAL_PRIVATE_OBJECT_ORIENTATION_H
 
-#include <coal/private/atomic.h>
+#include <pthread.h>
 
 /* designates the start of a class declaration. A class
    declaration is currently at the same form as a struct 
@@ -37,27 +37,19 @@
  * Sets up a class description.
  */
 #define SETUP_CLASS_DESCRIPTION(name, ...)      \
-  static val name##__ = NULL;                   \
+  static val _c_##name;                         \
+  static pthread_once_t _c_##name##once =       \
+    PTHREAD_ONCE_INIT;                          \
+                                                \
+  static void _c_##name##init (void) {          \
+    _c_##name = coal_new(__VA_ARGS__);          \
+  }                                             \
                                                 \
   val name (void) {                             \
-    static atomic(bool) locked = false;         \
+    (void) pthread_once(&_c_##name##once,       \
+                        _c_##name##init);       \
                                                 \
-    if (name##__ == NULL) {                     \
-      if (atomic_cas(&locked, false, true)) {   \
-        /* successfully acquired the lock */    \
-        val _desc = coal_new(__VA_ARGS__);      \
-                                                \
-        (void) atomic_cas(&name##__,            \
-                          (val) NULL,           \
-                          _desc);               \
-        locked = false;                         \
-      }                                         \
-                                                \
-      while (locked)                            \
-        continue;                               \
-    }                                           \
-                                                \
-    return name##__;                            \
+    return _c_##name;                           \
   }
 
 #endif /* COAL_PRIVATE_OBJECT_ORIENTATION_H */
