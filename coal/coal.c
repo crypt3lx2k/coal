@@ -21,6 +21,7 @@
 
 #include <coal/private/memory.h>
 #include <coal/private/reference_counting.h>
+#include <coal/private/try_catch.h>
 #include <coal/private/virtual_methods.h>
 
 #include <coal/io/io.h>
@@ -33,6 +34,7 @@
 
 #include <coal/error/IllegalStateException.h>
 #include <coal/error/NullPointerException.h>
+#include <coal/error/Throwable.h>
 
 #include <coal/coal.h>
 
@@ -95,9 +97,15 @@ var coal_new (val _class, ...) {
   object->class = class;
   object->reference_count = 1;
 
-  va_start(ap, _class);
-  object = class->constructor(object, &ap);
-  va_end(ap);
+  coal_try {
+    va_start(ap, _class);
+    object = class->constructor(object, &ap);
+  } coal_catch (coal_error_Throwable(), e coal_attr_unused) {
+    free(object);
+    coal_rethrow();
+  } coal_finally {
+    va_end(ap);
+  } coal_try_end;
 
   return object;
 }

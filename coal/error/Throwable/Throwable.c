@@ -29,8 +29,8 @@
 #include <coal/base/Metaclass.h>
 #include <coal/base/Metaclass/Metaclass.rep.h>
 #include <coal/base/String.h>
-#include <coal/base/Throwable.h>
-#include <coal/base/Throwable/Throwable.rep.h>
+#include <coal/error/Throwable.h>
+#include <coal/error/Throwable/Throwable.rep.h>
 
 #include <coal/error/OutOfMemoryError.h>
 
@@ -70,9 +70,9 @@ var Throwable_toString (val _self) {
 				 self->message);
 }
 
-SETUP_CLASS_DESCRIPTION(coal_base_Throwable,
+SETUP_CLASS_DESCRIPTION(coal_error_Throwable,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".base.Throwable",
+			LIBRARY_STR ".error.Throwable",
 			coal_base_Object(),
 			sizeof(class(Throwable)),
 			/* Object */

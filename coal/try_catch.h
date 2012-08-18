@@ -24,6 +24,8 @@
 
 #ifdef COAL_NAMESPACE_POLLUTE
 # define catch(e, i) coal_catch(e, i)
+# define finally     coal_finally
+# define rethrow()   coal_rethrow()
 # define try         coal_try
 # define try_end     coal_try_end
 #endif /* COAL_NAMESPACE_POLLUTE */
