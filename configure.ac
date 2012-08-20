@@ -19,7 +19,7 @@ AC_PROG_INSTALL
 AX_PTHREAD([], [AC_MSG_ERROR([can't compile coal without pthreads])])
 
 CC="$PTHREAD_CC"
-CFLAGS="$PTHREAD_CFLAGS $CFLAGS"
+CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
 LIBS="$PTHREAD_LIBS $LIBS"
 
 # Checks for header files.

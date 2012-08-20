@@ -8,4 +8,5 @@ Description: An object oriented general purpose library for GNU-C
 Requires:
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -lcoal
-Cflags: -I${includedir}
+Libs.private: @LIBS@
+Cflags: -I${includedir} @PTHREAD_CFLAGS@

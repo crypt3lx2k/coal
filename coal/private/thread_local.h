@@ -27,8 +27,7 @@
 #elif __GNUC__
 # define thread_local __thread
 #else
-# warning "included file coal/private/thread_local.h without compiler support for thread local storage, coal will not work properly in a threaded manner"
-# define thread_local
+# error "included file coal/private/thread_local.h without compiler support for thread local storage"
 #endif /* __STDC_VERSION__ >= 201000L # C11 or newer */
 
 #endif /* COAL_PRIVATE_THREAD_LOCAL_H */
