@@ -17,10 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <coal/base/Metaclass.h>
-
 #include <coal/private/library.h>
+#include <coal/private/object_orientation.h>
 #include <coal/private/virtual_methods.h>
+
+#include <coal/base/Metaclass.h>
 
 #include <coal/collections/Iterator.h>
 #include <coal/collections/Iterator/Iterator.rep.h>

@@ -20,13 +20,15 @@
 #ifndef COAL_COLLECTIONS_ITERABLE_H
 #define COAL_COLLECTIONS_ITERABLE_H
 
+#include <coal/base/Metaclass.h>
+
 /**
  * coal_collections_Iterable
  *
  * Metaclass for iterables.
  *
  * @extends coal_base_Metaclass
- * @constructor takes 11 arguments
+ * @constructor takes 10 arguments
  * @param (const char *) name of class
  * @param (const class(Metaclass) *) super class
  * @param (size_t) size of instances of this class in bytes
