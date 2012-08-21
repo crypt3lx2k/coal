@@ -1,0 +1,2 @@
+The coal.parallel package contains classes that are related
+to parallel execution, currently only through threads.

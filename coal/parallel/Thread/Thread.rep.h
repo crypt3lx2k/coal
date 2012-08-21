@@ -17,17 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_THREAD_LOCAL_H
-#define COAL_PRIVATE_THREAD_LOCAL_H
+#ifndef COAL_PARALLEL_THREAD_REP_H
+#define COAL_PARALLEL_THREAD_REP_H
 
-/* keep this header clean for users, might be installed */
+#include <stdbool.h>
 
-#if __STDC_VERSION__ >= 201000L
-# include <threads.h>
-#elif __GNUC__
-# define thread_local __thread
-#else
-# error "included file coal/private/thread_local.h without compiler support for thread local storage"
-#endif /* __STDC_VERSION__ >= 201000L # C11 or newer */
+#include <pthread.h>
 
-#endif /* COAL_PRIVATE_THREAD_LOCAL_H */
+#include <coal/private/atomic.h>
+#include <coal/base/Object/Object.rep.h>
+
+class (Thread) {
+  extends(Object);
+
+  /* see pthread_create, will add more attributes as we go
+     along */
+  pthread_t thread;
+  /* pthread_attr_t attr; */
+
+  void *(*start_routine) (void *);
+  void * args;
+
+  /* flag to indicate whether thread has been started yet */
+  atomic(bool) active;
+};
+
+#endif /* COAL_PARALLEL_THREAD_REP_H */

@@ -31,6 +31,8 @@
 #include <coal/private/stack.h>
 #include <coal/private/try_catch.h>
 
+#include <coal/parallel/Thread.h> /* coal_parallel_Thread_exit */
+
 noreturn void coal_throw (var throwable) {
   if (coal_private_stack_isEmpty(&_coal_private_try_stack)) {
     fputs("unhandled exception: ", stderr);
@@ -48,12 +50,12 @@ noreturn void coal_throw (var throwable) {
 #endif /* HAVE_EXECINFO_H */
 
     coal_del(throwable);
-    exit(EXIT_FAILURE);
+    coal_parallel_Thread_exit(NULL);
   } else {
     struct _coal_private_try_context * handler =
       coal_private_stack_pop(&_coal_private_try_stack);
 
-    /* this will never happen, look up */
+    /* this will never happen, stack isn't empty */
     if (handler == NULL) {
       fputs("fatal exception stack error: No such element\n",
 	    stderr);

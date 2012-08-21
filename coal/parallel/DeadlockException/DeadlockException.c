@@ -17,17 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_THREAD_LOCAL_H
-#define COAL_PRIVATE_THREAD_LOCAL_H
+#include <coal/private/classes/Subclass.h>
+#include <coal/private/library.h>
+#include <coal/private/virtual_methods.h>
 
-/* keep this header clean for users, might be installed */
+#include <coal/error/Exception.h>
 
-#if __STDC_VERSION__ >= 201000L
-# include <threads.h>
-#elif __GNUC__
-# define thread_local __thread
-#else
-# error "included file coal/private/thread_local.h without compiler support for thread local storage"
-#endif /* __STDC_VERSION__ >= 201000L # C11 or newer */
-
-#endif /* COAL_PRIVATE_THREAD_LOCAL_H */
+ExceptionDefinitionTemplate(coal_parallel_DeadlockException,
+			    LIBRARY_STR ".parallel.DeadlockException",
+			    coal_error_Exception())

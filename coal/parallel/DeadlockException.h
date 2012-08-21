@@ -17,17 +17,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_THREAD_LOCAL_H
-#define COAL_PRIVATE_THREAD_LOCAL_H
+#ifndef COAL_PARALLEL_DEADLOCKEXCEPTION_H
+#define COAL_PARALLEL_DEADLOCKEXCEPTION_H
 
-/* keep this header clean for users, might be installed */
+#include <coal/error/Exception.h>
 
-#if __STDC_VERSION__ >= 201000L
-# include <threads.h>
-#elif __GNUC__
-# define thread_local __thread
-#else
-# error "included file coal/private/thread_local.h without compiler support for thread local storage"
-#endif /* __STDC_VERSION__ >= 201000L # C11 or newer */
+/**
+ * coal_parallel_DeadlockException
+ *
+ * Exception that indicates that a call that would cause
+ * deadlock was made.
+ *
+ * @extends coal_error_Exception
+ * @constructor takes a variable amount of arguments
+ * @param (const char *) printf-like format string
+ * @param (...) printf-like arguments
+ */
+coal_cfunspec val coal_parallel_DeadlockException (void) coal_funattr_const;
 
-#endif /* COAL_PRIVATE_THREAD_LOCAL_H */
+#ifdef COAL_PARALLEL_NAMESPACE_POLLUTE
+# define DeadlockException() coal_parallel_DeadlockException()
+#endif
+
+#endif /* COAL_PARALLEL_DEADLOCKEXCEPTION_H */

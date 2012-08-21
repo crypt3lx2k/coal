@@ -16,6 +16,11 @@ AC_PROG_CC
 AC_PROG_INSTALL
 
 # Checks for libraries.
+AX_PTHREAD([], [AC_MSG_ERROR([can't compile coal without pthreads])])
+
+CC="$PTHREAD_CC"
+CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+LIBS="$PTHREAD_LIBS $LIBS"
 
 # Checks for header files.
 AC_CHECK_HEADERS([limits.h stdarg.h stddef.h stdint.h stdlib.h string.h], [], [AC_MSG_ERROR([required headers not found])])
