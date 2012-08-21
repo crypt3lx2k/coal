@@ -20,6 +20,8 @@
 #ifndef COAL_PRIVATE_FOREACH_H
 #define COAL_PRIVATE_FOREACH_H
 
+/* keep this header clean for users, might be installed */
+
 #include <coal/private/cdefs.h>
 #include <coal/private/collected.h>
 
@@ -39,8 +41,17 @@
             _coal_private_foreach_i                     \
           );
 
-#define coal_foreach_end                                \
+#ifdef __GNUC__
+/* collected version */
+# define coal_foreach_end                               \
     }                                                   \
   } while (0)
+#else
+/* uncollected version */
+# define coal_foreach_end                               \
+    }                                                   \
+    coal_del(_coal_private_foreach_i);                  \
+  } while (0)
+#endif /* __GNUC__ */
 
 #endif /* COAL_PRIVATE_FOREACH_H */

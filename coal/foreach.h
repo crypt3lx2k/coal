@@ -17,28 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_COLLECTED_H
-#define COAL_PRIVATE_COLLECTED_H
+#ifndef COAL_FOREACH_H
+#define COAL_FOREACH_H
 
-/* keep this header clean for users, might be installed */
+#include <coal/private/foreach.h>
 
-#include <coal/private/cdefs.h>
+#ifdef COAL_NAMESPACE_POLLUTE
+# define foreach(v, i) coal_foreach(v, i)
+# define foreach_end   coal_foreach_end
+#endif /* COAL_NAMESPACE_POLLUTE */
 
-/**
- * coal_private_collector
- *
- * Calls del on the object pointed to.
- *
- * @param  (var *) pointer to object that is to be deleted
- */
-coal_cfunspec void coal_private_collector (var * ptr);
-
-#ifdef __GNUC__
-# define coal_varattr_collected \
-  __attribute__ ((cleanup(coal_private_collector)))
-#else
-# warning "included coal/private/collected.h without compiler support for automatically cleaned variables, you may not break out of a coal_foreach block"
-# define coal_varattr_collected
-#endif /* __GNUC__ */
-
-#endif /* COAL_PRIVATE_COLLECTED_H */
+#endif /* COAL_FOREACH_H */
