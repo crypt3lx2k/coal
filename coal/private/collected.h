@@ -17,24 +17,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_ABSTRACT_ABSTRACT_H
-#define COAL_ABSTRACT_ABSTRACT_H
+#ifndef COAL_PRIVATE_COLLECTED_H
+#define COAL_PRIVATE_COLLECTED_H
 
-#include <coal/base/Object.h>
+#include <coal/private/cdefs.h>
 
 /**
- * coal_abstract_Abstract
+ * coal_private_collector
  *
- * Base class for every abstract class.
+ * Calls del on the object pointed to.
  *
- * @abstract
- * @extends coal_base_Object
- * @constructor takes 0 arguments
+ * @param  (var *) pointer to object that is to be deleted
  */
-coal_cfunspec val coal_abstract_Abstract (void) coal_funattr_const;
+coal_cfunspec void coal_private_collector (var * ptr);
 
-#ifdef COAL_ABSTRACT_NAMESPACE_POLLUTE
-# define Abstract() coal_abstract_Abstract()
-#endif
+#ifdef __GNUC__
+# define coal_varattr_collected \
+  __attribute__ ((cleanup(coal_private_collector)))
+#else
+# warning "coal/private/collected.h included without compiler support for automatically cleaned variables, you may not break out of a coal_foreach block"
+# define coal_varattr_collected
+#endif /* __GNUC__ */
 
-#endif /* COAL_ABSTRACT_ABSTRACT_H */
+#endif /* COAL_PRIVATE_COLLECTED_H */

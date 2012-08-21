@@ -17,24 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_ABSTRACT_ABSTRACT_H
-#define COAL_ABSTRACT_ABSTRACT_H
+#include <coal/abstract/AbstractMethodError.h>
+#include <coal/private/virtual_methods.h>
 
-#include <coal/base/Object.h>
-
-/**
- * coal_abstract_Abstract
- *
- * Base class for every abstract class.
- *
- * @abstract
- * @extends coal_base_Object
- * @constructor takes 0 arguments
- */
-coal_cfunspec val coal_abstract_Abstract (void) coal_funattr_const;
-
-#ifdef COAL_ABSTRACT_NAMESPACE_POLLUTE
-# define Abstract() coal_abstract_Abstract()
-#endif
-
-#endif /* COAL_ABSTRACT_ABSTRACT_H */
+noreturn void coal_private_abstract () {
+  coal_throw(coal_new(coal_abstract_AbstractMethodError(),
+		      "a call was made to an abstract method"));
+}

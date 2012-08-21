@@ -17,24 +17,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_ABSTRACT_ABSTRACT_H
-#define COAL_ABSTRACT_ABSTRACT_H
+#ifndef COAL_COLLECTIONS_ABSTRACTCOLLECTION_REP_H
+#define COAL_COLLECTIONS_ABSTRACTCOLLECTION_REP_H
 
-#include <coal/base/Object.h>
+#include <coal/abstract/Abstract/Abstract.rep.h>
 
-/**
- * coal_abstract_Abstract
- *
- * Base class for every abstract class.
- *
- * @abstract
- * @extends coal_base_Object
- * @constructor takes 0 arguments
- */
-coal_cfunspec val coal_abstract_Abstract (void) coal_funattr_const;
+class (AbstractCollection) {
+  extends(Abstract);
+};
 
-#ifdef COAL_ABSTRACT_NAMESPACE_POLLUTE
-# define Abstract() coal_abstract_Abstract()
-#endif
-
-#endif /* COAL_ABSTRACT_ABSTRACT_H */
+#endif /* COAL_COLLECTIONS_ABSTRACTCOLLECTION_REP_H */

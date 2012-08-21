@@ -21,6 +21,8 @@
 #define COAL_PRIVATE_VIRTUAL_METHODS_H
 
 #include <stdarg.h>
+
+#include <coal/private/cdefs.h>
 #include <coal/error/NoSuchMethodError.h>
 
 typedef void (*vfunptr)();
@@ -32,22 +34,39 @@ typedef void (*vfunptr)();
  */
 #define INHERIT_METHOD ((vfunptr) 0)
 
+/**
+ * ABSTRACT_METHOD
+ *
+ * Tags a method as abstract.
+ */
+#define ABSTRACT_METHOD ((vfunptr) 1) /* uh-oh, might be legal */
+
+/**
+ * coal_private_abstract
+ *
+ * Throws an abstract method error.
+ */
+noreturn coal_cfunspec void coal_private_abstract();
+
 /* overrides a method in a class description */
-#define OverrideMethod(self, app, method)       \
-  ({                                            \
-    __typeof__(self->method) external =         \
-      va_arg(*app, __typeof__(self->method));   \
-                                                \
-    if ((vfunptr) external == INHERIT_METHOD)   \
-      ((void) 0);                               \
-    else                                        \
-      self->method = external;                  \
+#define OverrideMethod(self, app, method)           \
+  ({                                                \
+    __typeof__(self->method) external =             \
+      va_arg(*app, __typeof__(self->method));       \
+                                                    \
+    if ((vfunptr) external == INHERIT_METHOD)       \
+      ((void) 0);                                   \
+    else if ((vfunptr) external == ABSTRACT_METHOD) \
+      self->method = (__typeof__(self->method))     \
+        coal_private_abstract;                      \
+    else                                            \
+      self->method = external;                      \
   })
 
-#define CheckAndThrowMissingMethod(obj, klass)                  \
-  if (! coal_instanceof(obj, klass))                            \
-    coal_throw(coal_new(coal_error_NoSuchMethodError(),         \
-                        "%s: invoked on an unsuitable object",  \
+#define CheckAndThrowMissingMethod(obj, klass)                 \
+  if (! coal_instanceof(obj, klass))                           \
+    coal_throw(coal_new(coal_error_NoSuchMethodError(),        \
+                        "%s: invoked on an unsuitable object", \
                         __func__))
 
 #endif /* COAL_PRIVATE_VIRTUAL_METHODS_H */
