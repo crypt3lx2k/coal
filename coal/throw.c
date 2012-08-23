@@ -21,24 +21,26 @@
 #include <stdio.h>
 #include <stdlib.h> /* abort */
 
-#if HAVE_EXECINFO_H
-# include <execinfo.h>
-# include <unistd.h>
-#endif /* HAVE_EXECINFO_H */
+#if HAVE_FEATURES_H
+# include <features.h>
+# if __GLIBC_PREREQ (2, 1) && HAVE_EXECINFO_H
+#  include <execinfo.h>
+#  include <unistd.h>
+#  define HAVE_BACKTRACE 1
+# endif /* GLIBC version 2.1 or newer && HAVE_EXECINFO_H */
+#endif /* HAVE_FEATURES_H */
 
-#include <coal/io/io.h>
-
-#include <coal/private/stack.h>
 #include <coal/private/try_catch.h>
 
+#include <coal/io/io.h>
 #include <coal/parallel/Thread.h> /* coal_parallel_Thread_exit */
 
 noreturn void coal_throw (var throwable) {
-  if (coal_private_stack_isEmpty(&_coal_private_try_stack)) {
+  if (coal_private_try_isEmpty()) {
     fputs("unhandled exception: ", stderr);
     coal_io_fprintln(throwable, stderr);
 
-#if HAVE_EXECINFO_H
+#if HAVE_BACKTRACE
     {
       void * backtrace_buffer[100];
 
@@ -47,13 +49,13 @@ noreturn void coal_throw (var throwable) {
 			   backtrace(backtrace_buffer, 100),
 			   STDERR_FILENO);
     }
-#endif /* HAVE_EXECINFO_H */
+#endif /* HAVE_BACKTRACE */
 
     coal_del(throwable);
     coal_parallel_Thread_exit(NULL);
   } else {
     struct _coal_private_try_context * handler =
-      coal_private_stack_pop(&_coal_private_try_stack);
+      coal_private_try_pop();
 
     /* this will never happen, stack isn't empty */
     if (handler == NULL) {

@@ -20,7 +20,7 @@
 #include <stdio.h> /* perror */
 #include <stdlib.h>
 
-#include "stack.h"
+#include <coal/private/stack.h>
 
 #define COAL_PRIVATE_STACK_RESIZE_FACTOR 0.7
 
