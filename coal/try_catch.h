@@ -20,8 +20,17 @@
 #ifndef COAL_TRY_CATCH_H
 #define COAL_TRY_CATCH_H
 
+#include <coal/private/exception_handling.h>
 #include <coal/private/try_catch.h>
 
+/* from exception_handling */
+#ifdef COAL_NAMESPACE_POLLUTE
+# define exhandler_fn  coal_exhandler_fn
+# define EX_DFL        COAL_EX_DFL
+# define exhandler_set coal_exhandler_set
+#endif /* COAL_NAMESPACE_POLLUTE */
+
+/* from try_catch */
 #ifdef COAL_NAMESPACE_POLLUTE
 # define catch(e, i) coal_catch(e, i)
 # define finally     coal_finally

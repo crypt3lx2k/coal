@@ -30,13 +30,31 @@
 # endif /* GLIBC version 2.1 or newer && HAVE_EXECINFO_H */
 #endif /* HAVE_FEATURES_H */
 
+#include <coal/private/thread_local.h>
 #include <coal/private/try_catch.h>
 
 #include <coal/io/io.h>
 #include <coal/parallel/Thread.h> /* coal_parallel_Thread_exit */
 
+#include <coal/private/exception_handling.h>
+#include <coal/coal.h>
+
+static thread_local coal_exhandler_fn _coal_exhandler_current = COAL_EX_DFL;
+
+coal_exhandler_fn coal_exhandler_set (coal_exhandler_fn func) {
+  coal_exhandler_fn old;
+
+  old = _coal_exhandler_current;
+  _coal_exhandler_current = func;
+
+  return old;
+}
+
 noreturn void coal_throw (var throwable) {
   if (coal_private_try_isEmpty()) {
+    if (_coal_exhandler_current != COAL_EX_DFL)
+      _coal_exhandler_current(throwable);
+
     fputs("unhandled exception: ", stderr);
     coal_io_fprintln(throwable, stderr);
 
