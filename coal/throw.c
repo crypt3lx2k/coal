@@ -58,15 +58,17 @@ noreturn void coal_throw (var throwable) {
     fputs("unhandled exception: ", stderr);
     coal_io_fprintln(throwable, stderr);
 
+    fputs("Backtrace:\n", stderr);
 #if HAVE_BACKTRACE
     {
       void * backtrace_buffer[100];
 
-      fputs("Backtrace:\n", stderr);
       backtrace_symbols_fd(backtrace_buffer,
 			   backtrace(backtrace_buffer, 100),
 			   STDERR_FILENO);
     }
+#else /* ! HAVE_BACKTRACE */
+    fputs("(not available)\n", stderr);
 #endif /* HAVE_BACKTRACE */
 
     coal_del(throwable);

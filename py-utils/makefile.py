@@ -32,7 +32,7 @@ directory_blacklist = [
 # is correct and not on a form like #include "file.h> or
 # some other evil form like that.
 include_re = re.compile (
-    r'\#\s*include\s+(?:\<|\")\s*(.*?)\s*(?:\>|\")'
+    r'\#\s*include\s*(?:\<|\")\s*(.*?)\s*(?:\>|\")'
 )
 
 PROJ = 'libcoal.so'
