@@ -20,26 +20,26 @@
 #include <stdio.h> /* perror */
 #include <stdlib.h>
 
-#include <coal/private/stack.h>
+#include <coal/private/pointer_stack.h>
 
-#define COAL_PRIVATE_STACK_RESIZE_FACTOR 0.7
+#define COAL_PRIVATE_PSTACK_RESIZE_FACTOR 0.7
 
 static size_t
-coal_private_stack_members (const struct coal_private_stack * s) {
+coal_private_pstack_members (const struct coal_private_pstack * s) {
   return (s->head - s->base);
 }
 
 static size_t
-coal_private_stack_newSize (size_t old_size) {
-  return (old_size * (1.0 + COAL_PRIVATE_STACK_RESIZE_FACTOR)) + 1;
+coal_private_pstack_newSize (size_t old_size) {
+  return (old_size * (1.0 + COAL_PRIVATE_PSTACK_RESIZE_FACTOR)) + 1;
 }
 
 static size_t
-coal_private_stack_vacancies (const struct coal_private_stack * s) {
+coal_private_pstack_vacancies (const struct coal_private_pstack * s) {
   return (s->end - s->head);
 }
 
-void coal_private_stack_destroy (struct coal_private_stack * s) {
+void coal_private_pstack_destroy (struct coal_private_pstack * s) {
   free(s->base);
 
   s->base = NULL;
@@ -47,8 +47,8 @@ void coal_private_stack_destroy (struct coal_private_stack * s) {
   s->end  = NULL;
 }
 
-void coal_private_stack_initialize (struct coal_private_stack * s, size_t size) {
-  size_t members = coal_private_stack_members(s);
+void coal_private_pstack_initialize (struct coal_private_pstack * s, size_t size) {
+  size_t members = coal_private_pstack_members(s);
 
   s->base = realloc(s->base, size * sizeof(void *));
 
@@ -61,26 +61,26 @@ void coal_private_stack_initialize (struct coal_private_stack * s, size_t size) 
   s->end  = s->base + size;
 }
 
-int coal_private_stack_isEmpty (const struct coal_private_stack * s) {
+int coal_private_pstack_isEmpty (const struct coal_private_pstack * s) {
   return s->base == s->head;
 }
 
-const void * coal_private_stack_peek (const struct coal_private_stack * s) {
+const void * coal_private_pstack_peek (const struct coal_private_pstack * s) {
   return (s->base == s->head) ? NULL : *(s->head-1);
 }
 
-void * coal_private_stack_pop (struct coal_private_stack * s) {
+void * coal_private_pstack_pop (struct coal_private_pstack * s) {
   return (s->base == s->head) ? NULL : *(--s->head);
 }
 
-void coal_private_stack_push (struct coal_private_stack * s, void * e) {
-  size_t vacancies = coal_private_stack_vacancies(s);
+void coal_private_pstack_push (struct coal_private_pstack * s, void * e) {
+  size_t vacancies = coal_private_pstack_vacancies(s);
 
   if (vacancies == 0) {
-    size_t members = coal_private_stack_members(s);
-    size_t new_size = coal_private_stack_newSize(members);
+    size_t members = coal_private_pstack_members(s);
+    size_t new_size = coal_private_pstack_newSize(members);
 
-    coal_private_stack_initialize(s, new_size);
+    coal_private_pstack_initialize(s, new_size);
   }
 
   *s->head++ = e;

@@ -38,16 +38,16 @@
  */
 #define SETUP_CLASS_DESCRIPTION(name, ...)      \
   static val _c_##name;                         \
-  static pthread_once_t _c_##name##once =       \
+  static pthread_once_t _c_##name##_once =      \
     PTHREAD_ONCE_INIT;                          \
                                                 \
-  static void _c_##name##init (void) {          \
+  static void _c_##name##_init (void) {         \
     _c_##name = coal_new(__VA_ARGS__);          \
   }                                             \
                                                 \
   val name (void) {                             \
-    (void) pthread_once(&_c_##name##once,       \
-                        _c_##name##init);       \
+    (void) pthread_once(&_c_##name##_once,      \
+                        _c_##name##_init);      \
                                                 \
     return _c_##name;                           \
   }

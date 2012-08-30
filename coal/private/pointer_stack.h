@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef COAL_PRIVATE_STACK_H
-#define COAL_PRIVATE_STACK_H
+#ifndef COAL_PRIVATE_POINTER_STACK_H
+#define COAL_PRIVATE_POINTER_STACK_H
 
 /* keep this header clean for users, might be installed */
 
@@ -31,7 +31,7 @@
 #include <coal/private/cdefs.h>
 
 /**
- * coal_private_stack
+ * coal_private_pstack
  *
  * Stack of pointers. Provides O(1) destroy, initialize,
  * isEmpty, peek, pop and push operations.
@@ -60,21 +60,21 @@
  *  want to kill the application anyway, so we do not even
  *  return NULL and let the user handle the error.
  */
-struct coal_private_stack {
+struct coal_private_pstack {
   void ** base;
   void ** head;
   void ** end;
 };
 
 /**
- * COAL_PRIVATE_STACK_INITIALIZER
+ * COAL_PRIVATE_PSTACK_INITIALIZER
  *
  * Valid constant initializer for an empty stack.
  */
-#define COAL_PRIVATE_STACK_INITIALIZER {NULL, NULL, NULL}
+#define COAL_PRIVATE_PSTACK_INITIALIZER {NULL, NULL, NULL}
 
 /**
- * coal_private_stack_destroy
+ * coal_private_pstack_destroy
  *
  * Frees underlying memory and resets pointers so that the
  * stack valid and empty.
@@ -83,12 +83,12 @@ struct coal_private_stack {
  * stack or as to indicate an empty stack even before calling
  * this function.
  *
- * @param  (struct coal_private_stack *) stack to empty and reset
+ * @param  (struct coal_private_pstack *) stack to empty and reset
  */
-coal_cfunspec void coal_private_stack_destroy (struct coal_private_stack * s);
+coal_cfunspec void coal_private_pstack_destroy (struct coal_private_pstack * s);
 
 /**
- * coal_private_stack_initialize
+ * coal_private_pstack_initialize
  *
  * Initializes the underlying memory to hold size number of
  * pointers.
@@ -101,23 +101,23 @@ coal_cfunspec void coal_private_stack_destroy (struct coal_private_stack * s);
  * the stack, if you cut the stack shorter than the number
  * of elements the excess elements will be irrevocably lost.
  *
- * @param  (struct coal_private_stack *) stack to initialize
+ * @param  (struct coal_private_pstack *) stack to initialize
  * @param  (size_t) number of pointers
  */
-coal_cfunspec void coal_private_stack_initialize (struct coal_private_stack * s, size_t size);
+coal_cfunspec void coal_private_pstack_initialize (struct coal_private_pstack * s, size_t size);
 
 /**
- * coal_private_stack_isEmpty
+ * coal_private_pstack_isEmpty
  *
  * Returns whether the stack is empty.
  *
- * @param  (const struct coal_private_stack *) stack to check
+ * @param  (const struct coal_private_pstack *) stack to check
  * @return (int) nonzero if the stack is empty
  */
-coal_cfunspec int coal_private_stack_isEmpty (const struct coal_private_stack * s);
+coal_cfunspec int coal_private_pstack_isEmpty (const struct coal_private_pstack * s);
 
 /**
- * coal_private_stack_peek
+ * coal_private_pstack_peek
  *
  * Returns the element at the top of the stack without
  * removing it.
@@ -129,32 +129,32 @@ coal_cfunspec int coal_private_stack_isEmpty (const struct coal_private_stack * 
  * it is better to pop the stack and then push the element
  * back on when you are done with the modifications.
  *
- * @param  (const struct coal_private_stack *) stack to inspect
+ * @param  (const struct coal_private_pstack *) stack to inspect
  * @return (const void *) topmost element
  */
-coal_cfunspec const void * coal_private_stack_peek (const struct coal_private_stack * s);
+coal_cfunspec const void * coal_private_pstack_peek (const struct coal_private_pstack * s);
 
 /**
- * coal_private_stack_pop
+ * coal_private_pstack_pop
  *
  * Returns the element at the top of the stack also removing
  * it from the stack.
  *
  * NULL is returned to indicate an empty stack.
  *
- * @param  (struct coal_private_stack *) stack to pop element from
+ * @param  (struct coal_private_pstack *) stack to pop element from
  * @return (void *) the former top of the stack
  */
-coal_cfunspec void * coal_private_stack_pop (struct coal_private_stack * s);
+coal_cfunspec void * coal_private_pstack_pop (struct coal_private_pstack * s);
 
 /**
- * coal_private_stack_push
+ * coal_private_pstack_push
  *
  * Puts an element at the top of the stack.
  *
- * @param  (struct coal_private_stack *) stack to push element on
+ * @param  (struct coal_private_pstack *) stack to push element on
  * @param  (void *) element to put on the stack
  */
-coal_cfunspec void coal_private_stack_push (struct coal_private_stack * s, void * e);
+coal_cfunspec void coal_private_pstack_push (struct coal_private_pstack * s, void * e);
 
-#endif /* COAL_PRIVATE_STACK_H */
+#endif /* COAL_PRIVATE_POINTER_STACK_H */
