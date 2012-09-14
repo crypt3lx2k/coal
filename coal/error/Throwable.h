@@ -34,7 +34,7 @@
  */
 coal_cfunspec val coal_error_Throwable (void) coal_funattr_const;
 
-#ifdef COAL_BASE_NAMESPACE_POLLUTE
+#ifdef COAL_ERROR_NAMESPACE_POLLUTE
 # define Throwable() coal_error_Throwable()
 #endif
 

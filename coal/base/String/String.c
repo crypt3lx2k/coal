@@ -122,10 +122,13 @@ var coal_base_String_format (const char * fmt, ...) {
   s = coal_new(coal_base_String(), (char *) NULL, 0);
 
   va_start(ap, fmt);
-  if (vasprintf(&buf, fmt, ap) == -1)
+  if (vasprintf(&buf, fmt, ap) == -1) {
+    coal_del(s);
+
     coal_throw(coal_new(coal_error_OutOfMemoryError(),
 			"%s: unable to allocate string",
 			__func__));
+  }
   va_end(ap);
 
   s->str = buf;
