@@ -34,7 +34,7 @@ typedef void (*coal_private_cleanup_fn)(void *);
  *
  * Pops the top of the cleanup stack, optionally executing it.
  *
- * @param  (int) whether to execute the cleanup handler
+ * @param  (int) whether to execute the cleanup routine
  */
 coal_cfunspec void coal_private_cleanup_pop (int execute);
 

@@ -20,8 +20,6 @@
 #ifndef COAL_PARALLEL_THREAD_H
 #define COAL_PARALLEL_THREAD_H
 
-#include <coal/private/cleanup_stack.h>
-
 #include <coal/base/Object.h>
 
 /**
