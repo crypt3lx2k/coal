@@ -36,8 +36,29 @@
 
 #include <coal/parallel/DeadlockException.h>
 
+#include <coal/private/cleanup_stack.h>
+
 #include <coal/parallel/Thread.h>
 #include <coal/parallel/Thread/Thread.rep.h>
+
+static void * Thread_target (void * args) {
+  class(Thread) * self = args;
+  void * retval;
+
+  pthread_cleanup_push(coal_private_cleanup_run_all, NULL);
+  retval = self->start_routine(self->args);
+  pthread_cleanup_pop(1);
+
+  return retval;
+}
+
+/* ugly special treatment of the main thread */
+static void Thread_Main_cleanup (void)
+  __attribute__ ((destructor));
+
+static void Thread_Main_cleanup (void) {
+  coal_private_cleanup_run_all(NULL);
+}
 
 /* Thread implements base.Object methods */
 
@@ -159,7 +180,7 @@ void coal_parallel_Thread_start (var _self) {
   }
 
   error = pthread_create(&self->thread, NULL /* default */,
-			 self->start_routine, self->args);
+			 Thread_target, self);
 
   if (error) {
     switch (error) {
