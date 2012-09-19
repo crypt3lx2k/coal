@@ -110,7 +110,7 @@ size_t coal_collections_Collection_size (val self) {
 
 SETUP_CLASS_DESCRIPTION(coal_collections_Collection,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".collections.Collection",
+			LIBRARY_PREFIX "collections" LIBRARY_MODSEP "Collection",
 			coal_collections_Iterable(),
 			sizeof(class(Collection)),
 			/* Object */

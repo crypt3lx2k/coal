@@ -22,7 +22,7 @@
 #include <stdint.h> /* intptr_t */
 #include <string.h> /* memcpy */
 
-#include <coal/private/library.h> /* LIBRARY_STR */
+#include <coal/private/library.h> /* LIBRARY_PREFIX, LIBRARY_MODSEP */
 #include <coal/private/virtual_methods.h> /* OverrideMethod */
 
 #include <coal/base/String.h>
@@ -124,7 +124,7 @@ static class(Metaclass) _classdescripts [] = {
       _metaclass,
       1
     },
-    LIBRARY_STR ".base.Object",
+    LIBRARY_PREFIX "base" LIBRARY_MODSEP "Object",
     _object,
     sizeof(class(Object)),
     Object_cmp,
@@ -139,7 +139,7 @@ static class(Metaclass) _classdescripts [] = {
       _metaclass,
       1,
     },
-    LIBRARY_STR ".base.Metaclass",
+    LIBRARY_PREFIX "base" LIBRARY_MODSEP "Metaclass",
     _object,
     sizeof(class(Metaclass)),
     Object_cmp,

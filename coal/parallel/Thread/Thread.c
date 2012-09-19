@@ -24,7 +24,7 @@
 #include <pthread.h>
 
 #include <coal/private/atomic.h>
-#include <coal/private/library.h>            /* LIBRARY_STR */
+#include <coal/private/library.h>            /* LIBRARY_PREFIX, LIBRARY_MODSEP */
 #include <coal/private/object_orientation.h> /* SETUP_CLASS_DESCRIPTION */
 #include <coal/private/virtual_methods.h>    /* CheckAndThrowMissingMethod */
 
@@ -214,7 +214,7 @@ void coal_parallel_Thread_start (var _self) {
 
 SETUP_CLASS_DESCRIPTION(coal_parallel_Thread,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".parallel.Thread",
+			LIBRARY_PREFIX "parallel" LIBRARY_MODSEP "Thread",
 			coal_base_Object(),
 			sizeof(class(Thread)),
 			/* Object */

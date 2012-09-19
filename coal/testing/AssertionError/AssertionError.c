@@ -24,5 +24,5 @@
 #include <coal/error/Error.h>
 
 ExceptionDefinitionTemplate(coal_testing_AssertionError,
-			    LIBRARY_STR ".testing.AssertionError",
+			    LIBRARY_PREFIX "testing" LIBRARY_MODSEP "AssertionError",
 			    coal_error_Error())

@@ -24,5 +24,5 @@
 #include <coal/error/Throwable.h>
 
 ExceptionDefinitionTemplate(coal_error_Error,
-			    LIBRARY_STR ".error.Error",
+			    LIBRARY_PREFIX "error" LIBRARY_MODSEP "Error",
 			    coal_error_Throwable())

@@ -24,5 +24,5 @@
 #include <coal/error/Error.h>
 
 ExceptionDefinitionTemplate(coal_error_OutOfMemoryError,
-			    LIBRARY_STR ".error.OutOfMemoryError",
+			    LIBRARY_PREFIX "error" LIBRARY_MODSEP "OutOfMemoryError",
 			    coal_error_Error())

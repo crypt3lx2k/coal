@@ -54,7 +54,7 @@ var coal_collections_Iterable_iterator (val self) {
 
 SETUP_CLASS_DESCRIPTION(coal_collections_Iterable,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".collections.Iterable",
+			LIBRARY_PREFIX "collections" LIBRARY_MODSEP "Iterable",
 			coal_base_Metaclass(),
 			sizeof(class(Iterable)),
 			/* Object */

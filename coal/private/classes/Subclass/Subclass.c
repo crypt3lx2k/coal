@@ -19,7 +19,7 @@
 
 #include <string.h> /* memcpy */
 
-#include <coal/private/library.h> /* LIBRARY_STR */
+#include <coal/private/library.h> /* LIBRARY_PREFIX, LIBRARY_MODSEP */
 #include <coal/private/virtual_methods.h> /* INHERIT_METHOD */
 
 #include <coal/base/Object.h> /* coal_base_Object_getSize */
@@ -49,7 +49,7 @@ var Subclass_constructor (var _self, va_list * args) {
 
 SETUP_CLASS_DESCRIPTION(coal_private_Subclass,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".private.Subclass",
+			LIBRARY_PREFIX "private" LIBRARY_MODSEP "Subclass",
 			coal_base_Metaclass(),
 			sizeof(class(Metaclass)),
 			/* Object */

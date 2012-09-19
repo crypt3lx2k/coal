@@ -24,5 +24,5 @@
 #include <coal/error/Error.h>
 
 ExceptionDefinitionTemplate(coal_error_NoSuchMethodError,
-			    LIBRARY_STR ".error.NoSuchMethodError",
+			    LIBRARY_PREFIX "error" LIBRARY_MODSEP "NoSuchMethodError",
 			    coal_error_Error())

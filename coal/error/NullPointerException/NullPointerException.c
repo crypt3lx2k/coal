@@ -24,5 +24,5 @@
 #include <coal/error/Exception.h>
 
 ExceptionDefinitionTemplate(coal_error_NullPointerException,
-			    LIBRARY_STR ".error.NullPointerException",
+			    LIBRARY_PREFIX "error" LIBRARY_MODSEP "NullPointerException",
 			    coal_error_Exception())

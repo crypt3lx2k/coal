@@ -22,7 +22,7 @@
 #include <stdlib.h> /* free */
 #include <string.h>
 
-#include <coal/private/library.h>            /* LIBRARY_STR */
+#include <coal/private/library.h>            /* LIBRARY_PREFIX, LIBRARY_MODSEP */
 #include <coal/private/memory.h>             /* coal_private_malloc */
 #include <coal/private/object_orientation.h> /* SETUP_CLASS_DESCRIPTION */
 
@@ -139,7 +139,7 @@ var coal_base_String_format (const char * fmt, ...) {
 
 SETUP_CLASS_DESCRIPTION(coal_base_String,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".base.String",
+			LIBRARY_PREFIX "base" LIBRARY_MODSEP "String",
 			coal_base_Object(),
 			sizeof(class(String)),
 			/* Object */

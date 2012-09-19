@@ -22,7 +22,10 @@
 
 #include <coal/private/preprocessor.h>
 
+#define LIBRARY_MODSEP "."
 #define LIBRARY_NAME coal
+
+#define LIBRARY_PREFIX LIBRARY_STR LIBRARY_MODSEP
 #define LIBRARY_STR COAL_STRINGIFY_EXPANSION(LIBRARY_NAME)
 
 #endif /* COAL_PRIVATE_LIBRARY_H */

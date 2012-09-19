@@ -24,5 +24,5 @@
 #include <coal/error/Exception.h>
 
 ExceptionDefinitionTemplate(coal_error_IllegalStateException,
-			    LIBRARY_STR ".error.IllegalStateException",
+			    LIBRARY_PREFIX "error" LIBRARY_MODSEP "IllegalStateException",
 			    coal_error_Exception())

@@ -24,5 +24,5 @@
 #include <coal/abstract/AbstractError.h>
 
 ExceptionDefinitionTemplate(coal_abstract_AbstractInstantiationError,
-			    LIBRARY_STR ".abstract.AbstractInstantiationError",
+			    LIBRARY_PREFIX "abstract" LIBRARY_MODSEP "AbstractInstantiationError",
 			    coal_abstract_AbstractError())

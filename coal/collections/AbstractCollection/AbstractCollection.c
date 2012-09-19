@@ -82,7 +82,7 @@ size_t AbstractCollection_size (val self) {
 
 SETUP_CLASS_DESCRIPTION(coal_collections_AbstractCollection,
 			coal_collections_Collection(),
-			LIBRARY_STR ".collections.AbstractCollection",
+			LIBRARY_PREFIX "collections" LIBRARY_MODSEP "AbstractCollection",
 			coal_abstract_Abstract(),
 			sizeof(class(AbstractCollection)),
 			/* Object */

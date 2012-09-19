@@ -42,7 +42,7 @@ var Abstract_constructor (var self, va_list * args coal_attr_unused) {
 
 SETUP_CLASS_DESCRIPTION(coal_abstract_Abstract,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".abstract.Abstract",
+			LIBRARY_PREFIX "abstract" LIBRARY_MODSEP "Abstract",
 			coal_base_Object(),
 			sizeof(class(Abstract)),
 			/* Object */

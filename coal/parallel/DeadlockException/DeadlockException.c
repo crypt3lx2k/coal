@@ -24,5 +24,5 @@
 #include <coal/error/Exception.h>
 
 ExceptionDefinitionTemplate(coal_parallel_DeadlockException,
-			    LIBRARY_STR ".parallel.DeadlockException",
+			    LIBRARY_PREFIX "parallel" LIBRARY_MODSEP "DeadlockException",
 			    coal_error_Exception())

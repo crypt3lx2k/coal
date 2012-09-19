@@ -21,7 +21,7 @@
 #include <stdio.h>  /* vasprintf */
 #include <stdlib.h> /* free */
 
-#include <coal/private/library.h>            /* LIBRARY_STR */
+#include <coal/private/library.h>            /* LIBRARY_PREFIX, LIBRARY_MODSEP */
 #include <coal/private/object_orientation.h> /* SETUP_CLASS_DESCRIPTION */
 #include <coal/private/virtual_methods.h>    /* INHERIT_METHOD */
 
@@ -72,7 +72,7 @@ var Throwable_toString (val _self) {
 
 SETUP_CLASS_DESCRIPTION(coal_error_Throwable,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".error.Throwable",
+			LIBRARY_PREFIX "error" LIBRARY_MODSEP "Throwable",
 			coal_base_Object(),
 			sizeof(class(Throwable)),
 			/* Object */

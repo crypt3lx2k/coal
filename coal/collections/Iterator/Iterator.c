@@ -65,7 +65,7 @@ val coal_collections_Iterator_next (var self) {
 
 SETUP_CLASS_DESCRIPTION(coal_collections_Iterator,
 			coal_base_Metaclass(),
-			LIBRARY_STR ".collections.Iterator",
+			LIBRARY_PREFIX "collections" LIBRARY_MODSEP "Iterator",
 			coal_base_Metaclass(),
 			sizeof(class(Iterator)),
 			/* Object */
