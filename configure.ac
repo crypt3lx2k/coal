@@ -40,8 +40,9 @@ AC_CHECK_TYPES([ptrdiff_t])
 CX_HAVE_SYNC_ATOMICS([], [AC_MSG_ERROR([can't compile coal without atomic builtins, see coal/private/atomic.h for details])])
 
 # Checks for library functions.
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
+dnl We don't actually rely on this behavior for malloc and realloc.
+dnl AC_FUNC_MALLOC
+dnl AC_FUNC_REALLOC
 
 AC_CONFIG_FILES([Makefile coal.pc])
 AC_OUTPUT
