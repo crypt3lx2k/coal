@@ -18,27 +18,28 @@
  */
 
 #include <coal/private/cleanup_stack.h>
-#include <coal/private/pointer_stack.h>
 #include <coal/private/thread_local.h>
+#include <coal/private/templates/stack.h>
 
 #include <coal/private/try_catch.h>
 
-static thread_local struct coal_private_pstack exception_s =
-  COAL_PRIVATE_PSTACK_INITIALIZER;
+typedef stack(void *) pstack;
+
+static thread_local pstack exception_s = STACK_INITIALIZER;
 
 static thread_local int exception_s_cleanup_once = 0;
 
 static void exception_s_cleanup_routine (void * args) {
-  coal_private_pstack_destroy(args);
+  stack_destroy( (pstack *) args );
 }
 
 bool coal_private_try_isEmpty (void) {
-  return coal_private_pstack_isEmpty(&exception_s);
+  return stack_isEmpty(&exception_s);
 }
 
 struct _coal_private_try_context *
 coal_private_try_pop (void) {
-  return coal_private_pstack_pop(&exception_s);
+  return stack_pop(&exception_s);
 }
 
 void
@@ -49,5 +50,5 @@ coal_private_try_push (struct _coal_private_try_context * c) {
     exception_s_cleanup_once = 1;
   }
 
-  return coal_private_pstack_push(&exception_s, c);
+  stack_push(&exception_s, c);
 }

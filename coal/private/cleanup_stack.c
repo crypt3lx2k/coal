@@ -17,55 +17,43 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include <stdio.h> /* perror */
-#include <stdlib.h>
-
-#include <coal/private/pointer_stack.h>
 #include <coal/private/thread_local.h>
+#include <coal/private/templates/stack.h>
 
 #include <coal/private/cleanup_stack.h>
 
-struct coal_private_cleanup_struct {
+struct cleanup {
   coal_private_cleanup_fn routine;
   void * args;
 };
 
-static thread_local struct coal_private_pstack coal_private_cleanup_stack = COAL_PRIVATE_PSTACK_INITIALIZER;
+static thread_local stack(struct cleanup) cleanup_stack =
+  STACK_INITIALIZER;
 
 void coal_private_cleanup_pop (int execute) {
-  struct coal_private_cleanup_struct * h;
+  struct cleanup h;
 
-  h = coal_private_pstack_pop(&coal_private_cleanup_stack);
+  if (stack_isEmpty(&cleanup_stack))
+    return;
 
-  if (execute && h != NULL) {
-    h->routine(h->args);
-  }
+  h = stack_pop(&cleanup_stack);
 
-  free(h);
+  if (execute)
+    h.routine(h.args);
 }
 
 void coal_private_cleanup_push (coal_private_cleanup_fn routine, void * args) {
-  struct coal_private_cleanup_struct * h;
+  struct cleanup h;
 
-  /* would love a better solution here, perhaps a better stack
-     type with some evil preprocessor ugliness to make it
-     `generic' */
-  h = malloc(sizeof(*h));
+  h.routine = routine;
+  h.args    = args;
 
-  if (h == NULL) {
-    perror("fatal stack error");
-    abort();
-  }
-
-  h->routine = routine;
-  h->args    = args;
-
-  coal_private_pstack_push(&coal_private_cleanup_stack, h);
+  stack_push(&cleanup_stack, h);
 }
 
 void coal_private_cleanup_run_all (void * ign coal_attr_unused) {
-  while (!coal_private_pstack_isEmpty(&coal_private_cleanup_stack))
+  while (!stack_isEmpty(&cleanup_stack))
     coal_private_cleanup_pop(1);
 
-  coal_private_pstack_destroy(&coal_private_cleanup_stack);
+  stack_destroy(&cleanup_stack);
 }
