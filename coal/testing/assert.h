@@ -23,7 +23,6 @@
 #include <stddef.h> /* NULL */
 
 #include <coal/private/branching.h>
-#include <coal/private/preprocessor.h>
 
 #include <coal/base/Object.h>
 #include <coal/testing/AssertionError.h>
