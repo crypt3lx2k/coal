@@ -1,29 +1,22 @@
 #! /usr/bin/env python
 """
-Goes over .c, .h and .rep files and figures out their include
+Goes over .c and .h files and figures out their include
 dependencies in order to generate a Makefile.
 """
 
-import os
+import util
 import re
-import sys
 
 from DAG import DirectedAcyclicGraph
 
-# This list defines which filetypes are affected by the
-# script.
-#
-# If a file ends with an extension that isn't in this list
-# this script will ignore it.
-extension_whitelist = [
+util.extension_whitelist.extend ([
     '.c',
     '.h'
-]
+])
 
-# This script ignores directories listed in here.
-directory_blacklist = [
+util.directory_blacklist.extend ([
     '.git'
-]
+])
 
 # This regex matches any C preprocessor include directive and
 # extracts the file included. It assumes that the directive
@@ -75,48 +68,20 @@ class DependencyGraph (DirectedAcyclicGraph):
 
 deps = DependencyGraph()
 
-def ignore_file (path):
-    """
-    Returns whether this script should
-    ignore the file given by path or not.
-    """
-    return not any(map(lambda ext : path.endswith(ext),
-                       extension_whitelist))
+def walker (path):
+    contents = open(path).read()
 
-def ignore_dir (path):
-    """
-    Returns whether this script should
-    ignore the directory given by path
-    or not.
-    """
-    return not all(map(lambda dirname : dirname not in path,
-                       directory_blacklist))
+    path = path.lstrip('./')
+    deps.add_node(path)
 
-def walker (deps, dirname, fnames):
-    # ignore blacklisted directories
-    if ignore_dir(dirname):
-        return
-
-    for fname in fnames:
-        path = os.path.sep.join((dirname, fname))
-
-        if os.path.isdir(path) or ignore_file(path):
+    for hit in include_re.findall(contents):
+        # ignore external/system headers
+        if 'coal' not in hit:
             continue
 
-        contents = open(path).read()
-
-        path = path.lstrip('./')
-        deps.add_node(path)
-
-        for hit in include_re.findall(contents):
-            # ignore external/system headers
-            if 'coal' not in hit:
-                continue
-
-            deps.add_edge(path, hit)
-
-os.path.walk('.', walker, deps)
+        deps.add_edge(path, hit)
 
 if __name__ == '__main__':
+    util.stroll('.', walker)
     deps.expand()
     print deps.str_makefile()

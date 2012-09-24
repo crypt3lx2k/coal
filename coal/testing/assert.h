@@ -41,7 +41,7 @@
     if (coal_unlikely(!(cond)))                             \
       coal_throw(coal_new(coal_testing_AssertionError(),    \
                           "assertion %s failed",            \
-                          COAL_STRINGIFY_EXPANSION(cond))); \
+                          #cond));                          \
   } while (0)
 
 /**

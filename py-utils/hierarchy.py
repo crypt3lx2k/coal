@@ -5,7 +5,17 @@ import random
 import re
 import os
 
+import util
+
 from DAG import DirectedAcyclicGraph
+
+util.extension_whitelist.extend ([
+    '.h'
+])
+
+util.directory_blacklist.extend ([
+    '.git'
+])
 
 colors = [
     'snow', 'seashell', 'AntiqueWhite', 'bisque', 'PeachPuff',
@@ -179,34 +189,27 @@ description_r = re.compile(r'''
 \*\/
 ''', re.VERBOSE | re.DOTALL)
 
-def walker (classes, dirname, fnames):
-    if '.git' in dirname:
-        return
+classes = ClassTree()
 
-    for fname in fnames:
-        path = os.path.sep.join((dirname, fname))
+def walker (path):
+    contents = open(path).read()
 
-        if not path.endswith('.h'):
+    for description in description_r.finditer(contents):
+        c, s = description.groups()
+
+        # avoid objects that point to themselves
+        if c == s:
             continue
 
-        contents = open(path).read()
+        c = c.replace('_', '.')
+        s = s.replace('_', '.')
 
-        for description in description_r.finditer(contents):
-            c, s = description.groups()
+        # the end result will have classes pointing to
+        # the class they extend, but for brevity we need
+        # every superclass to have an edge to every class
+        # that extends it
+        classes.add_edge(s, c)
 
-            # avoid objects that point to themselves
-            if c == s:
-                continue
-
-            c = c.replace('_', '.')
-            s = s.replace('_', '.')
-
-            # the end result will have classes pointing to
-            # the class they extend, but for brevity we need
-            # every superclass to have an edge to every class
-            # that extends it
-            classes.add_edge(s, c)
-
-classes = ClassTree()
-os.path.walk('.', walker, classes)
-print classes.str_graphviz()
+if __name__ == '__main__':
+    util.stroll('.', walker)
+    print classes.str_graphviz()

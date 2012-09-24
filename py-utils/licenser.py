@@ -8,15 +8,16 @@ import os
 import re
 import sys
 
-# This list defines which filetypes are affected by the
-# script.
-#
-# If a file ends with an extension that isn't in this list
-# this script will ignore it.
-extension_whitelist = [
+import util
+
+util.extension_whitelist.extend ([
     '.c',
     '.h'
-]
+])
+
+util.directory_blacklist.extend ([
+    '.git'
+])
 
 # This is the license this script currently expects the
 # LICENSE file to contain.
@@ -27,8 +28,7 @@ LICENSE_VERSION = 'LGPL v2.1'
 
 def comment (s):
     """
-    Puts a C-style comment
-    around a multi-line string.
+    Puts a C-style comment around a multi-line string.
     """
     result = ['/*']
 
@@ -38,14 +38,6 @@ def comment (s):
     result.append(' */')
 
     return '\n'.join(result)
-
-def ignore_file (path):
-    """
-    Returns whether this script should
-    ignore the file given by path or not.
-    """
-    return not any(map(lambda ext : path.endswith(ext),
-                       extension_whitelist))
 
 license_re = re.compile(
 r'''\/\*
@@ -67,6 +59,11 @@ r'''\/\*
  \* Foundation, Inc\., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  \*\/''')
 
+any_license_re = re.compile (
+    r'\s*(?:\/\*|\*|\/\/)*.*?(?:copyright|li(?:c|s)ense|merchantability|warranty|machine|generated?|do not edit|don\'t edit).*',
+    re.I
+)
+
 comment_re = re.compile(r'''
 \/\*\n
 .*?\n
@@ -84,48 +81,56 @@ if license_m is None:
     print >> sys.stderr, 'LICENSE file malformed, must be %s, see the LICENSE_VERSION variable in this file (%s) for more details' % (LICENSE_VERSION, __file__)
     exit(1)
 
-license_data = license_m.groupdict()
+data = license_m.groupdict()
 
-def walker (data, dirname, fnames):
-    # ignore .git directory if any
-    if '.git' in dirname:
-        return
+def walker (path):
+    contents = open(path).read().lstrip('\n')
+    header = comment_re.match(contents)
+    write_license = False
 
-    for fname in fnames:
-        path = os.path.sep.join((dirname, fname))
+    if header:
+        old_license = license_re.match(contents)
 
-        if os.path.isdir(path) or ignore_file(path):
-            continue
+        if old_license:
+            old_license_body = old_license.group(0)
+            old_data = old_license.groupdict()
 
-        contents = open(path).read().lstrip('\n')
-        header = comment_re.match(contents)
+            # if author list or description is different
+            # we ignore this file, since we assume it's
+            # from a different project.
+            if ((data['authors']     != old_data['authors']) or
+                (data['description'] != old_data['description'])):
+                return
 
-        if header:
-            old_license = license_re.match(contents)
+            # if every detail is the same we ignore the
+            # file as there is nothing new to do.
+            if data['year'] == old_data['year']:
+                return
 
-            if old_license:
-                old_license_body = old_license.group(0)
-                old_data = old_license.groupdict()
+            contents = contents.lstrip(old_license_body)
+            contents = contents.lstrip('\n')
 
-                # if author list or description is different
-                # we ignore this file, since we assume it's
-                # from a different project.
-                if ((data['authors']     != old_data['authors']) or
-                    (data['description'] != old_data['description'])):
-                    continue
+            # We passed all the logic, write license.
+            write_license = True
 
-                # if every detail is the same we ignore the
-                # file as there is nothing new to do.
-                if data['year'] == old_data['year']:
-                    continue                    
+    # We're not sure if we're supposed to write the license
+    # yet, search for any license anywhere in the file.
+    if not write_license:
+        old_license = any_license_re.search(contents)
 
-                contents = contents.lstrip(old_license_body)
-                contents = contents.lstrip('\n')
+        if old_license:
+            print >> sys.stderr, 'unknown license in `%s\' based on `%s\'' % (
+                path,
+                old_license.group(0).strip()
+            )
+            return
 
-        print >> sys.stderr, 'editing file: %s' % path
+    # We've either decided to write the license earlier
+    # or we haven't found any license at all.
+    print >> sys.stderr, 'editing file: %s' % path
 
-        contents = license_body + '\n\n' + contents
-        open(path, 'w').write(contents)
+    contents = license_body + '\n\n' + contents
+    open(path, 'w').write(contents)
 
 if __name__ == '__main__':
-    os.path.walk('.', walker, license_data)
+    util.stroll('.', walker)
