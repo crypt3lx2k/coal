@@ -114,6 +114,7 @@ var String_toString (val self) {
 /* static methods */
 
 var coal_base_String_format (const char * fmt, ...) {
+  int e;
   char * buf;
   class(String) * s;
   va_list ap;
@@ -122,14 +123,15 @@ var coal_base_String_format (const char * fmt, ...) {
   s = coal_new(coal_base_String(), (char *) NULL, 0);
 
   va_start(ap, fmt);
-  if (vasprintf(&buf, fmt, ap) == -1) {
-    coal_del(s);
+  e = vasprintf(&buf, fmt, ap);
+  va_end(ap);
 
+  if (e == -1) {
+    coal_del(s);
     coal_throw(coal_new(coal_error_OutOfMemoryError(),
 			"%s: unable to allocate string",
 			__func__));
   }
-  va_end(ap);
 
   s->str = buf;
   s->len = strlen(buf);
